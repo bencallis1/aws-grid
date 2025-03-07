@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+
+- Added CSS mosaic grid layout
+- Updated HTML structure to showcase the grid layout
+- Added colorful grid items with varying sizes
+
 - Initial project setup with basic HTML structure
 - Empty JavaScript file
 - Basic CSS styling

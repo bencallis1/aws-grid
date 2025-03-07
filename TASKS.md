@@ -5,7 +5,7 @@
 - [x] Initialize project
 - [ ] Define project structure
 - [ ] Set up basic HTML template
-- [ ] Create CSS styling framework
+- [x] Create CSS styling framework
 - [ ] Set up JavaScript functionality
 
 ## Development
