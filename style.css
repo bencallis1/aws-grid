@@ -24,33 +24,28 @@ html, body {
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
+  will-change: transform;
   transition: transform 0.3s ease;
 }
 
-.grid-item:hover {
+.grid-item.hover-enabled:hover {
   transform: scale(1.02);
 }
 
 /* Different sized grid items */
-.item-wide {
-  grid-column: span 2;
-}
-
-.item-tall {
-  grid-row: span 2;
-}
-
+.item-wide { grid-column: span 2; }
+.item-tall { grid-row: span 2; }
 .item-large {
   grid-column: span 2;
   grid-row: span 2;
 }
 
-/* Color variations */
-.item-1 { background-color: #FF5733; }
-.item-2 { background-color: #33FF57; }
-.item-3 { background-color: #3357FF; }
-.item-4 { background-color: #F033FF; }
-.item-5 { background-color: #FF33A8; }
-.item-6 { background-color: #33FFF0; }
-.item-7 { background-color: #FFD433; }
-.item-8 { background-color: #8C33FF; }
+/* Color variations - using HSL for better performance */
+.item-1 { background-color: hsl(12, 100%, 60%); }
+.item-2 { background-color: hsl(132, 100%, 60%); }
+.item-3 { background-color: hsl(228, 100%, 60%); }
+.item-4 { background-color: hsl(300, 100%, 60%); }
+.item-5 { background-color: hsl(324, 100%, 60%); }
+.item-6 { background-color: hsl(180, 100%, 60%); }
+.item-7 { background-color: hsl(48, 100%, 60%); }
+.item-8 { background-color: hsl(270, 100%, 60%); }

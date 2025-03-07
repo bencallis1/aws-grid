@@ -17,7 +17,7 @@
 
 ## Deployment
 - [ ] Fix any outstanding bugs
-- [ ] Optimize code
+- [x] Optimize code
 - [ ] Final testing
 - [ ] Deploy to production
 - [ ] Post-deployment verification
