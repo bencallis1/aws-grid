@@ -29,6 +29,7 @@ body {
 
 body {
   padding-top: 70px; /* Adjust based on your header height */
+  background-color: white;
 }
 
 .mosaic-grid {
