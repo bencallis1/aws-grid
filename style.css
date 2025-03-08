@@ -7,6 +7,24 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.sticky-header {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+  text-align: center;
+  z-index: 1000;
+}
+
+.sticky-header h1 {
+  margin: 0;
+}
+
+.mosaic-grid {
+  padding-top: 20px;
+}
+
 .mosaic-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
