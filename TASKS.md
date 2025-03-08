@@ -9,8 +9,8 @@
 - [ ] Set up JavaScript functionality
 
 ## Development
-- [ ] Implement core features
-- [ ] Create responsive design
+- [ ] Make the background colors of the tiles change
+- [ ] Make the app have a sticky header
 - [ ] Add interactive elements
 - [ ] Optimize for performance
 - [ ] Test across different browsers
