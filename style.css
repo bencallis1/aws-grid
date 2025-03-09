@@ -34,7 +34,7 @@ body {
 
 .mosaic-grid {
   padding-top: 20px;
-  background-color: #555555;
+  /* Background color is now set dynamically in JavaScript */
 }
 
 .mosaic-grid {

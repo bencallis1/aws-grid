@@ -1,4 +1,3 @@
-
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
   // Fetch the CSV file
@@ -8,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Parse CSV data
       const rows = csvData.split('\n');
       const headers = rows[0].split(',');
-      
+
       // Get rows 1-11 (indexes 1-11 since 0 is header)
       const dataRows = [];
       for (let i = 1; i <= 11; i++) {
@@ -17,18 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
           dataRows.push(rowData);
         }
       }
-      
+
       // Select a random row from the data (1-11)
       const randomRowIndex = Math.floor(Math.random() * dataRows.length);
       const selectedRow = dataRows[randomRowIndex];
-      
-      // Update the grid with the data
+
+      // Update the grid with the selected data
       updateGridWithData(selectedRow);
+
+      // Set random background color for mosaic-grid from the same color palette as tiles
+      setRandomBackgroundColor();
     })
     .catch(error => {
       console.error('Error loading CSV data:', error);
     });
-  
+
   // Add a small performance optimization to defer hover effects until after page load
   setTimeout(() => {
     const gridItems = document.querySelectorAll('.grid-item');
@@ -43,10 +45,10 @@ function parseCSVRow(row) {
   const result = [];
   let current = '';
   let inQuotes = false;
-  
+
   for (let i = 0; i < row.length; i++) {
     const char = row[i];
-    
+
     if (char === '"' && (i === 0 || row[i-1] !== '\\')) {
       inQuotes = !inQuotes;
     } else if (char === ',' && !inQuotes) {
@@ -56,26 +58,26 @@ function parseCSVRow(row) {
       current += char;
     }
   }
-  
+
   if (current) {
     result.push(current);
   }
-  
+
   return result;
 }
 
 // Update the grid with the selected data
 function updateGridWithData(rowData) {
   const gridItems = document.querySelectorAll('.grid-item');
-  
+
   // Define color arrays
   const blueColorArray = ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
   const purpleColorArray = ['#871379', '#aa429d', '#e3c0de', '#c781be'];
-  
+
   // Choose one color set randomly for this grid layout
   const useBlueColors = Math.random() < 0.5;
   const colorArray = useBlueColors ? blueColorArray : purpleColorArray;
-  
+
   // Create an array of the content types to distribute
   const contentAssignments = [
     { type: 'title', value: rowData[1] }, // Title column
@@ -91,22 +93,22 @@ function updateGridWithData(rowData) {
     { type: 'iframe', value: rowData[12] }, // embedCode
     { type: 'text', value: rowData[13] }  // summary
   ];
-  
+
   // Shuffle the content assignments
   const shuffledContent = shuffleArray([...contentAssignments]);
-  
+
   // Apply content to grid items
   gridItems.forEach((item, index) => {
     if (index < shuffledContent.length) {
       const content = shuffledContent[index];
-      
+
       // Clear existing content
       item.innerHTML = '';
-      
+
       // Assign random color from the chosen color array
       const randomColorIndex = Math.floor(Math.random() * colorArray.length);
       item.style.backgroundColor = colorArray[randomColorIndex];
-      
+
       // Set content based on type
       switch (content.type) {
         case 'title':
@@ -140,4 +142,12 @@ function shuffleArray(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
+}
+
+function setRandomBackgroundColor() {
+  const blueColorArray = ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
+  const purpleColorArray = ['#871379', '#aa429d', '#e3c0de', '#c781be'];
+  const colorArray = Math.random() < 0.5 ? blueColorArray : purpleColorArray;
+  const randomColorIndex = Math.floor(Math.random() * colorArray.length);
+  document.querySelector('.mosaic-grid').style.backgroundColor = colorArray[randomColorIndex];
 }
