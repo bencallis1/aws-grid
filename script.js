@@ -74,9 +74,9 @@ function updateGridWithData(rowData) {
   const blueColorArray = ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
   const purpleColorArray = ['#871379', '#aa429d', '#e3c0de', '#c781be'];
 
-  // Choose one color set randomly for this grid layout
-  const useBlueColors = Math.random() < 0.5;
-  const colorArray = useBlueColors ? blueColorArray : purpleColorArray;
+  // Choose one color set randomly for this grid layout - store as global variable
+  window.useBlueColors = Math.random() < 0.5;
+  const colorArray = window.useBlueColors ? blueColorArray : purpleColorArray;
 
   // Create an array of the content types to distribute
   const contentAssignments = [
@@ -160,7 +160,8 @@ function shuffleArray(array) {
 function setRandomBackgroundColor() {
   const blueColorArray = ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
   const purpleColorArray = ['#871379', '#aa429d', '#e3c0de', '#c781be'];
-  const colorArray = Math.random() < 0.5 ? blueColorArray : purpleColorArray;
+  // Use the same color palette that was chosen for the tiles
+  const colorArray = window.useBlueColors ? blueColorArray : purpleColorArray;
   const randomColorIndex = Math.floor(Math.random() * colorArray.length);
   document.querySelector('.mosaic-grid').style.backgroundColor = colorArray[randomColorIndex];
 }
