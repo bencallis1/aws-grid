@@ -146,7 +146,7 @@ function updateGridWithData(rowData) {
           break;
       }
     }
-  });
+  );
 }
 
 // Fisher-Yates shuffle algorithm
