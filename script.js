@@ -111,18 +111,22 @@ function updateGridWithData(rowData) {
       switch (content.type) {
         case 'title':
           item.innerHTML = `<h2>${content.value}</h2>`;
+          item.style.padding = '10px';
           break;
         case 'image':
           item.innerHTML = `<img src="images/${content.value}.png" alt="Image ${content.value}" style="width: 100%; height: 100%; object-fit: cover;">`;
+          item.style.padding = '0';
           break;
         case 'text':
           item.innerHTML = `<p>${content.value}</p>`;
           item.style.overflow = 'auto';
+          item.style.padding = '10px';
           break;
         case 'iframe':
           // Remove quotes if present in the embed code
           const embedCode = content.value.replace(/^"|"$/g, '');
           item.innerHTML = `<iframe src="${embedCode}" frameborder="0" style="width: 100%; height: 100%;"></iframe>`;
+          item.style.padding = '0';
           break;
       }
     }
