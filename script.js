@@ -106,11 +106,12 @@ function updateGridWithData(rowData) {
 
   // Apply content to grid items
   gridItems.forEach((item, index) => {
-    if (index < shuffledContent.length) {
-      const content = shuffledContent[index];
+    // Use modulo to repeat content if we run out of unique items
+    const contentIndex = index % shuffledContent.length;
+    const content = shuffledContent[contentIndex];
 
-      // Clear existing content
-      item.innerHTML = '';
+    // Clear existing content
+    item.innerHTML = '';
 
       // Assign random color from the chosen color array
       const randomColorIndex = Math.floor(Math.random() * colorArray.length);
