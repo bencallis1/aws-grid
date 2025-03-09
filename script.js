@@ -68,6 +68,14 @@ function parseCSVRow(row) {
 function updateGridWithData(rowData) {
   const gridItems = document.querySelectorAll('.grid-item');
   
+  // Define color arrays
+  const blueColorArray = ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
+  const purpleColorArray = ['#871379', '#aa429d', '#e3c0de', '#c781be'];
+  
+  // Choose one color set randomly for this grid layout
+  const useBlueColors = Math.random() < 0.5;
+  const colorArray = useBlueColors ? blueColorArray : purpleColorArray;
+  
   // Create an array of the content types to distribute
   const contentAssignments = [
     { type: 'title', value: rowData[1] }, // Title column
@@ -94,6 +102,10 @@ function updateGridWithData(rowData) {
       
       // Clear existing content
       item.innerHTML = '';
+      
+      // Assign random color from the chosen color array
+      const randomColorIndex = Math.floor(Math.random() * colorArray.length);
+      item.style.backgroundColor = colorArray[randomColorIndex];
       
       // Set content based on type
       switch (content.type) {

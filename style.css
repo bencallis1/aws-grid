@@ -96,35 +96,4 @@ body {
   grid-row: span 2;
 }
 
-/* Color variations - using HSL for better performance */
-.item-1 {
-  background-color: hsl(12, 100%, 60%);
-}
-
-.item-2 {
-  background-color: hsl(132, 100%, 60%);
-}
-
-.item-3 {
-  background-color: hsl(228, 100%, 60%);
-}
-
-.item-4 {
-  background-color: hsl(300, 100%, 60%);
-}
-
-.item-5 {
-  background-color: hsl(324, 100%, 60%);
-}
-
-.item-6 {
-  background-color: hsl(180, 100%, 60%);
-}
-
-.item-7 {
-  background-color: hsl(48, 100%, 60%);
-}
-
-.item-8 {
-  background-color: hsl(270, 100%, 60%);
-}
+/* Colors are now set dynamically in JavaScript */
