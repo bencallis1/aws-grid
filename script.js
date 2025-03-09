@@ -141,6 +141,7 @@ function updateGridWithData(rowData) {
           // Special handling for domopalooza image with centered alignment
           item.innerHTML = `<div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"><img src="domopalooza.png" alt="Domopalooza" style="max-width: 100%; max-height: 100%;"></div>`;
           item.style.padding = '0';
+          item.style.backgroundColor = '#212121'; // Always use this specific color
           break;
       }
     }
