@@ -94,8 +94,15 @@ function updateGridWithData(rowData) {
     { type: 'text', value: rowData[13] }  // summary
   ];
 
+  // Add domopalooza.png special content
+  const domopaloozaContent = { type: 'domopalooza', value: 'domopalooza' };
+  
   // Shuffle the content assignments
   const shuffledContent = shuffleArray([...contentAssignments]);
+  
+  // Insert the domopalooza content at a random position (but ensure it's included)
+  const randomPosition = Math.floor(Math.random() * Math.min(shuffledContent.length, gridItems.length));
+  shuffledContent[randomPosition] = domopaloozaContent;
 
   // Apply content to grid items
   gridItems.forEach((item, index) => {
@@ -128,6 +135,11 @@ function updateGridWithData(rowData) {
           // Remove quotes if present in the embed code
           const embedCode = content.value.replace(/^"|"$/g, '');
           item.innerHTML = `<iframe src="${embedCode}" frameborder="0" style="width: 100%; height: 100%;"></iframe>`;
+          item.style.padding = '0';
+          break;
+        case 'domopalooza':
+          // Special handling for domopalooza image with centered alignment
+          item.innerHTML = `<div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"><img src="domopalooza.png" alt="Domopalooza" style="max-width: 100%; max-height: 100%;"></div>`;
           item.style.padding = '0';
           break;
       }
