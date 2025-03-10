@@ -134,6 +134,15 @@ function updateGridWithMultipleRows(rowsData) {
     // Use modulo to repeat content if we run out of unique items
     const contentIndex = index % shuffledContent.length;
     const content = shuffledContent[contentIndex];
+    
+    // Check if we have actual content (in case of empty slots)
+    if (!content || !content.value) {
+      // Fill empty slots with domoai.png
+      item.innerHTML = `<div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"><img src="domoai.png" alt="Domo AI Logo" style="max-width: 100%; max-height: 100%;"></div>`;
+      item.style.padding = '10px';
+      item.style.backgroundColor = '#212121';
+      return; // Skip further processing
+    }
 
     // Clear existing content
     item.innerHTML = '';
