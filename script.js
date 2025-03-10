@@ -171,7 +171,17 @@ function updateGridWithMultipleRows(rowsData) {
         case 'iframe':
           // Remove quotes if present in the embed code
           const embedCode = content.value.replace(/^"|"$/g, '');
-          item.innerHTML = `<iframe src="${embedCode}" frameborder="0" style="width: 100%; height: 100%;"></iframe>`;
+          // Create a container for iframe with fallback content
+          item.innerHTML = `
+            <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+              <iframe src="${embedCode}" frameborder="0" style="width: 100%; height: 100%;" 
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                sandbox="allow-same-origin allow-scripts"></iframe>
+              <div style="display: none; padding: 20px;">
+                <p>Content cannot be displayed due to security restrictions.</p>
+                <a href="${embedCode}" target="_blank" style="color: white; text-decoration: underline;">Open in new tab</a>
+              </div>
+            </div>`;
           item.style.padding = '0';
           break;
         case 'domopalooza':
