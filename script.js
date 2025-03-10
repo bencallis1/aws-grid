@@ -24,12 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      // Select a random row from the data (1-11)
-      const randomRowIndex = Math.floor(Math.random() * dataRows.length);
-      const selectedRow = dataRows[randomRowIndex];
+      // Select two random rows from the data (1-11)
+      const rowIndices = [];
+      while (rowIndices.length < 2) {
+        const randomIndex = Math.floor(Math.random() * dataRows.length);
+        if (!rowIndices.includes(randomIndex)) {
+          rowIndices.push(randomIndex);
+        }
+      }
+      
+      const selectedRows = [
+        dataRows[rowIndices[0]],
+        dataRows[rowIndices[1]]
+      ];
 
-      // Update the grid with the selected data
-      updateGridWithData(selectedRow);
+      // Update the grid with the selected data from both rows
+      updateGridWithMultipleRows(selectedRows);
 
       // Set random background color for mosaic-grid from the same color palette as tiles
       setRandomBackgroundColor();
@@ -81,8 +91,8 @@ function parseCSVRow(row) {
   return result;
 }
 
-// Update the grid with the selected data
-function updateGridWithData(rowData) {
+// Update the grid with multiple rows of data
+function updateGridWithMultipleRows(rowsData) {
   const gridItems = document.querySelectorAll('.grid-item');
 
   // Define color arrays
@@ -93,21 +103,24 @@ function updateGridWithData(rowData) {
   window.useBlueColors = Math.random() < 0.5;
   const colorArray = window.useBlueColors ? blueColorArray : purpleColorArray;
 
-  // Create an array of the content types to distribute
-  const contentAssignments = [
-    { type: 'title', value: rowData[1] }, // Title column
-    { type: 'image', value: rowData[2] }, // image1
-    { type: 'image', value: rowData[3] }, // image2
-    { type: 'image', value: rowData[4] }, // image3
-    { type: 'image', value: rowData[5] }, // image4
-    { type: 'image', value: rowData[6] }, // image5
-    { type: 'image', value: rowData[7] }, // image6
-    { type: 'image', value: rowData[8] }, // image7
-    { type: 'image', value: rowData[9] }, // image8
-    { type: 'image', value: rowData[10] }, // image9
-    { type: 'iframe', value: rowData[12] }, // embedCode
-    { type: 'text', value: rowData[13] }  // summary
-  ];
+  // Create an array of the content types to distribute from both rows
+  const contentAssignments = [];
+  
+  // Process each row of data
+  rowsData.forEach((rowData, rowIndex) => {
+    // Add a prefix to the text items to indicate which dataset they're from
+    const datasetPrefix = `[Dataset ${rowIndex + 1}] `;
+    
+    contentAssignments.push(
+      { type: 'title', value: `${datasetPrefix}${rowData[1]}` }, // Title column
+      { type: 'image', value: rowData[2] }, // image1
+      { type: 'image', value: rowData[3] }, // image2
+      { type: 'image', value: rowData[4] }, // image3
+      { type: 'image', value: rowData[5] }, // image4
+      { type: 'iframe', value: rowData[12] }, // embedCode
+      { type: 'text', value: `${datasetPrefix}${rowData[13]}` }  // summary
+    );
+  });
 
   // Add domopalooza.png special content
   const domopaloozaContent = { type: 'domopalooza', value: 'domopalooza' };
@@ -191,4 +204,43 @@ function setRandomBackgroundColor() {
   const colorArray = window.useBlueColors ? blueColorArray : purpleColorArray;
   const randomColorIndex = Math.floor(Math.random() * colorArray.length);
   document.querySelector('.mosaic-grid').style.backgroundColor = colorArray[randomColorIndex];
+}
+
+// Original function kept for reference
+function updateGridWithData(rowData) {
+  const gridItems = document.querySelectorAll('.grid-item');
+
+  // Define color arrays
+  const blueColorArray = ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
+  const purpleColorArray = ['#871379', '#aa429d', '#e3c0de', '#c781be'];
+
+  // Choose one color set randomly for this grid layout - store as global variable
+  window.useBlueColors = Math.random() < 0.5;
+  const colorArray = window.useBlueColors ? blueColorArray : purpleColorArray;
+
+  // Create an array of the content types to distribute
+  const contentAssignments = [
+    { type: 'title', value: rowData[1] }, // Title column
+    { type: 'image', value: rowData[2] }, // image1
+    { type: 'image', value: rowData[3] }, // image2
+    { type: 'image', value: rowData[4] }, // image3
+    { type: 'image', value: rowData[5] }, // image4
+    { type: 'image', value: rowData[6] }, // image5
+    { type: 'image', value: rowData[7] }, // image6
+    { type: 'image', value: rowData[8] }, // image7
+    { type: 'image', value: rowData[9] }, // image8
+    { type: 'image', value: rowData[10] }, // image9
+    { type: 'iframe', value: rowData[12] }, // embedCode
+    { type: 'text', value: rowData[13] }  // summary
+  ];
+
+  // Add domopalooza.png special content
+  const domopaloozaContent = { type: 'domopalooza', value: 'domopalooza' };
+  
+  // Shuffle the content assignments
+  const shuffledContent = shuffleArray([...contentAssignments]);
+  
+  // Insert the domopalooza content at a random position (but ensure it's included)
+  const randomPosition = Math.floor(Math.random() * Math.min(shuffledContent.length, gridItems.length));
+  shuffledContent[randomPosition] = domopaloozaContent;
 }
