@@ -1,5 +1,12 @@
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
+  // Add loading class to all grid items initially
+  const gridItems = document.querySelectorAll('.grid-item');
+  gridItems.forEach(item => {
+    item.classList.add('loading');
+    item.innerHTML = '';  // Clear the "Loading..." text
+  });
+  
   // Fetch the CSV file
   fetch('data.csv')
     .then(response => response.text())
@@ -26,6 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Set random background color for mosaic-grid from the same color palette as tiles
       setRandomBackgroundColor();
+      
+      // Add a small delay to simulate loading and show the animation
+      setTimeout(() => {
+        // Remove loading class from all grid items
+        document.querySelectorAll('.grid-item').forEach(item => {
+          item.classList.remove('loading');
+        });
+      }, 800); // Show loading animation for 800ms minimum
     })
     .catch(error => {
       console.error('Error loading CSV data:', error);
@@ -124,7 +139,18 @@ function updateGridWithData(rowData) {
           item.style.padding = '10px';
           break;
         case 'image':
-          item.innerHTML = `<img src="images/${content.value}.png" alt="Image ${content.value}" style="width: 100%; height: 100%; object-fit: cover;">`;
+          const img = new Image();
+          img.onload = () => {
+            // Only remove loading class when image is loaded
+            setTimeout(() => item.classList.remove('loading'), 200);
+          };
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          img.src = `images/${content.value}.png`;
+          img.alt = `Image ${content.value}`;
+          item.innerHTML = '';
+          item.appendChild(img);
           item.style.padding = '0';
           break;
         case 'text':
