@@ -108,17 +108,14 @@ function updateGridWithMultipleRows(rowsData) {
   
   // Process each row of data
   rowsData.forEach((rowData, rowIndex) => {
-    // Add a prefix to the text items to indicate which dataset they're from
-    const datasetPrefix = `[Dataset ${rowIndex + 1}] `;
-    
     contentAssignments.push(
-      { type: 'title', value: `${datasetPrefix}${rowData[1]}` }, // Title column
+      { type: 'title', value: rowData[1] }, // Title column
       { type: 'image', value: rowData[2] }, // image1
       { type: 'image', value: rowData[3] }, // image2
       { type: 'image', value: rowData[4] }, // image3
       { type: 'image', value: rowData[5] }, // image4
       { type: 'iframe', value: rowData[12] }, // embedCode
-      { type: 'text', value: `${datasetPrefix}${rowData[13]}` }  // summary
+      { type: 'text', value: rowData[13] }  // summary
     );
   });
 
