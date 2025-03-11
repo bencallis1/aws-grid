@@ -75,10 +75,11 @@ body {
   }
 }
 
-/* Screen size less than 600px - make tiles fit viewport */
+/* Screen size less than 600px - make tiles stack vertically */
 @media screen and (max-width: 600px) {
   .mosaic-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     overflow-x: hidden;
     width: 100%;
   }
@@ -139,6 +140,14 @@ body {
     width: 100%;
     min-height: 200px;
     margin-bottom: 5px;
+  }
+  
+  /* Force all items to be full width regardless of their grid-span classes */
+  .item-wide, 
+  .item-tall, 
+  .item-large {
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
 }
 
