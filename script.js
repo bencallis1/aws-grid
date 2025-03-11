@@ -232,6 +232,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
         textElement.style.position = 'relative';
         textElement.style.zIndex = '2';
         textElement.style.textTransform = 'uppercase';
+        textElement.style.textAlign = 'left';
         
         // Set dark text color when background is light purple
         if (baseColor === '#e3c0de') {
