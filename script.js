@@ -150,8 +150,8 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
     if (index < shuffledContent.length) {
       const content = shuffledContent[index];
 
-    // Clear existing content
-    item.innerHTML = '';
+      // Clear existing content
+      item.innerHTML = '';
 
     // Assign random color from the chosen color array
     const randomColorIndex = Math.floor(Math.random() * colorArray.length);
@@ -267,7 +267,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
         break;
     }
   }
-  );
+  });
 }
 
 // Fisher-Yates shuffle algorithm
