@@ -134,16 +134,7 @@ function updateGridWithMultipleRows(rowsData) {
     // Use modulo to repeat content if we run out of unique items
     const contentIndex = index % shuffledContent.length;
     const content = shuffledContent[contentIndex];
-    
-    // If we're at the last grid item and there are empty spots, make sure it's a domoai image
-    if (index >= gridItems.length - 3) {
-      // Check if the item is empty (has no specific content or just a loading animation)
-      if (item.innerHTML === '' || item.classList.contains('loading')) {
-        content.type = 'domoai';
-        content.value = 'domoai';
-      }
-    }
-    
+
     // Clear existing content
     item.innerHTML = '';
 
@@ -258,13 +249,6 @@ function updateGridWithMultipleRows(rowsData) {
         item.innerHTML = `<div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"><img src="domopalooza.png" alt="Domopalooza" style="max-width: 100%; max-height: 100%;"></div>`;
         item.style.padding = '10px';
         item.style.backgroundColor = '#212121'; // Always use this specific color
-        break;
-      case 'domoai':
-        // Fill empty spaces with domoai.png
-        item.innerHTML = `<div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"><img src="domoai.png" alt="Domo AI" style="max-width: 80%; max-height: 80%;"></div>`;
-        item.style.padding = '10px';
-        // Use a random color from the current palette
-        item.style.backgroundColor = colorArray[Math.floor(Math.random() * colorArray.length)];
         break;
     }
   }
