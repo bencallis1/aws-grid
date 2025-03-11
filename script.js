@@ -166,7 +166,6 @@ function updateGridWithMultipleRows(rowsData) {
           titleOverlay.style.width = '100%';
           titleOverlay.style.height = '100%';
           titleOverlay.style.backgroundColor = titleColorRGBA;
-          titleOverlay.style.zIndex = '1'; // Ensure it's above the background but below the text
           item.appendChild(titleOverlay);
           
           // Add title text on top
@@ -216,7 +215,6 @@ function updateGridWithMultipleRows(rowsData) {
           textOverlay.style.width = '100%';
           textOverlay.style.height = '100%';
           textOverlay.style.backgroundColor = textColorRGBA;
-          textOverlay.style.zIndex = '1'; // Ensure it's above the background but below the text
           item.appendChild(textOverlay);
           
           // Add paragraph text on top
