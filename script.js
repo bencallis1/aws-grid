@@ -139,10 +139,20 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
   // Add domopalooza content to the array rather than replacing an existing item
   shuffledContent.push(domopaloozaContent);
   
-  // Make sure we don't have more content than grid items
+  // Make sure we have exactly the right number of content items
+  // If we have too many, trim the array
   if (shuffledContent.length > gridItems.length) {
     shuffledContent.length = gridItems.length;
   }
+  // If we have too few, duplicate some items to fill the grid
+  else if (shuffledContent.length < gridItems.length) {
+    const originalLength = shuffledContent.length;
+    for (let i = 0; i < gridItems.length - originalLength; i++) {
+      shuffledContent.push(shuffledContent[i % originalLength]);
+    }
+  }
+  
+  console.log('Final content count:', shuffledContent.length, 'for', gridItems.length, 'grid items');
 
   // Apply content to grid items
   gridItems.forEach((item, index) => {
