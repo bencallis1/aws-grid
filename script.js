@@ -113,6 +113,11 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
       { type: 'image', value: rowData[3] }, // image2
       { type: 'image', value: rowData[4] }, // image3
       { type: 'image', value: rowData[5] }, // image4
+      { type: 'image', value: rowData[6] }, // image5
+      { type: 'image', value: rowData[7] }, // image6
+      { type: 'image', value: rowData[8] }, // image7
+      { type: 'image', value: rowData[9] }, // image8
+      { type: 'image', value: rowData[10] }, // image9
       { type: 'iframe', value: rowData[12] }, // embedCode
       { type: 'text', value: rowData[13] }  // summary
     );
