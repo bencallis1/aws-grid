@@ -135,8 +135,10 @@ body {
 /* Min-width based on screen size */
 @media screen and (max-width: 600px) {
   .grid-item {
-    min-width: 300px;
+    min-width: 100%;
     width: 100%;
+    min-height: 200px;
+    margin-bottom: 5px;
   }
 }
 
