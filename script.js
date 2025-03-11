@@ -13,17 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(csvData => {
       // Parse CSV data
       const rows = csvData.split('\n');
-      const headers = rows[0].split(',');
 
       // Get rows 1-11 (indexes 1-11 since 0 is header)
+      console.log('rows', rows, rows.length)
       const dataRows = [];
-      for (let i = 1; i <= 11; i++) {
+      for (let i = 1; i <= rows.length; i++) {
         if (rows[i]) {
           const rowData = parseCSVRow(rows[i]);
           dataRows.push(rowData);
         }
       }
-
       // Select two random rows from the data (1-11)
       const rowIndices = [];
       while (rowIndices.length < 2) {
@@ -104,7 +103,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
 
   // Create an array of the content types to distribute from both rows
   const contentAssignments = [];
-
+  console.log('rowsData', rowsData);
   // Process each row of data
   rowsData.forEach((rowData, rowIndex) => {
     contentAssignments.push(
@@ -123,18 +122,14 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
     );
   });
 
+  console.log('contentAssignments', contentAssignments);
   // Add domopalooza.png special content
   const domopaloozaContent = { type: 'domopalooza', value: 'domopalooza' };
 
-  // Duplicate existing content to ensure we have enough for all grid items
-  while (contentAssignments.length < gridItems.length - 1) { // -1 to account for domopalooza
-    // Copy random existing content to fill gaps
-    const randomContentIndex = Math.floor(Math.random() * contentAssignments.length);
-    contentAssignments.push({ ...contentAssignments[randomContentIndex] });
-  }
-
   // Shuffle the content assignments
   const shuffledContent = shuffleArray([...contentAssignments]);
+
+  console.log('shuffledContent', shuffledContent);
 
   // Insert the domopalooza content at a random position (but ensure it's included)
   const randomPosition = Math.floor(Math.random() * Math.min(shuffledContent.length, gridItems.length));
