@@ -46,7 +46,7 @@ body {
 
 .mosaic-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-auto-rows: minmax(150px, auto);
   min-height: calc(100vh - 70px);
   margin: 0;
@@ -71,9 +71,21 @@ body {
   .sticky-header img {
     height: 45px;
   }
-  
+}
+
+/* Screen size less than 600px - make all tiles 600px wide */
+@media screen and (max-width: 600px) {
   .mosaic-grid {
-    grid-template-columns: minmax(290px, 1fr); /* Single column with min-width on small screens */
+    grid-template-columns: 600px;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+}
+
+/* Screen size greater than 600px - min-width 300px for tiles */
+@media screen and (min-width: 601px) {
+  .mosaic-grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
   
   /* Override multi-column spans on mobile */
@@ -95,13 +107,7 @@ body {
   }
 }
 
-/* Ensure grid container doesn't get too narrow */
-@media screen and (max-width: 320px) {
-  .mosaic-grid {
-    width: 320px;
-    overflow-x: auto;
-  }
-}
+/* Width controlled by specific breakpoints above */
 
 .grid-item {
   display: flex;
@@ -116,11 +122,23 @@ body {
   overflow: hidden;
   position: relative;
   width: 100%;
-  min-width: 300px;
   height: 100%;
   margin: 0;
   box-sizing: border-box;
   border: none;
+}
+
+/* Min-width based on screen size */
+@media screen and (max-width: 600px) {
+  .grid-item {
+    min-width: 600px;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  .grid-item {
+    min-width: 300px;
+  }
 }
 
 .grid-item h2 {
