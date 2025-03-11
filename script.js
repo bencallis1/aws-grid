@@ -104,23 +104,28 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
   // Create an array of the content types to distribute from both rows
   const contentAssignments = [];
   console.log('rowsData', rowsData);
-  // Process each row of data
+  // Process each row of data - add content to array rather than pushing as a group
   rowsData.forEach((rowData, rowIndex) => {
-    contentAssignments.push(
-      { type: 'title', value: rowData[1] }, // Title column
-      { type: 'image', value: rowData[2] }, // image1
-      { type: 'image', value: rowData[3] }, // image2
-      { type: 'image', value: rowData[4] }, // image3
-      { type: 'image', value: rowData[5] }, // image4
-      { type: 'image', value: rowData[6] }, // image5
-      { type: 'image', value: rowData[7] }, // image6
-      { type: 'image', value: rowData[8] }, // image7
-      { type: 'image', value: rowData[9] }, // image8
-      { type: 'image', value: rowData[10] }, // image9
-      { type: 'iframe', value: rowData[12] }, // embedCode
-      { type: 'text', value: rowData[13] }  // summary
-    );
+    // Skip header row if it was accidentally included
+    if (rowData[0] === "ID") return;
+    
+    // Add each item individually to ensure they're all included
+    contentAssignments.push({ type: 'title', value: rowData[1] }); // Title column
+    contentAssignments.push({ type: 'image', value: rowData[2] }); // image1
+    contentAssignments.push({ type: 'image', value: rowData[3] }); // image2
+    contentAssignments.push({ type: 'image', value: rowData[4] }); // image3
+    contentAssignments.push({ type: 'image', value: rowData[5] }); // image4
+    contentAssignments.push({ type: 'image', value: rowData[6] }); // image5
+    contentAssignments.push({ type: 'image', value: rowData[7] }); // image6
+    contentAssignments.push({ type: 'image', value: rowData[8] }); // image7
+    contentAssignments.push({ type: 'image', value: rowData[9] }); // image8
+    contentAssignments.push({ type: 'image', value: rowData[10] }); // image9
+    contentAssignments.push({ type: 'iframe', value: rowData[12] }); // embedCode
+    contentAssignments.push({ type: 'text', value: rowData[13] });  // summary
   });
+  
+  // Add a console.log to verify all content is included
+  console.log('Total content items:', contentAssignments.length);
 
   console.log('contentAssignments', contentAssignments);
   // Add domopalooza.png special content
@@ -131,15 +136,19 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
 
   console.log('shuffledContent', shuffledContent);
 
-  // Insert the domopalooza content at a random position (but ensure it's included)
-  const randomPosition = Math.floor(Math.random() * Math.min(shuffledContent.length, gridItems.length));
-  shuffledContent[randomPosition] = domopaloozaContent;
+  // Add domopalooza content to the array rather than replacing an existing item
+  shuffledContent.push(domopaloozaContent);
+  
+  // Make sure we don't have more content than grid items
+  if (shuffledContent.length > gridItems.length) {
+    shuffledContent.length = gridItems.length;
+  }
 
   // Apply content to grid items
   gridItems.forEach((item, index) => {
-    // Use modulo to repeat content if we run out of unique items
-    const contentIndex = index % shuffledContent.length;
-    const content = shuffledContent[contentIndex];
+    // Only process if we have content for this index
+    if (index < shuffledContent.length) {
+      const content = shuffledContent[index];
 
     // Clear existing content
     item.innerHTML = '';
