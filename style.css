@@ -73,12 +73,12 @@ body {
   }
 }
 
-/* Screen size less than 600px - make all tiles 600px wide */
+/* Screen size less than 600px - make tiles fit viewport */
 @media screen and (max-width: 600px) {
   .mosaic-grid {
-    grid-template-columns: 600px;
-    overflow-x: auto;
-    justify-content: flex-start;
+    grid-template-columns: 1fr;
+    overflow-x: hidden;
+    width: 100%;
   }
 }
 
@@ -131,7 +131,8 @@ body {
 /* Min-width based on screen size */
 @media screen and (max-width: 600px) {
   .grid-item {
-    min-width: 600px;
+    min-width: 100%;
+    width: 100%;
   }
 }
 
