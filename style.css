@@ -30,7 +30,8 @@ body {
 }
 
 body {
-  padding-top: 70px; /* Adjust based on your header height */
+  padding-top: 70px;
+  /* Adjust based on your header height */
   background-color: white;
   margin: 0;
   overflow-y: auto;
@@ -61,13 +62,14 @@ body {
 /* Mobile-specific adjustments */
 @media screen and (max-width: 768px) {
   body {
-    padding-top: 60px; /* Smaller top padding on mobile */
+    padding-top: 60px;
+    /* Smaller top padding on mobile */
   }
-  
+
   .sticky-header {
     padding: 10px;
   }
-  
+
   .sticky-header img {
     height: 45px;
   }
@@ -87,21 +89,23 @@ body {
   .mosaic-grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
-  
+
   /* Override multi-column spans on mobile */
-  .item-wide, .item-large {
+  .item-wide,
+  .item-large {
     grid-column: span 1;
   }
-  
+
   /* Keep some height variation */
-  .item-tall, .item-large {
+  .item-tall,
+  .item-large {
     grid-row: span 2;
   }
-  
+
   .grid-item h2 {
     font-size: 24px;
   }
-  
+
   .grid-item p {
     font-size: 0.8rem;
   }
@@ -131,7 +135,7 @@ body {
 /* Min-width based on screen size */
 @media screen and (max-width: 600px) {
   .grid-item {
-    min-width: 100%;
+    min-width: 300px;
     width: 100%;
   }
 }
@@ -207,6 +211,7 @@ body {
   0% {
     left: -100%;
   }
+
   100% {
     left: 100%;
   }
@@ -230,6 +235,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
