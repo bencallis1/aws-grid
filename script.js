@@ -125,7 +125,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
   while (contentAssignments.length < gridItems.length - 1) { // -1 to account for domopalooza
     // Copy random existing content to fill gaps
     const randomContentIndex = Math.floor(Math.random() * contentAssignments.length);
-    contentAssignments.push({...contentAssignments[randomContentIndex]});
+    contentAssignments.push({ ...contentAssignments[randomContentIndex] });
   }
 
   // Shuffle the content assignments
@@ -152,7 +152,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
     switch (content.type) {
       case 'title':
         // Select random texture
-        const titleTextureNum = Math.floor(Math.random() * 5) + 1;
+        const titleTextureNum = Math.floor(Math.random() * 4) + 1;
         const titleColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.75);
 
         // Create layered background with texture and color overlay
@@ -201,7 +201,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
         break;
       case 'text':
         // Select random texture
-        const textTextureNum = Math.floor(Math.random() * 5) + 1;
+        const textTextureNum = Math.floor(Math.random() * 4) + 1;
         const textColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.75);
 
         // Create layered background with texture and color overlay
