@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Parse CSV data
       const rows = csvData.split('\n');
 
-      // Get rows 1-11 (indexes 1-11 since 0 is header)
-      console.log('rows', rows, rows.length)
+      // Get rows
       const dataRows = [];
       for (let i = 1; i <= rows.length; i++) {
         if (rows[i]) {
@@ -23,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
           dataRows.push(rowData);
         }
       }
-      // Select two random rows from the data (1-11)
+      // Select two random rows from the data
       const rowIndices = [];
       while (rowIndices.length < 2) {
         const randomIndex = Math.floor(Math.random() * dataRows.length);
@@ -108,7 +107,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
   rowsData.forEach((rowData, rowIndex) => {
     // Skip header row if it was accidentally included
     if (rowData[0] === "ID") return;
-    
+
     // Add each item individually to ensure they're all included
     contentAssignments.push({ type: 'title', value: rowData[1] }); // Title column
     contentAssignments.push({ type: 'image', value: rowData[2] }); // image1
@@ -123,7 +122,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
     contentAssignments.push({ type: 'iframe', value: rowData[12] }); // embedCode
     contentAssignments.push({ type: 'text', value: rowData[13] });  // summary
   });
-  
+
   // Add a console.log to verify all content is included
   console.log('Total content items:', contentAssignments.length);
 
@@ -138,7 +137,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
 
   // Add domopalooza content to the array rather than replacing an existing item
   shuffledContent.push(domopaloozaContent);
-  
+
   // Make sure we have exactly the right number of content items
   // If we have too many, trim the array
   if (shuffledContent.length > gridItems.length) {
@@ -151,7 +150,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
       shuffledContent.push(shuffledContent[i % originalLength]);
     }
   }
-  
+
   console.log('Final content count:', shuffledContent.length, 'for', gridItems.length, 'grid items');
 
   // Apply content to grid items
@@ -163,101 +162,101 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
       // Clear existing content
       item.innerHTML = '';
 
-    // Assign random color from the chosen color array
-    const randomColorIndex = Math.floor(Math.random() * colorArray.length);
-    item.style.backgroundColor = colorArray[randomColorIndex];
+      // Assign random color from the chosen color array
+      const randomColorIndex = Math.floor(Math.random() * colorArray.length);
+      item.style.backgroundColor = colorArray[randomColorIndex];
 
-    // Set content based on type
-    switch (content.type) {
-      case 'title':
-        // Select random texture
-        const titleTextureNum = Math.floor(Math.random() * 4) + 1;
-        const titleColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.75);
+      // Set content based on type
+      switch (content.type) {
+        case 'title':
+          // Select random texture
+          const titleTextureNum = Math.floor(Math.random() * 4) + 1;
+          const titleColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.75);
 
-        // Create layered background with texture and color overlay
-        item.style.backgroundImage = `url('textures/texture${titleTextureNum}.png')`;
-        item.style.backgroundSize = 'cover';
-        item.style.backgroundPosition = 'center';
-        item.style.position = 'relative';
+          // Create layered background with texture and color overlay
+          item.style.backgroundImage = `url('textures/texture${titleTextureNum}.png')`;
+          item.style.backgroundSize = 'cover';
+          item.style.backgroundPosition = 'center';
+          item.style.position = 'relative';
 
-        // Clear any previous content
-        item.innerHTML = '';
+          // Clear any previous content
+          item.innerHTML = '';
 
-        // Add color overlay
-        const titleOverlay = document.createElement('div');
-        titleOverlay.style.position = 'absolute';
-        titleOverlay.style.top = '0';
-        titleOverlay.style.left = '0';
-        titleOverlay.style.width = '100%';
-        titleOverlay.style.height = '100%';
-        titleOverlay.style.backgroundColor = titleColorRGBA;
-        item.appendChild(titleOverlay);
+          // Add color overlay
+          const titleOverlay = document.createElement('div');
+          titleOverlay.style.position = 'absolute';
+          titleOverlay.style.top = '0';
+          titleOverlay.style.left = '0';
+          titleOverlay.style.width = '100%';
+          titleOverlay.style.height = '100%';
+          titleOverlay.style.backgroundColor = titleColorRGBA;
+          item.appendChild(titleOverlay);
 
-        // Add title text on top
-        const titleText = document.createElement('h2');
-        titleText.textContent = content.value;
-        titleText.style.position = 'relative';
-        titleText.style.zIndex = '2';
-        titleText.style.textTransform = 'uppercase';
-        item.appendChild(titleText);
+          // Add title text on top
+          const titleText = document.createElement('h2');
+          titleText.textContent = content.value;
+          titleText.style.position = 'relative';
+          titleText.style.zIndex = '2';
+          titleText.style.textTransform = 'uppercase';
+          item.appendChild(titleText);
 
-        item.style.padding = '10px';
-        break;
-      case 'image':
-        const img = new Image();
-        img.onload = () => {
-          // Only remove loading class when image is loaded
-          setTimeout(() => item.classList.remove('loading'), 200);
-        };
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        img.src = `images/${content.value}.png`;
-        img.alt = `Image ${content.value}`;
-        item.innerHTML = '';
-        item.appendChild(img);
-        item.style.padding = '0';
-        break;
-      case 'text':
-        // Select random texture
-        const textTextureNum = Math.floor(Math.random() * 4) + 1;
-        const textColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.75);
+          item.style.padding = '10px';
+          break;
+        case 'image':
+          const img = new Image();
+          img.onload = () => {
+            // Only remove loading class when image is loaded
+            setTimeout(() => item.classList.remove('loading'), 200);
+          };
+          img.style.width = '100%';
+          img.style.height = '100%';
+          img.style.objectFit = 'cover';
+          img.src = `images/${content.value}.png`;
+          img.alt = `Image ${content.value}`;
+          item.innerHTML = '';
+          item.appendChild(img);
+          item.style.padding = '0';
+          break;
+        case 'text':
+          // Select random texture
+          const textTextureNum = Math.floor(Math.random() * 4) + 1;
+          const textColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.75);
 
-        // Create layered background with texture and color overlay
-        item.style.backgroundImage = `url('textures/texture${textTextureNum}.png')`;
-        item.style.backgroundSize = 'cover';
-        item.style.backgroundPosition = 'center';
-        item.style.position = 'relative';
+          // Create layered background with texture and color overlay
+          item.style.backgroundImage = `url('textures/texture${textTextureNum}.png')`;
+          item.style.backgroundSize = 'cover';
+          item.style.backgroundPosition = 'center';
+          item.style.position = 'relative';
 
-        // Clear any previous content
-        item.innerHTML = '';
+          // Clear any previous content
+          item.innerHTML = '';
 
-        // Add color overlay
-        const textOverlay = document.createElement('div');
-        textOverlay.style.position = 'absolute';
-        textOverlay.style.top = '0';
-        textOverlay.style.left = '0';
-        textOverlay.style.width = '100%';
-        textOverlay.style.height = '100%';
-        textOverlay.style.backgroundColor = textColorRGBA;
-        item.appendChild(textOverlay);
+          // Add color overlay
+          const textOverlay = document.createElement('div');
+          textOverlay.style.position = 'absolute';
+          textOverlay.style.top = '0';
+          textOverlay.style.left = '0';
+          textOverlay.style.width = '100%';
+          textOverlay.style.height = '100%';
+          textOverlay.style.backgroundColor = textColorRGBA;
+          item.appendChild(textOverlay);
 
-        // Add paragraph text on top
-        const paragraph = document.createElement('p');
-        paragraph.textContent = content.value;
-        paragraph.style.position = 'relative';
-        paragraph.style.zIndex = '2';
-        paragraph.style.textTransform = 'uppercase';
-        item.appendChild(paragraph);
+          // Add paragraph text on top
+          const paragraph = document.createElement('p');
+          paragraph.textContent = content.value;
+          paragraph.style.position = 'relative';
+          paragraph.style.zIndex = '2';
+          paragraph.style.textTransform = 'uppercase';
+          item.appendChild(paragraph);
 
-        item.style.overflow = 'auto';
-        item.style.padding = '10px';
-        break;
-      case 'iframe':
-        // Remove quotes if present in the embed code
-        const embedCode = content.value.replace(/^"|"$/g, '');
-        // Create a container for iframe with fallback content
-        item.innerHTML = `
+          item.style.overflow = 'auto';
+          item.style.padding = '10px';
+          break;
+        case 'iframe':
+          // Remove quotes if present in the embed code
+          const embedCode = content.value.replace(/^"|"$/g, '');
+          // Create a container for iframe with fallback content
+          item.innerHTML = `
             <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
               <iframe src="${embedCode}" frameborder="0" style="width: 100%; height: 100%;" 
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
@@ -267,16 +266,16 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
                 <a href="${embedCode}" target="_blank" style="color: white; text-decoration: underline;">Open in new tab</a>
               </div>
             </div>`;
-        item.style.padding = '0';
-        break;
-      case 'domopalooza':
-        // Special handling for domopalooza image with centered alignment
-        item.innerHTML = `<div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"><img src="domopalooza.png" alt="Domopalooza" style="max-width: 100%; max-height: 100%;"></div>`;
-        item.style.padding = '10px';
-        item.style.backgroundColor = '#212121'; // Always use this specific color
-        break;
+          item.style.padding = '0';
+          break;
+        case 'domopalooza':
+          // Special handling for domopalooza image with centered alignment
+          item.innerHTML = `<div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"><img src="domopalooza.png" alt="Domopalooza" style="max-width: 100%; max-height: 100%;"></div>`;
+          item.style.padding = '10px';
+          item.style.backgroundColor = '#212121'; // Always use this specific color
+          break;
+      }
     }
-  }
   });
 }
 
