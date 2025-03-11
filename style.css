@@ -254,3 +254,24 @@ body {
     transform: rotate(360deg);
   }
 }
+
+/* Styles for the Observable Plot container */
+#plot-container {
+  background-color: rgba(33, 33, 33, 0.9);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#plot-container svg {
+  width: 100%;
+  height: 100%;
+}
+
+#plot-container text {
+  fill: white;
+  font-family: 'Open Sans', sans-serif;
+}

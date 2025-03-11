@@ -126,6 +126,9 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
   // Choose one color set randomly for this grid layout - store as global variable
   window.useBlueColors = Math.random() < 0.5;
   const colorArray = window.useBlueColors ? COLOR_ARRAYS.blue : COLOR_ARRAYS.purple;
+  
+  // Skip grid items with special content (like the plot container)
+  const skipItems = [document.querySelector('.item-5')]; // Skip the plot container
 
   // Create an array of the content types to distribute from both rows
   const contentAssignments = [];
@@ -191,6 +194,9 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
   // Apply content to grid items
   gridItems.forEach((item, index) => {
     if (index >= shuffledContent.length) return;
+    
+    // Skip items that should not receive random content
+    if (skipItems && skipItems.includes(item)) return;
 
     const content = shuffledContent[index];
 
