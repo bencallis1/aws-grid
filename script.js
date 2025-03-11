@@ -253,20 +253,58 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
           item.style.padding = '10px';
           break;
         case 'iframe':
-          // Remove quotes if present in the embed code
-          const embedCode = content.value.replace(/^"|"$/g, '');
-          // Create a container for iframe with fallback content
-          item.innerHTML = `
-            <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-              <iframe src="${embedCode}" frameborder="0" style="width: 100%; height: 100%;" 
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-                sandbox="allow-same-origin allow-scripts"></iframe>
-              <div style="display: none; padding: 20px;">
-                <p>Content cannot be displayed due to security restrictions.</p>
-                <a href="${embedCode}" target="_blank" style="color: white; text-decoration: underline;">Open in new tab</a>
-              </div>
-            </div>`;
-          item.style.padding = '0';
+          // Check if the embed code exists or is empty
+          if (!content.value || content.value === '') {
+            // Handle missing iframe by displaying a default message
+            const textureNum = Math.floor(Math.random() * 4) + 1;
+            const textColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.75);
+            
+            // Create layered background with texture and color overlay
+            item.style.backgroundImage = `url('textures/texture${textureNum}.png')`;
+            item.style.backgroundSize = 'cover';
+            item.style.backgroundPosition = 'center';
+            item.style.position = 'relative';
+            
+            // Clear any previous content
+            item.innerHTML = '';
+            
+            // Add color overlay
+            const overlay = document.createElement('div');
+            overlay.style.position = 'absolute';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = textColorRGBA;
+            item.appendChild(overlay);
+            
+            // Add the default message
+            const message = document.createElement('p');
+            message.textContent = "Sit back, connect, and enjoy an inspiring conference experience!";
+            message.style.position = 'relative';
+            message.style.zIndex = '2';
+            message.style.padding = '15px';
+            message.style.textAlign = 'center';
+            item.appendChild(message);
+            
+            item.style.padding = '10px';
+          } else {
+            // Handle normal iframe with embed code
+            // Remove quotes if present in the embed code
+            const embedCode = content.value.replace(/^"|"$/g, '');
+            // Create a container for iframe with fallback content
+            item.innerHTML = `
+              <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <iframe src="${embedCode}" frameborder="0" style="width: 100%; height: 100%;" 
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                  sandbox="allow-same-origin allow-scripts"></iframe>
+                <div style="display: none; padding: 20px;">
+                  <p>Content cannot be displayed due to security restrictions.</p>
+                  <a href="${embedCode}" target="_blank" style="color: white; text-decoration: underline;">Open in new tab</a>
+                </div>
+              </div>`;
+            item.style.padding = '0';
+          }
           break;
         case 'domopalooza':
           // Special handling for domopalooza image with centered alignment
