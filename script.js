@@ -145,7 +145,37 @@ function updateGridWithMultipleRows(rowsData) {
       // Set content based on type
       switch (content.type) {
         case 'title':
-          item.innerHTML = `<h2>${content.value}</h2>`;
+          // Select random texture
+          const titleTextureNum = Math.floor(Math.random() * 5) + 1;
+          const titleColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.25);
+          
+          // Create layered background with texture and color overlay
+          item.style.backgroundImage = `url('textures/texture${titleTextureNum}.png')`;
+          item.style.backgroundSize = 'cover';
+          item.style.backgroundPosition = 'center';
+          item.style.position = 'relative';
+          
+          // Clear any previous content
+          item.innerHTML = '';
+          
+          // Add color overlay
+          const titleOverlay = document.createElement('div');
+          titleOverlay.style.position = 'absolute';
+          titleOverlay.style.top = '0';
+          titleOverlay.style.left = '0';
+          titleOverlay.style.width = '100%';
+          titleOverlay.style.height = '100%';
+          titleOverlay.style.backgroundColor = titleColorRGBA;
+          item.appendChild(titleOverlay);
+          
+          // Add title text on top
+          const titleText = document.createElement('h2');
+          titleText.textContent = content.value;
+          titleText.style.position = 'relative';
+          titleText.style.zIndex = '2';
+          titleText.style.textTransform = 'uppercase';
+          item.appendChild(titleText);
+          
           item.style.padding = '10px';
           break;
         case 'image':
@@ -164,7 +194,37 @@ function updateGridWithMultipleRows(rowsData) {
           item.style.padding = '0';
           break;
         case 'text':
-          item.innerHTML = `<p>${content.value}</p>`;
+          // Select random texture
+          const textTextureNum = Math.floor(Math.random() * 5) + 1;
+          const textColorRGBA = hexToRGBA(colorArray[randomColorIndex], 0.25);
+          
+          // Create layered background with texture and color overlay
+          item.style.backgroundImage = `url('textures/texture${textTextureNum}.png')`;
+          item.style.backgroundSize = 'cover';
+          item.style.backgroundPosition = 'center';
+          item.style.position = 'relative';
+          
+          // Clear any previous content
+          item.innerHTML = '';
+          
+          // Add color overlay
+          const textOverlay = document.createElement('div');
+          textOverlay.style.position = 'absolute';
+          textOverlay.style.top = '0';
+          textOverlay.style.left = '0';
+          textOverlay.style.width = '100%';
+          textOverlay.style.height = '100%';
+          textOverlay.style.backgroundColor = textColorRGBA;
+          item.appendChild(textOverlay);
+          
+          // Add paragraph text on top
+          const paragraph = document.createElement('p');
+          paragraph.textContent = content.value;
+          paragraph.style.position = 'relative';
+          paragraph.style.zIndex = '2';
+          paragraph.style.textTransform = 'uppercase';
+          item.appendChild(paragraph);
+          
           item.style.overflow = 'auto';
           item.style.padding = '10px';
           break;
@@ -250,4 +310,18 @@ function updateGridWithData(rowData) {
   // Insert the domopalooza content at a random position (but ensure it's included)
   const randomPosition = Math.floor(Math.random() * Math.min(shuffledContent.length, gridItems.length));
   shuffledContent[randomPosition] = domopaloozaContent;
+}
+
+// Helper function to convert hex color to rgba for overlay
+function hexToRGBA(hex, opacity) {
+  // Remove the hash if it exists
+  hex = hex.replace('#', '');
+  
+  // Parse the hex values to RGB
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  
+  // Return rgba string with opacity
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
