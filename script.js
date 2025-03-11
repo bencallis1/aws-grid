@@ -3,6 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Cache DOM selections
   const gridItems = document.querySelectorAll('.grid-item');
   
+  // Check if on mobile device and set a data attribute on body
+  const isMobile = window.innerWidth <= 768;
+  document.body.setAttribute('data-device', isMobile ? 'mobile' : 'desktop');
+  
+  // Add resize listener to handle orientation changes
+  window.addEventListener('resize', () => {
+    const currentIsMobile = window.innerWidth <= 768;
+    document.body.setAttribute('data-device', currentIsMobile ? 'mobile' : 'desktop');
+  });
+  
   // Initialize grid items (add loading state)
   for (let item of gridItems) {
     item.classList.add('loading');
@@ -222,6 +232,24 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
         textElement.style.position = 'relative';
         textElement.style.zIndex = '2';
         textElement.style.textTransform = 'uppercase';
+        
+        // Check if on mobile
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          // Adjust font size on mobile
+          if (isTitle) {
+            textElement.style.fontSize = '20px';
+            textElement.style.lineHeight = '1.2';
+          } else {
+            textElement.style.fontSize = '14px';
+            textElement.style.lineHeight = '1.4';
+          }
+          
+          // Truncate long text on mobile
+          if (content.value.length > 120) {
+            textElement.textContent = content.value.substring(0, 120) + '...';
+          }
+        }
         
         item.appendChild(textElement);
         break;
