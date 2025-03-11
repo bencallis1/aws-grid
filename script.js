@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ];
 
       // Update the grid with the selected data from both rows
-      updateGridWithMultipleRows(selectedRows);
+      updateGridWithMultipleRows(selectedRows, gridItems);
 
       // Set random background color for mosaic-grid from the same color palette as tiles
       setRandomBackgroundColor();
@@ -92,8 +92,7 @@ function parseCSVRow(row) {
 }
 
 // Update the grid with multiple rows of data
-function updateGridWithMultipleRows(rowsData) {
-  const gridItems = document.querySelectorAll('.grid-item');
+function updateGridWithMultipleRows(rowsData, gridItems) {
 
   // Define color arrays
   const blueColorArray = ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
@@ -121,6 +120,13 @@ function updateGridWithMultipleRows(rowsData) {
 
   // Add domopalooza.png special content
   const domopaloozaContent = { type: 'domopalooza', value: 'domopalooza' };
+
+  // Duplicate existing content to ensure we have enough for all grid items
+  while (contentAssignments.length < gridItems.length - 1) { // -1 to account for domopalooza
+    // Copy random existing content to fill gaps
+    const randomContentIndex = Math.floor(Math.random() * contentAssignments.length);
+    contentAssignments.push({...contentAssignments[randomContentIndex]});
+  }
 
   // Shuffle the content assignments
   const shuffledContent = shuffleArray([...contentAssignments]);
@@ -271,45 +277,6 @@ function setRandomBackgroundColor() {
   const colorArray = window.useBlueColors ? blueColorArray : purpleColorArray;
   const randomColorIndex = Math.floor(Math.random() * colorArray.length);
   document.querySelector('.mosaic-grid').style.backgroundColor = colorArray[randomColorIndex];
-}
-
-// Original function kept for reference
-function updateGridWithData(rowData) {
-  const gridItems = document.querySelectorAll('.grid-item');
-
-  // Define color arrays
-  const blueColorArray = ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
-  const purpleColorArray = ['#871379', '#aa429d', '#e3c0de', '#c781be'];
-
-  // Choose one color set randomly for this grid layout - store as global variable
-  window.useBlueColors = Math.random() < 0.5;
-  const colorArray = window.useBlueColors ? blueColorArray : purpleColorArray;
-
-  // Create an array of the content types to distribute
-  const contentAssignments = [
-    { type: 'title', value: rowData[1] }, // Title column
-    { type: 'image', value: rowData[2] }, // image1
-    { type: 'image', value: rowData[3] }, // image2
-    { type: 'image', value: rowData[4] }, // image3
-    { type: 'image', value: rowData[5] }, // image4
-    { type: 'image', value: rowData[6] }, // image5
-    { type: 'image', value: rowData[7] }, // image6
-    { type: 'image', value: rowData[8] }, // image7
-    { type: 'image', value: rowData[9] }, // image8
-    { type: 'image', value: rowData[10] }, // image9
-    { type: 'iframe', value: rowData[12] }, // embedCode
-    { type: 'text', value: rowData[13] }  // summary
-  ];
-
-  // Add domopalooza.png special content
-  const domopaloozaContent = { type: 'domopalooza', value: 'domopalooza' };
-
-  // Shuffle the content assignments
-  const shuffledContent = shuffleArray([...contentAssignments]);
-
-  // Insert the domopalooza content at a random position (but ensure it's included)
-  const randomPosition = Math.floor(Math.random() * Math.min(shuffledContent.length, gridItems.length));
-  shuffledContent[randomPosition] = domopaloozaContent;
 }
 
 // Helper function to convert hex color to rgba for overlay
