@@ -210,7 +210,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
         const isTitle = content.type === 'title';
         const textureNum = Math.floor(Math.random() * 4) + 1;
         const colorRGBA = hexToRGBA(baseColor, 0.75);
-
+        
         // Configure item styles
         item.style.backgroundImage = `url('textures/texture${textureNum}.png')`;
         item.style.backgroundSize = 'cover';
@@ -232,6 +232,11 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
         textElement.style.position = 'relative';
         textElement.style.zIndex = '2';
         textElement.style.textTransform = 'uppercase';
+        
+        // Set dark text color when background is light purple
+        if (baseColor === '#e3c0de') {
+          textElement.style.color = '#212121';
+        }
 
         // Check if on mobile
         const isMobile = window.innerWidth <= 768;
