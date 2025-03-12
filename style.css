@@ -113,6 +113,12 @@ body {
   .grid-item p {
     font-size: 0.8rem;
   }
+
+  /* Set 600px size for grid items containing charts */
+  .grid-item:has(.chart-container) {
+    min-width: 600px;
+    min-height: 600px;
+  }
 }
 
 /* Width controlled by specific breakpoints above */
