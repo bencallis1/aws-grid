@@ -17,12 +17,13 @@ body {
   width: 100%;
   background-color: #212121;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  padding: 15px;
+  padding: 0 15px;
   text-align: left;
   z-index: 1000;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  height: 75px
 }
 
 .sticky-header h1 {
@@ -32,7 +33,7 @@ body {
 }
 
 body {
-  padding-top: 70px;
+  padding-top: 75px;
   /* Adjust based on your header height */
   background-color: white;
   margin: 0;
@@ -118,7 +119,8 @@ body {
 
 .grid-item {
   display: flex;
-  align-items: left;
+  /* I think we do want to have these text aligned at the top. The reason is because when we have a tall skinny grid item with text vertically centered it will visually throw off the composition  */
+  align-items: flex-start;
   justify-content: center;
   font-size: 1.5rem;
   font-weight: bold;
