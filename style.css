@@ -273,12 +273,19 @@ body {
   overflow: hidden;
 }
 
-#plot-container svg {
+#plot-container svg,
+.chart-container svg {
   width: 100%;
   height: 100%;
 }
 
-#plot-container text {
+#plot-container text,
+.chart-container text {
   fill: white;
   font-family: 'Open Sans', sans-serif;
+}
+
+.chart-container {
+  position: relative;
+  z-index: 2;
 }

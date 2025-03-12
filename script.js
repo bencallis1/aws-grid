@@ -165,7 +165,10 @@ function updateGridWithMultipleRows(rowsData, gridItems, usedImages, availableIm
     // Add title to title cards
     titleCards.push({ type: 'title', value: rowData[1] });
 
-    // Add non-image content to other content (iframe removed)
+    // Add chart content based on chartType column (column 12)
+    if (rowData[12]) otherContent.push({ type: 'chart', value: rowData[12] });
+    
+    // Add text content
     if (rowData[13]) otherContent.push({ type: 'text', value: rowData[13] });
 
     // Add images from the row, ensuring no duplicates
@@ -336,7 +339,49 @@ function updateGridWithMultipleRows(rowsData, gridItems, usedImages, availableIm
         break;
       }
 
-      // iframe case has been removed as requested
+      case 'chart': {
+        const chartContainer = document.createElement('div');
+        chartContainer.className = 'chart-container';
+        chartContainer.style.width = '100%';
+        chartContainer.style.height = '100%';
+        chartContainer.style.position = 'relative';
+        
+        // Apply texture and overlay for styling
+        const textureNum = Math.floor(Math.random() * 4) + 1;
+        const colorRGBA = hexToRGBA(baseColor, 0.75);
+        
+        item.style.backgroundImage = `url('textures/texture${textureNum}.png')`;
+        item.style.backgroundSize = 'cover';
+        item.style.backgroundPosition = 'center';
+        
+        // Add overlay
+        const overlay = createOverlay(colorRGBA);
+        item.appendChild(overlay);
+        
+        // Create chart div with unique ID
+        const chartId = `chart-${Math.random().toString(36).substring(2, 9)}`;
+        const chartDiv = document.createElement('div');
+        chartDiv.id = chartId;
+        chartDiv.style.width = '100%';
+        chartDiv.style.height = '100%';
+        chartDiv.style.position = 'relative';
+        chartDiv.style.zIndex = '2';
+        chartDiv.style.padding = '15px';
+        
+        chartContainer.appendChild(chartDiv);
+        item.appendChild(chartContainer);
+        
+        // Generate some random data for the chart
+        const chartData = generateRandomChartData();
+        
+        // Determine chart type from content value
+        const chartType = content.value || 'Bar Chart';
+        
+        // Create chart based on type
+        createChart(chartId, chartType, chartData, colorArray);
+        
+        break;
+      }
 
       case 'domopalooza': {
         const container = document.createElement('div');
@@ -412,4 +457,317 @@ function hexToRGBA(hex, opacity) {
   rgbaCache.set(cacheKey, rgba);
 
   return rgba;
+}
+
+// Generate random chart data for visualization
+function generateRandomChartData() {
+  // Generate between 3-8 data points
+  const count = Math.floor(Math.random() * 6) + 3;
+  const data = [];
+  
+  // Generate category names
+  const categories = ['Data', 'AI', 'Analytics', 'Insights', 'Reports', 'Metrics', 'Users', 'Sessions'];
+  
+  for (let i = 0; i < count; i++) {
+    data.push({
+      category: categories[i % categories.length] + ' ' + (i + 1),
+      value: Math.floor(Math.random() * 90) + 10
+    });
+  }
+  
+  return data;
+}
+
+// Create a chart based on the provided type and data
+function createChart(chartId, chartType, data, colorArray) {
+  // Default colors if not provided
+  const colors = colorArray || ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
+  
+  // Load Observable Plot library
+  import('https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.11/+esm')
+    .then(Plot => {
+      let chart;
+      
+      // Create different chart types based on the specified type
+      switch(chartType.toLowerCase()) {
+        case 'bar chart':
+          chart = Plot.plot({
+            style: {
+              background: "transparent",
+              color: "white",
+              fontFamily: "'Open Sans', sans-serif"
+            },
+            marginLeft: 60,
+            marginBottom: 40,
+            x: {
+              label: "",
+              tickFormat: d => d
+            },
+            y: {
+              label: "↑ Value",
+              labelAnchor: "top",
+              grid: true
+            },
+            marks: [
+              Plot.barY(data, {
+                x: "category",
+                y: "value",
+                fill: colors[0],
+                stroke: "transparent"
+              }),
+              Plot.ruleY([0])
+            ]
+          });
+          break;
+          
+        case 'line chart':
+          chart = Plot.plot({
+            style: {
+              background: "transparent",
+              color: "white",
+              fontFamily: "'Open Sans', sans-serif"
+            },
+            marginLeft: 60,
+            marginBottom: 40,
+            x: {
+              label: ""
+            },
+            y: {
+              label: "↑ Value",
+              labelAnchor: "top",
+              grid: true
+            },
+            marks: [
+              Plot.lineY(data, {
+                x: "category", 
+                y: "value",
+                stroke: colors[0],
+                strokeWidth: 2,
+                curve: "natural"
+              }),
+              Plot.dot(data, {
+                x: "category", 
+                y: "value",
+                fill: colors[0],
+                r: 4
+              }),
+              Plot.ruleY([0])
+            ]
+          });
+          break;
+          
+        case 'pie chart':
+          chart = Plot.plot({
+            style: {
+              background: "transparent",
+              color: "white",
+              fontFamily: "'Open Sans', sans-serif"
+            },
+            margin: 20,
+            r: {
+              range: [0, 180]
+            },
+            marks: [
+              Plot.arc(data, {
+                value: "value",
+                fill: (d, i) => colors[i % colors.length],
+                innerRadius: 50,
+                outerRadius: 150,
+                stroke: "#fff",
+                strokeWidth: 1
+              }),
+              Plot.text(data, Plot.stackY({
+                x: 0,
+                y: "value",
+                text: d => `${d.category}: ${d.value}`,
+                fill: "white",
+                stroke: "black",
+                strokeWidth: 2,
+                dx: 10,
+                dy: 15,
+                lineAnchor: "top"
+              }))
+            ]
+          });
+          break;
+          
+        case 'heat map':
+          // For heat map, we need to restructure data
+          const heatmapData = [];
+          for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < 3; j++) {
+              heatmapData.push({
+                x: data[i].category,
+                y: `Group ${j+1}`,
+                value: Math.floor(Math.random() * 100)
+              });
+            }
+          }
+          
+          chart = Plot.plot({
+            style: {
+              background: "transparent",
+              color: "white",
+              fontFamily: "'Open Sans', sans-serif"
+            },
+            marginLeft: 60,
+            marginBottom: 40,
+            color: {
+              scheme: "blues",
+              domain: [0, 100],
+              legend: true
+            },
+            marks: [
+              Plot.cell(heatmapData, {
+                x: "x",
+                y: "y",
+                fill: "value",
+                inset: 0.5
+              })
+            ]
+          });
+          break;
+          
+        case 'gauge':
+          // Create a simple gauge
+          const value = data[0]?.value || 50;
+          const pct = value / 100;
+          
+          // Create a simple canvas gauge
+          const container = document.getElementById(chartId);
+          container.innerHTML = '';
+          
+          const gaugeDiv = document.createElement('div');
+          gaugeDiv.className = 'gauge-container';
+          gaugeDiv.style.width = '100%';
+          gaugeDiv.style.height = '100%';
+          gaugeDiv.style.display = 'flex';
+          gaugeDiv.style.flexDirection = 'column';
+          gaugeDiv.style.alignItems = 'center';
+          gaugeDiv.style.justifyContent = 'center';
+          
+          // Gauge value
+          const valueDiv = document.createElement('div');
+          valueDiv.style.fontSize = '40px';
+          valueDiv.style.fontWeight = 'bold';
+          valueDiv.style.color = 'white';
+          valueDiv.textContent = value;
+          
+          // Gauge title
+          const titleDiv = document.createElement('div');
+          titleDiv.style.fontSize = '16px';
+          titleDiv.style.color = 'white';
+          titleDiv.style.marginTop = '10px';
+          titleDiv.textContent = data[0]?.category || 'Metric';
+          
+          // Gauge visual (semi-circle)
+          const gaugeVisual = document.createElement('div');
+          gaugeVisual.style.width = '150px';
+          gaugeVisual.style.height = '75px';
+          gaugeVisual.style.background = `conic-gradient(
+            ${colors[0]} 0% ${pct * 100}%, 
+            #444 ${pct * 100}% 100%
+          )`;
+          gaugeVisual.style.borderRadius = '150px 150px 0 0';
+          gaugeVisual.style.marginTop = '15px';
+          
+          gaugeDiv.appendChild(valueDiv);
+          gaugeDiv.appendChild(titleDiv);
+          gaugeDiv.appendChild(gaugeVisual);
+          container.appendChild(gaugeDiv);
+          return; // Skip appending chart
+          
+        case 'table':
+          // Create a simple table
+          const tableContainer = document.getElementById(chartId);
+          tableContainer.innerHTML = '';
+          
+          const table = document.createElement('table');
+          table.style.width = '100%';
+          table.style.borderCollapse = 'collapse';
+          table.style.color = 'white';
+          
+          // Add header
+          const thead = document.createElement('thead');
+          const headerRow = document.createElement('tr');
+          const categoryHeader = document.createElement('th');
+          categoryHeader.textContent = 'Category';
+          categoryHeader.style.padding = '5px';
+          categoryHeader.style.textAlign = 'left';
+          categoryHeader.style.borderBottom = '1px solid white';
+          
+          const valueHeader = document.createElement('th');
+          valueHeader.textContent = 'Value';
+          valueHeader.style.padding = '5px';
+          valueHeader.style.textAlign = 'right';
+          valueHeader.style.borderBottom = '1px solid white';
+          
+          headerRow.appendChild(categoryHeader);
+          headerRow.appendChild(valueHeader);
+          thead.appendChild(headerRow);
+          table.appendChild(thead);
+          
+          // Add body
+          const tbody = document.createElement('tbody');
+          data.forEach(d => {
+            const row = document.createElement('tr');
+            
+            const categoryCell = document.createElement('td');
+            categoryCell.textContent = d.category;
+            categoryCell.style.padding = '5px';
+            
+            const valueCell = document.createElement('td');
+            valueCell.textContent = d.value;
+            valueCell.style.padding = '5px';
+            valueCell.style.textAlign = 'right';
+            
+            row.appendChild(categoryCell);
+            row.appendChild(valueCell);
+            tbody.appendChild(row);
+          });
+          
+          table.appendChild(tbody);
+          tableContainer.appendChild(table);
+          return; // Skip appending chart
+          
+        default:
+          // Default to bar chart
+          chart = Plot.plot({
+            style: {
+              background: "transparent",
+              color: "white",
+              fontFamily: "'Open Sans', sans-serif"
+            },
+            marginLeft: 60,
+            marginBottom: 40,
+            x: {
+              label: ""
+            },
+            y: {
+              label: "↑ Value",
+              grid: true
+            },
+            marks: [
+              Plot.barY(data, {
+                x: "category",
+                y: "value",
+                fill: colors[0]
+              }),
+              Plot.ruleY([0])
+            ]
+          });
+      }
+      
+      // If we have a chart, append it
+      if (chart) {
+        const container = document.getElementById(chartId);
+        container.innerHTML = '';
+        container.appendChild(chart);
+      }
+    })
+    .catch(error => {
+      console.error('Error creating chart:', error);
+      const container = document.getElementById(chartId);
+      container.innerHTML = `<div style="color: white; padding: 20px;">Error creating chart</div>`;
+    });
 }
