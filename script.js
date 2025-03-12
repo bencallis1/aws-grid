@@ -366,7 +366,8 @@ function updateGridWithMultipleRows(rowsData, gridItems, usedImages, availableIm
         chartDiv.style.height = '100%';
         chartDiv.style.position = 'relative';
         chartDiv.style.zIndex = '2';
-        chartDiv.style.padding = '0px';
+        chartDiv.style.padding = '5px';
+        chartDiv.style.boxSizing = 'border-box';
         
         chartContainer.appendChild(chartDiv);
         item.appendChild(chartContainer);
