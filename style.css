@@ -288,4 +288,6 @@ body {
 .chart-container {
   position: relative;
   z-index: 2;
+  padding: 15px;
+  box-sizing: border-box;
 }
