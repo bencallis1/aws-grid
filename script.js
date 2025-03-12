@@ -492,7 +492,9 @@ function createChart(chartId, chartType, data, colorArray) {
   
   // Load Observable Plot library
   import('https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.11/+esm')
-    .then(Plot => {
+    .then(module => {
+      // Extract the default export which is the Plot object
+      const Plot = module.default;
       let chart;
       
       // Create different chart types based on the specified type
