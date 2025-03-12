@@ -107,6 +107,12 @@ body {
   .item-large {
     grid-row: span 2;
   }
+  
+  /* Ensure large items have enough space */
+  .item-large {
+    min-height: 900px; /* Ensure large items have enough vertical space */
+    z-index: 5;
+  }
 
   .grid-item h2 {
     font-size: 24px;
@@ -299,7 +305,7 @@ body {
 
 .chart-container {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   padding: 20px;
   box-sizing: border-box;
   width: 100%;
@@ -307,6 +313,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
+}
+
+/* Specific styling for item-5 to ensure it displays properly */
+.item-5 .chart-container {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
 }
 
 .gauge-container {
@@ -315,4 +329,9 @@ body {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

@@ -634,6 +634,13 @@ function createChart(chartId, chartType, data, colorArray) {
           const container = document.getElementById(chartId);
           container.innerHTML = '';
           
+          // Create a wrapper div to enforce proper positioning
+          const wrapperDiv = document.createElement('div');
+          wrapperDiv.style.position = 'relative';
+          wrapperDiv.style.width = '100%';
+          wrapperDiv.style.height = '100%';
+          wrapperDiv.style.zIndex = '10';
+          
           const gaugeDiv = document.createElement('div');
           gaugeDiv.className = 'gauge-container';
           gaugeDiv.style.width = '100%';
@@ -642,47 +649,44 @@ function createChart(chartId, chartType, data, colorArray) {
           gaugeDiv.style.flexDirection = 'column';
           gaugeDiv.style.alignItems = 'center';
           gaugeDiv.style.justifyContent = 'center';
-          gaugeDiv.style.position = 'absolute';
-          gaugeDiv.style.top = '0';
-          gaugeDiv.style.left = '0';
-          gaugeDiv.style.right = '0';
-          gaugeDiv.style.bottom = '0';
+          gaugeDiv.style.position = 'relative'; // Changed from absolute
           gaugeDiv.style.boxSizing = 'border-box';
           gaugeDiv.style.padding = '30px';
-          gaugeDiv.style.display = 'flex';
-          gaugeDiv.style.flexDirection = 'column';
-          gaugeDiv.style.alignItems = 'center';
-          gaugeDiv.style.justifyContent = 'center';
+          gaugeDiv.style.zIndex = '10';
           
           // Gauge value
           const valueDiv = document.createElement('div');
-          valueDiv.style.fontSize = '40px';
+          valueDiv.style.fontSize = '72px'; // Bigger font
           valueDiv.style.fontWeight = 'bold';
           valueDiv.style.color = 'white';
+          valueDiv.style.zIndex = '11';
           valueDiv.textContent = value;
           
           // Gauge title
           const titleDiv = document.createElement('div');
-          titleDiv.style.fontSize = '16px';
+          titleDiv.style.fontSize = '24px'; // Bigger font
           titleDiv.style.color = 'white';
-          titleDiv.style.marginTop = '10px';
-          titleDiv.textContent = data[0]?.category || 'Metric';
+          titleDiv.style.marginTop = '20px';
+          titleDiv.style.zIndex = '11';
+          titleDiv.textContent = data[0]?.category || 'Data 1';
           
           // Gauge visual (semi-circle) - make dimensions responsive
           const gaugeVisual = document.createElement('div');
-          gaugeVisual.style.width = 'min(150px, 60%)';
-          gaugeVisual.style.height = 'min(75px, 30%)';
+          gaugeVisual.style.width = 'min(300px, 80%)'; // Bigger gauge
+          gaugeVisual.style.height = 'min(150px, 40%)'; // Bigger gauge
           gaugeVisual.style.background = `conic-gradient(
             ${colors[0]} 0% ${pct * 100}%, 
             #444 ${pct * 100}% 100%
           )`;
-          gaugeVisual.style.borderRadius = '150px 150px 0 0';
-          gaugeVisual.style.marginTop = '15px';
+          gaugeVisual.style.borderRadius = '300px 300px 0 0';
+          gaugeVisual.style.marginTop = '30px';
+          gaugeVisual.style.zIndex = '11';
           
           gaugeDiv.appendChild(valueDiv);
           gaugeDiv.appendChild(titleDiv);
           gaugeDiv.appendChild(gaugeVisual);
-          container.appendChild(gaugeDiv);
+          wrapperDiv.appendChild(gaugeDiv);
+          container.appendChild(wrapperDiv);
           return; // Skip appending chart
           
         case 'table':
