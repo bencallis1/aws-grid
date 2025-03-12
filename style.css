@@ -4,6 +4,8 @@ body {
   width: 100vw;
   margin: 0;
   padding: 0;
+  /*need base font when using rem */
+  font-size: 16px;
   font-family: 'Open Sans Condensed', 'Open Sans', sans-serif;
   overflow-x: hidden;
 }
@@ -157,19 +159,22 @@ body {
 }
 
 .grid-item h2 {
-  font-size: 40px;
+  /* font-size: 40px; */
   text-align: left;
+  font-size: 1.8rem;
+  line-height: 1.9rem;
   margin: 0;
   padding: 10px;
   width: 100%;
   text-transform: uppercase;
   letter-spacing: 1px;
-  line-height: 40px;
+  /* line-height: 40px; */
   font-weight: 800;
 }
 
 .grid-item p {
-  font-size: 24px;
+  font-size: 1.2rem;
+  /* font-size: 24px; */
   line-height: 26px;
   letter-spacing: 1px;
   font-weight: normal;

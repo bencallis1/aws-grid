@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Data Dashboard Mosaic</title>
+    <style>
+        :root {
+            /* Blue theme (default) */
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --tertiary-color: #0f3460;
+            --accent-color: #5da8ff;
+            --text-color: #ffffff;
+            --background-color: #f0f0f0;
+        }
+
+        /* Purple theme */
+        body.theme-purple {
+            --primary-color: #2d1b4a;
+            --secondary-color: #4b2773;
+            --tertiary-color: #7353a7;
+            --accent-color: #e099ff;
+            --background-color: #f3e1ff;
+        }
+
+        /* Green theme */
+        body.theme-green {
+            --primary-color: #1f3a1f;
+            --secondary-color: #2b572b;
+            --tertiary-color: #3b783b;
+            --accent-color: #9cff9c;
+            --background-color: #e1ffe1;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .theme-selector, .layout-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        button.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .mosaic-container {
+            display: grid;
+            gap: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 80vh;
+        }
+
+        /* Layout configurations */
+        .mosaic-container.layout-2x4 {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+        }
+
+        .mosaic-container.layout-3x4 {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+        }
+
+        .mosaic-container.layout-4x4 {
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+
+        .mosaic-container.layout-4x2 {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+
+        .mosaic-container.layout-asymmetric {
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+
+        .mosaic-tile {
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .mosaic-tile:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Various tile styles */
+        .text-tile {
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-tile h1 {
+            font-size: 3rem;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .text-tile h2 {
+            font-size: 1.5rem;
+            margin: 10px 0 0;
+            font-weight: bold;
+        }
+
+        .image-tile {
+            background-color: #333;
+        }
+
+        .image-tile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chart-tile {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+        }
+
+        .pie-chart {
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--accent-color) 0% 65%, 
+                var(--tertiary-color) 65% 85%, 
+                var(--secondary-color) 85% 100%
+            );
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pie-center {
+            position: absolute;
+            width: 40%;
+            height: 40%;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .feature-tile {
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .feature-tile h2 {
+            font-size: 2.5rem;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .feature-tile p {
+            font-size: 1rem;
+            margin: 10px 0 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            max-width: 60%;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Special spans for asymmetric layout */
+        .span-2x1 {
+            grid-column: span 2;
+        }
+
+        .span-2x2 {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .span-3x1 {
+            grid-column: span 3;
+        }
+
+        .span-3x2 {
+            grid-column: span 3;
+            grid-row: span 2;
+        }
+
+        .span-1x2 {
+            grid-row: span 2;
+        }
+
+        .bar-container {
+            width: 100%;
+            height: 80%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+        }
+
+        .bar {
+            width: 8%;
+            background-color: var(--accent-color);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .chart-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: center;
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .mosaic-container {
+                height: auto;
+            }
+
+            .mosaic-container.layout-2x4,
+            .mosaic-container.layout-3x4,
+            .mosaic-container.layout-4x4,
+            .mosaic-container.layout-asymmetric {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 150px;
+            }
+
+            .span-2x1, .span-2x2, .span-3x1, .span-3x2 {
+                grid-column: span 1;
+            }
+
+            .span-1x2, .span-2x2, .span-3x2 {
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mosaic-container.layout-2x4,
+            .mosaic-container.layout-3x4,
+            .mosaic-container.layout-4x4,
+            .mosaic-container.layout-asymmetric,
+            .mosaic-container.layout-4x2 {
+                grid-template-columns: 1fr;
+            }
+
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <div class="layout-selector">
+            <span>Layout:</span>
+            <button class="layout-btn active" data-layout="layout-2x4">2×4</button>
+            <button class="layout-btn" data-layout="layout-3x4">3×4</button>
+            <button class="layout-btn" data-layout="layout-4x4">4×4</button>
+            <button class="layout-btn" data-layout="layout-4x2">4×2</button>
+            <button class="layout-btn" data-layout="layout-asymmetric">Asymmetric</button>
+            <button id="random-layout">Random</button>
+        </div>
+    </div>
+
+    <div id="mosaic-container" class="mosaic-container layout-2x4">
+        <!-- Tiles will be dynamically generated here -->
+    </div>
+
+    <script>
+        // Tile content definitions
+        const tileTypes = [
+            {
+                type: 'text-tile',
+                content: `
+                    <h1>1,583</h1>
+                    <h2>ATTENDING<br>DOMOPALOOZA<br>IN-PERSON</h2>
+                `
+            },
+            {
+                type: 'image-tile',
+                content: `<img src="https://via.placeholder.com/400x300" alt="Dashboard">`
+            },
+            {
+                type: 'chart-tile',
+                content: `
+                    <div class="bar-container">
+                        <div class="bar" style="height: 60%;"></div>
+                        <div class="bar" style="height: 80%;"></div>
+                        <div class="bar" style="height: 40%;"></div>
+                        <div class="bar" style="height: 65%;"></div>
+                        <div class="bar" style="height: 55%;"></div>
+                        <div class="bar" style="height: 70%;"></div>
+                        <div class="bar" style="height: 45%;"></div>
+                        <div class="bar" style="height: 85%;"></div>
+                    </div>
+                    <div class="chart-label">FEATURES BY MONTH</div>
+                `
+            },
+            {
+                type: 'chart-tile',
+                content: `
+                    <div class="pie-chart">
+                        <div class="pie-center">FEATURES</div>
+                    </div>
+                `
+            },
+            {
+                type: 'image-tile',
+                content: `
+                    <img src="https://via.placeholder.com/400x100/000000/ffffff?text=DOMOPALOOZA" alt="Logo">
+                `
+            },
+            {
+                type: 'image-tile',
+                content: `
+                    <img src="https://via.placeholder.com/400x300/456789" alt="Mountain landscape">
+                `
+            },
+            {
+                type: 'chart-tile',
+                content: `
+                    <div class="pie-chart" style="width: 70%; height: 70%;">
+                        <div class="pie-center">FEATURES</div>
+                    </div>
+                `
+            },
+            {
+                type: 'image-tile',
+                content: `
+                    <img src="https://via.placeholder.com/400x300/876543" alt="Tech visualization">
+                    <div class="overlay-text">THE DATA AND AI<br>PRODUCT PLATFORM THAT<br>TAKES YOUR DATA AND<br>BLOWS YOUR MIND</div>
+                `
+            },
+            {
+                type: 'feature-tile',
+                content: `
+                    <h2>362</h2>
+                    <p>NEW FEATURES RELEASED<br>IN PAST 12 MONTHS</p>
+                `
+            },
+            {
+                type: 'text-tile',
+                content: `
+                    <h2>98.5%</h2>
+                    <p>CUSTOMER<br>SATISFACTION</p>
+                `
+            },
+            {
+                type: 'chart-tile',
+                content: `
+                    <div style="width: 100%; height: 80%; background: linear-gradient(90deg, var(--accent-color) 0%, var(--tertiary-color) 100%); border-radius: 4px;"></div>
+                    <div class="chart-label">DATA PROCESSING SPEED</div>
+                `
+            },
+            {
+                type: 'image-tile',
+                content: `
+                    <img src="https://via.placeholder.com/400x300/554433" alt="Team">
+                    <div class="overlay-text">MEET OUR EXPERT TEAM</div>
+                `
+            }
+        ];
+
+        // Layout definitions
+        const layouts = {
+            'layout-2x4': {
+                class: 'layout-2x4',
+                tiles: 8,
+                spans: {} // No special spans for standard layout
+            },
+            'layout-3x4': {
+                class: 'layout-3x4',
+                tiles: 12,
+                spans: {} // No special spans for standard layout
+            },
+            'layout-4x4': {
+                class: 'layout-4x4',
+                tiles: 16,
+                spans: {} // No special spans for standard layout
+            },
+            'layout-4x2': {
+                class: 'layout-4x2',
+                tiles: 8,
+                spans: {} // No special spans for standard layout
+            },
+            'layout-asymmetric': {
+                class: 'layout-asymmetric',
+                tiles: 12, // Actually fewer visible tiles due to spans
+                spans: {
+                    0: 'span-3x2', // First tile spans 3 columns and 2 rows
+                    3: 'span-2x1', // Fourth tile spans 2 columns
+                    5: 'span-3x1', // Sixth tile spans 3 columns
+                    8: 'span-2x2', // Ninth tile spans 2 columns and 2 rows
+                    11: 'span-1x2'  // Twelfth tile spans 1 column and 2 rows
+                }
+            }
+        };
+
+        // Get random tiles
+        function getRandomTiles(count) {
+            let tiles = [];
+            const availableTiles = [...Array(tileTypes.length).keys()]; // Indices of tile types
+
+            for (let i = 0; i < count; i++) {
+                // If we've used all tiles, reset the available tiles
+                if (availableTiles.length === 0) {
+                    availableTiles.push(...Array(tileTypes.length).keys());
+                }
+
+                // Select a random tile from the available ones
+                const randomIndex = Math.floor(Math.random() * availableTiles.length);
+                const tileIndex = availableTiles[randomIndex];
+
+                // Remove the selected tile from available tiles
+                availableTiles.splice(randomIndex, 1);
+
+                tiles.push(tileTypes[tileIndex]);
+            }
+
+            return tiles;
+        }
+
+        // Generate layout
+        function generateLayout(layoutName) {
+            const container = document.getElementById('mosaic-container');
+            const layout = layouts[layoutName];
+
+            // Remove all existing tiles
+            container.innerHTML = '';
+
+            // Remove all layout classes and add the new one
+            container.className = 'mosaic-container ' + layout.class;
+
+            // Get random tiles
+            const tiles = getRandomTiles(layout.tiles);
+
+            // Create tiles
+            tiles.forEach((tile, index) => {
+                const tileElement = document.createElement('div');
+                tileElement.className = `mosaic-tile ${tile.type}`;
+
+                // Add special spans if defined for this layout
+                if (layout.spans[index]) {
+                    tileElement.classList.add(layout.spans[index]);
+                }
+
+                tileElement.innerHTML = tile.content;
+                container.appendChild(tileElement);
+            });
+        }
+
+        // Initialize with a random layout and theme on page load
+        function selectRandomLayout() {
+            // Select random layout
+            const layoutKeys = Object.keys(layouts);
+            const randomLayout = layoutKeys[Math.floor(Math.random() * layoutKeys.length)];
+
+            // Update active class on layout buttons
+            document.querySelectorAll('.layout-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-layout') === randomLayout) {
+                    btn.classList.add('active');
+                }
+            });
+
+            generateLayout(randomLayout);
+        }
+
+        // Select random theme
+        function selectRandomTheme() {
+            const themes = ['blue', 'purple', 'green'];
+            const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+
+            // Remove all theme classes
+            document.body.classList.remove('theme-blue', 'theme-purple', 'theme-green');
+
+            // Add new theme class (except for blue which is the default)
+            if (randomTheme !== 'blue') {
+                document.body.classList.add(`theme-${randomTheme}`);
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Layout switching
+            document.querySelectorAll('.layout-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const layout = this.getAttribute('data-layout');
+
+                    // Update active class
+                    document.querySelectorAll('.layout-btn').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    generateLayout(layout);
+                });
+            });
+
+            // Random layout button
+            document.getElementById('random-layout').addEventListener('click', function() {
+                selectRandomLayout();
+                selectRandomTheme(); // Also randomize theme when clicking random layout
+            });
+
+            // Initialize with random layout and theme on page load
+            selectRandomLayout();
+            selectRandomTheme();
+        });
+    </script>
+</body>
+</html>

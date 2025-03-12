@@ -19,6 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     item.innerHTML = '';  // Clear the "Loading..." text
   }
 
+  // Keep track of all available images and used images
+  const usedImages = new Set();
+  const availableImages = new Set();
+
   // Fetch the CSV file
   fetch('data.csv')
     .then(response => {
@@ -32,10 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const rows = csvData.split('\n');
       const dataRows = [];
 
-      // Skip header row (i=0) and start from i=1
+      // First pass: collect all available images
       for (let i = 1; i < rows.length; i++) {
         if (rows[i] && rows[i].trim()) {
-          dataRows.push(parseCSVRow(rows[i]));
+          const row = parseCSVRow(rows[i]);
+          // Add all images (columns 2-10) to available images pool
+          for (let j = 2; j <= 10; j++) {
+            if (row[j] && row[j].trim()) {
+              availableImages.add(row[j]);
+            }
+          }
+          dataRows.push(row);
         }
       }
 
@@ -43,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error('Not enough data rows available');
       }
 
-      // Select two unique random rows (more efficient algorithm)
+      // Select two unique random rows
       const availableIndices = new Set(Array.from({ length: dataRows.length }, (_, i) => i));
       const rowIndices = [];
 
@@ -59,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const selectedRows = rowIndices.map(index => dataRows[index]);
 
       // Update the grid with the selected data
-      updateGridWithMultipleRows(selectedRows, gridItems);
+      updateGridWithMultipleRows(selectedRows, gridItems, usedImages, availableImages);
 
       // Set random background color for mosaic-grid
       setRandomBackgroundColor();
@@ -115,8 +126,19 @@ function parseCSVRow(row) {
   return result;
 }
 
+// Get a random unused image from the available pool
+function getRandomUnusedImage(usedImages, availableImages) {
+  const unusedImages = Array.from(availableImages).filter(img => !usedImages.has(img));
+  if (unusedImages.length === 0) return null;
+
+  const randomIndex = Math.floor(Math.random() * unusedImages.length);
+  const selectedImage = unusedImages[randomIndex];
+  usedImages.add(selectedImage);
+  return selectedImage;
+}
+
 // Update the grid with multiple rows of data
-function updateGridWithMultipleRows(rowsData, gridItems) {
+function updateGridWithMultipleRows(rowsData, gridItems, usedImages, availableImages) {
   // Define color arrays - moved to constants to avoid recreating them
   const COLOR_ARRAYS = {
     blue: ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'],
@@ -126,54 +148,86 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
   // Choose one color set randomly for this grid layout - store as global variable
   window.useBlueColors = Math.random() < 0.5;
   const colorArray = window.useBlueColors ? COLOR_ARRAYS.blue : COLOR_ARRAYS.purple;
-  
+
   // Skip grid items with special content (like the plot container)
   const skipItems = [document.querySelector('.item-5')]; // Skip the plot container
 
-  // Create an array of the content types to distribute from both rows
-  const contentAssignments = [];
+  // Create separate arrays for different content types
+  let titleCards = [];
+  let imageCards = [];
+  let otherContent = [];
 
-  // Process each row of data - add content to array rather than pushing as a group
+  // Process each row of data
   for (const rowData of rowsData) {
     // Skip header row if it was accidentally included
     if (rowData[0] === "ID") continue;
 
-    // Map the CSV columns to content types more efficiently
-    const rowContent = [
-      { type: 'title', value: rowData[1] },         // Title column
-      { type: 'image', value: rowData[2] },         // image1
-      { type: 'image', value: rowData[3] },         // image2
-      { type: 'image', value: rowData[4] },         // image3
-      { type: 'image', value: rowData[5] },         // image4
-      { type: 'image', value: rowData[6] },         // image5
-      { type: 'image', value: rowData[7] },         // image6
-      { type: 'image', value: rowData[8] },         // image7
-      { type: 'image', value: rowData[9] },         // image8
-      { type: 'image', value: rowData[10] },        // image9
-      { type: 'iframe', value: rowData[12] },       // embedCode
-      { type: 'text', value: rowData[13] }          // summary
-    ];
+    // Add title to title cards
+    titleCards.push({ type: 'title', value: rowData[1] });
 
-    contentAssignments.push(...rowContent);
+    // Add non-image content to other content
+    if (rowData[12]) otherContent.push({ type: 'iframe', value: rowData[12] });
+    if (rowData[13]) otherContent.push({ type: 'text', value: rowData[13] });
+
+    // Add images from the row, ensuring no duplicates
+    for (let i = 2; i <= 10; i++) {
+      if (rowData[i] && !usedImages.has(rowData[i])) {
+        imageCards.push({ type: 'image', value: rowData[i] });
+        usedImages.add(rowData[i]);
+      }
+    }
   }
 
-  // Add domopalooza.png special content
-  const domopaloozaContent = { type: 'domopalooza', value: 'domopalooza' };
+  // Add domopalooza.png to other content
+  otherContent.push({ type: 'domopalooza', value: 'domopalooza' });
 
-  // Shuffle the content assignments
-  const shuffledContent = shuffleArray([...contentAssignments]);
+  // Shuffle each content type separately
+  titleCards = shuffleArray(titleCards);
+  imageCards = shuffleArray(imageCards);
+  otherContent = shuffleArray(otherContent);
 
-  // Add domopalooza content to the array
-  shuffledContent.push(domopaloozaContent);
+  // Ensure we have at least one title card
+  if (titleCards.length === 0) {
+    console.warn('No title cards available');
+    return;
+  }
 
-  // Adjust array length to match grid items
-  if (shuffledContent.length > gridItems.length) {
-    shuffledContent.length = gridItems.length;
-  } else if (shuffledContent.length < gridItems.length) {
-    const originalLength = shuffledContent.length;
-    for (let i = 0; i < gridItems.length - originalLength; i++) {
-      shuffledContent.push(shuffledContent[i % originalLength]);
+  // Start building final content assignments
+  let contentAssignments = [];
+
+  // Always put a title card first
+  contentAssignments.push(titleCards[0]);
+  titleCards.splice(0, 1); // Remove the used title card
+
+  // Combine and shuffle remaining content
+  let remainingContent = [...titleCards, ...otherContent];
+
+  // Fill remaining slots with images and other content
+  while (contentAssignments.length < gridItems.length) {
+    // Prioritize using available images
+    if (imageCards.length > 0) {
+      contentAssignments.push(imageCards.pop());
+    } else if (remainingContent.length > 0) {
+      contentAssignments.push(remainingContent.pop());
+    } else {
+      // If we need more images, get unused ones from the pool
+      const unusedImage = getRandomUnusedImage(usedImages, availableImages);
+      if (unusedImage) {
+        contentAssignments.push({ type: 'image', value: unusedImage });
+      } else {
+        // If we've used all images, reset and try again
+        usedImages.clear();
+        const newImage = getRandomUnusedImage(usedImages, availableImages);
+        if (newImage) {
+          contentAssignments.push({ type: 'image', value: newImage });
+        }
+      }
     }
+  }
+
+  // Trim if we have too many assignments
+  if (contentAssignments.length > gridItems.length) {
+    contentAssignments.length = gridItems.length;
   }
 
   // Create document fragment for better performance
@@ -193,12 +247,12 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
 
   // Apply content to grid items
   gridItems.forEach((item, index) => {
-    if (index >= shuffledContent.length) return;
-    
+    if (index >= contentAssignments.length) return;
+
     // Skip items that should not receive random content
     if (skipItems && skipItems.includes(item)) return;
 
-    const content = shuffledContent[index];
+    const content = contentAssignments[index];
 
     // Clear existing content
     item.innerHTML = '';
@@ -216,7 +270,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
         const isTitle = content.type === 'title';
         const textureNum = Math.floor(Math.random() * 4) + 1;
         const colorRGBA = hexToRGBA(baseColor, 0.75);
-        
+
         // Configure item styles
         item.style.backgroundImage = `url('textures/texture${textureNum}.png')`;
         item.style.backgroundSize = 'cover';
@@ -239,7 +293,7 @@ function updateGridWithMultipleRows(rowsData, gridItems) {
         textElement.style.zIndex = '2';
         textElement.style.textTransform = 'uppercase';
         textElement.style.textAlign = 'left';
-        
+
         // Set dark text color when background is light purple
         if (baseColor === '#e3c0de') {
           textElement.style.color = '#212121';
