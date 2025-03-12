@@ -648,7 +648,11 @@ function createChart(chartId, chartType, data, colorArray) {
           gaugeDiv.style.right = '0';
           gaugeDiv.style.bottom = '0';
           gaugeDiv.style.boxSizing = 'border-box';
-          gaugeDiv.style.padding = '20px';
+          gaugeDiv.style.padding = '30px';
+          gaugeDiv.style.display = 'flex';
+          gaugeDiv.style.flexDirection = 'column';
+          gaugeDiv.style.alignItems = 'center';
+          gaugeDiv.style.justifyContent = 'center';
           
           // Gauge value
           const valueDiv = document.createElement('div');

@@ -54,11 +54,10 @@ body {
   grid-auto-rows: minmax(200px, auto);
   min-height: calc(100vh - 70px);
   margin: 0;
-  padding: 0;
-  gap: 0;
+  padding: 5px;
+  gap: 10px;
   width: 100%;
-  grid-gap: 0;
-  border-collapse: collapse;
+  box-sizing: border-box;
   overflow: visible;
 }
 
@@ -91,8 +90,10 @@ body {
 /* Screen size greater than 600px - min-width 300px for tiles */
 @media screen and (min-width: 601px) {
   .mosaic-grid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
     grid-auto-flow: dense;
+    grid-auto-rows: minmax(600px, auto);
+    gap: 10px;
   }
 
   /* Override multi-column spans on mobile */
@@ -119,8 +120,8 @@ body {
   .grid-item:has(.chart-container) {
     min-width: 600px;
     min-height: 600px;
-    width: calc(100% - 10px);
-    height: calc(100% - 10px);
+    width: 100%;
+    height: 100%;
     max-width: 1200px;
     max-height: 1200px;
   }
