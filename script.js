@@ -564,29 +564,25 @@ function createChart(chartId, chartType, data, colorArray) {
               fontFamily: "'Open Sans', sans-serif"
             },
             margin: 20,
-            r: {
-              range: [0, 180]
-            },
             marks: [
-              Plot.arc(data, {
+              Plot.pie(data, {
                 value: "value",
                 fill: (d, i) => colors[i % colors.length],
-                innerRadius: 50,
-                outerRadius: 150,
                 stroke: "#fff",
                 strokeWidth: 1
               }),
-              Plot.text(data, Plot.stackY({
-                x: 0,
-                y: "value",
-                text: d => `${d.category}: ${d.value}`,
+              Plot.text(data.map((d, i) => ({
+                ...d,
+                angle: i / data.length * 2 * Math.PI + Math.PI / data.length
+              })), {
+                x: d => Math.cos(d.angle) * 80,
+                y: d => Math.sin(d.angle) * 80,
+                text: d => `${d.category}`,
                 fill: "white",
-                stroke: "black",
-                strokeWidth: 2,
-                dx: 10,
-                dy: 15,
-                lineAnchor: "top"
-              }))
+                fontWeight: "bold",
+                fontSize: 12,
+                textAnchor: "middle"
+              })
             ]
           });
           break;
