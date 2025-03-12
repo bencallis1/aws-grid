@@ -149,8 +149,8 @@ function updateGridWithMultipleRows(rowsData, gridItems, usedImages, availableIm
   window.useBlueColors = Math.random() < 0.5;
   const colorArray = window.useBlueColors ? COLOR_ARRAYS.blue : COLOR_ARRAYS.purple;
 
-  // Skip grid items with special content (like the plot container)
-  const skipItems = [document.querySelector('.item-5')]; // Skip the plot container
+  // Don't skip item-5 anymore to allow chart rendering
+  const skipItems = [];
 
   // Create separate arrays for different content types
   let titleCards = [];
@@ -484,6 +484,12 @@ function createChart(chartId, chartType, data, colorArray) {
   // Default colors if not provided
   const colors = colorArray || ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
   
+  // Handle gauge chart directly without requiring Observable Plot
+  if (chartType.toLowerCase() === 'gauge') {
+    createGaugeChart(chartId, data, colors);
+    return;
+  }
+  
   // Load Observable Plot library
   import('https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.11/+esm')
     .then(Plot => {
@@ -626,67 +632,8 @@ function createChart(chartId, chartType, data, colorArray) {
           break;
           
         case 'gauge':
-          // Create a simple gauge
-          const value = data[0]?.value || 50;
-          const pct = value / 100;
-          
-          // Create a simple canvas gauge
-          const container = document.getElementById(chartId);
-          container.innerHTML = '';
-          
-          // Create a wrapper div to enforce proper positioning
-          const wrapperDiv = document.createElement('div');
-          wrapperDiv.style.position = 'relative';
-          wrapperDiv.style.width = '100%';
-          wrapperDiv.style.height = '100%';
-          wrapperDiv.style.zIndex = '10';
-          
-          const gaugeDiv = document.createElement('div');
-          gaugeDiv.className = 'gauge-container';
-          gaugeDiv.style.width = '100%';
-          gaugeDiv.style.height = '100%';
-          gaugeDiv.style.display = 'flex';
-          gaugeDiv.style.flexDirection = 'column';
-          gaugeDiv.style.alignItems = 'center';
-          gaugeDiv.style.justifyContent = 'center';
-          gaugeDiv.style.position = 'relative'; // Changed from absolute
-          gaugeDiv.style.boxSizing = 'border-box';
-          gaugeDiv.style.padding = '30px';
-          gaugeDiv.style.zIndex = '10';
-          
-          // Gauge value
-          const valueDiv = document.createElement('div');
-          valueDiv.style.fontSize = '72px'; // Bigger font
-          valueDiv.style.fontWeight = 'bold';
-          valueDiv.style.color = 'white';
-          valueDiv.style.zIndex = '11';
-          valueDiv.textContent = value;
-          
-          // Gauge title
-          const titleDiv = document.createElement('div');
-          titleDiv.style.fontSize = '24px'; // Bigger font
-          titleDiv.style.color = 'white';
-          titleDiv.style.marginTop = '20px';
-          titleDiv.style.zIndex = '11';
-          titleDiv.textContent = data[0]?.category || 'Data 1';
-          
-          // Gauge visual (semi-circle) - make dimensions responsive
-          const gaugeVisual = document.createElement('div');
-          gaugeVisual.style.width = 'min(300px, 80%)'; // Bigger gauge
-          gaugeVisual.style.height = 'min(150px, 40%)'; // Bigger gauge
-          gaugeVisual.style.background = `conic-gradient(
-            ${colors[0]} 0% ${pct * 100}%, 
-            #444 ${pct * 100}% 100%
-          )`;
-          gaugeVisual.style.borderRadius = '300px 300px 0 0';
-          gaugeVisual.style.marginTop = '30px';
-          gaugeVisual.style.zIndex = '11';
-          
-          gaugeDiv.appendChild(valueDiv);
-          gaugeDiv.appendChild(titleDiv);
-          gaugeDiv.appendChild(gaugeVisual);
-          wrapperDiv.appendChild(gaugeDiv);
-          container.appendChild(wrapperDiv);
+          // Use the dedicated function for gauge charts
+          createGaugeChart(chartId, data, colors);
           return; // Skip appending chart
           
         case 'table':
@@ -782,4 +729,114 @@ function createChart(chartId, chartType, data, colorArray) {
       const container = document.getElementById(chartId);
       container.innerHTML = `<div style="color: white; padding: 20px;">Error creating chart</div>`;
     });
+}
+
+// Create a standalone gauge chart (does not require Observable Plot)
+function createGaugeChart(chartId, data, colors) {
+  try {
+    // Get value from data or default to 50
+    const value = data[0]?.value || 50;
+    const pct = value / 100;
+    
+    // Get container and clear it
+    const container = document.getElementById(chartId);
+    if (!container) {
+      console.error(`Container with ID ${chartId} not found`);
+      return;
+    }
+    container.innerHTML = '';
+    
+    // Create a solid background color for the container's parent
+    const gridItem = container.closest('.grid-item');
+    if (gridItem) {
+      // Add a class to identify this has a gauge
+      gridItem.classList.add('has-gauge');
+      
+      // Set a background color if not already present
+      if (!gridItem.style.backgroundColor) {
+        gridItem.style.backgroundColor = '#39464F';
+      }
+    }
+    
+    // Create a wrapping container for the gauge
+    const gaugeContainer = document.createElement('div');
+    gaugeContainer.className = 'gauge-container';
+    gaugeContainer.style.cssText = `
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      box-sizing: border-box;
+      z-index: 20;
+    `;
+    
+    // Create the value display
+    const valueDisplay = document.createElement('div');
+    valueDisplay.textContent = value;
+    valueDisplay.style.cssText = `
+      font-size: 72px;
+      font-weight: bold;
+      color: white;
+      margin-bottom: 10px;
+      z-index: 21;
+    `;
+    
+    // Create the title display
+    const titleDisplay = document.createElement('div');
+    titleDisplay.textContent = data[0]?.category || 'Metric';
+    titleDisplay.style.cssText = `
+      font-size: 24px;
+      color: white;
+      margin-bottom: 30px;
+      z-index: 21;
+    `;
+    
+    // Create the gauge visualization
+    const gaugeVisual = document.createElement('div');
+    gaugeVisual.style.cssText = `
+      width: 300px;
+      height: 150px;
+      background: conic-gradient(
+        ${colors[0]} 0% ${pct * 100}%, 
+        #444 ${pct * 100}% 100%
+      );
+      border-radius: 300px 300px 0 0;
+      z-index: 21;
+    `;
+    
+    // Append all elements
+    gaugeContainer.appendChild(valueDisplay);
+    gaugeContainer.appendChild(titleDisplay);
+    gaugeContainer.appendChild(gaugeVisual);
+    container.appendChild(gaugeContainer);
+    
+    console.log(`Gauge chart created successfully in ${chartId}`);
+  } catch (error) {
+    console.error('Error creating gauge chart:', error);
+    
+    // Create a fallback display
+    const container = document.getElementById(chartId);
+    if (container) {
+      container.innerHTML = `
+        <div style="
+          color: white; 
+          padding: 20px; 
+          text-align: center; 
+          font-size: 24px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+        ">
+          <div style="font-size: 72px; margin-bottom: 20px;">${data[0]?.value || 50}</div>
+          <div>${data[0]?.category || 'Metric'}</div>
+        </div>
+      `;
+    }
+  }
 }

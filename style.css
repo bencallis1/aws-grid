@@ -215,6 +215,17 @@ body {
 
 /* Different sized grid items */
 .item-wide {
+
+/* Special styling for grid items with gauge charts */
+.grid-item.has-gauge {
+  overflow: visible !important;
+  z-index: 20;
+}
+
+.grid-item.has-gauge .chart-container {
+  overflow: visible;
+}
+
   grid-column: span 2;
 }
 
@@ -321,6 +332,25 @@ body {
   width: 100%;
   height: 100%;
   z-index: 10;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Ensure item-5 has proper visibility */
+.item-5 {
+  position: relative;
+  overflow: visible !important;
+  z-index: 15;
+}
+
+/* Fix gauge container inside item-5 */
+.item-5 .gauge-container {
+  position: relative;
+  z-index: 15;
+  min-height: 500px;
+  min-width: 300px;
 }
 
 .gauge-container {
