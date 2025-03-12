@@ -165,8 +165,7 @@ function updateGridWithMultipleRows(rowsData, gridItems, usedImages, availableIm
     // Add title to title cards
     titleCards.push({ type: 'title', value: rowData[1] });
 
-    // Add non-image content to other content
-    if (rowData[12]) otherContent.push({ type: 'iframe', value: rowData[12] });
+    // Add non-image content to other content (iframe removed)
     if (rowData[13]) otherContent.push({ type: 'text', value: rowData[13] });
 
     // Add images from the row, ensuring no duplicates
@@ -337,51 +336,7 @@ function updateGridWithMultipleRows(rowsData, gridItems, usedImages, availableIm
         break;
       }
 
-      case 'iframe': {
-        if (!content.value || content.value === '') {
-          // Handle missing iframe by displaying a default message
-          const textureNum = Math.floor(Math.random() * 4) + 1;
-          const colorRGBA = hexToRGBA(baseColor, 0.75);
-
-          // Apply styles
-          item.style.backgroundImage = `url('textures/texture${textureNum}.png')`;
-          item.style.backgroundSize = 'cover';
-          item.style.backgroundPosition = 'center';
-          item.style.position = 'relative';
-          item.style.padding = '10px';
-
-          // Add overlay
-          const overlay = createOverlay(colorRGBA);
-          item.appendChild(overlay);
-
-          // Add default message
-          const message = document.createElement('p');
-          message.textContent = "Sit back, connect, and enjoy an inspiring conference experience!";
-          message.style.position = 'relative';
-          message.style.zIndex = '2';
-          message.style.padding = '15px';
-          message.style.textAlign = 'center';
-          item.appendChild(message);
-        } else {
-          // Handle iframe with embed code
-          const embedCode = content.value.replace(/^"|"$/g, '');
-          const iframeContainer = document.createElement('div');
-          iframeContainer.style.cssText = 'width: 100%; height: 100%; min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;';
-
-          iframeContainer.innerHTML = `
-            <iframe src="${embedCode}" frameborder="0" style="width: 100%; height: 100%; min-height: 200px;" 
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-              sandbox="allow-same-origin allow-scripts"></iframe>
-            <div style="display: none; padding: 20px;">
-              <p>Content cannot be displayed due to security restrictions.</p>
-              <a href="${embedCode}" target="_blank" style="color: white; text-decoration: underline;">Open in new tab</a>
-            </div>`;
-
-          item.appendChild(iframeContainer);
-          item.style.padding = '0';
-        }
-        break;
-      }
+      // iframe case has been removed as requested
 
       case 'domopalooza': {
         const container = document.createElement('div');
