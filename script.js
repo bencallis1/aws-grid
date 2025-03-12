@@ -197,31 +197,45 @@ function updateGridWithMultipleRows(rowsData, gridItems, usedImages, availableIm
   // Start building final content assignments
   let contentAssignments = [];
 
-  // Always put a title card first
-  contentAssignments.push(titleCards[0]);
-  titleCards.splice(0, 1); // Remove the used title card
-
-  // Combine and shuffle remaining content
-  let remainingContent = [...titleCards, ...otherContent];
-
-  // Fill remaining slots with images and other content
-  while (contentAssignments.length < gridItems.length) {
-    // Prioritize using available images
-    if (imageCards.length > 0) {
-      contentAssignments.push(imageCards.pop());
-    } else if (remainingContent.length > 0) {
-      contentAssignments.push(remainingContent.pop());
+  // Create a combined pool of all content types
+  let allContent = [
+    ...titleCards, 
+    ...imageCards, 
+    ...otherContent
+  ];
+  
+  // Ensure we always have at least one title card near the top
+  const titleCardIndex = allContent.findIndex(item => item.type === 'title');
+  if (titleCardIndex !== -1) {
+    // Extract the title card
+    const titleCard = allContent.splice(titleCardIndex, 1)[0];
+    // Insert it at a random position in the first 5 slots
+    const titlePosition = Math.floor(Math.random() * Math.min(5, gridItems.length));
+    contentAssignments[titlePosition] = titleCard;
+  }
+  
+  // Shuffle the remaining content thoroughly
+  allContent = shuffleArray(allContent);
+  
+  // Fill all positions
+  for (let i = 0; i < gridItems.length; i++) {
+    // Skip positions that already have content (like our title card)
+    if (contentAssignments[i]) continue;
+    
+    if (allContent.length > 0) {
+      // Get a random content item from our pool
+      contentAssignments[i] = allContent.shift();
     } else {
-      // If we need more images, get unused ones from the pool
+      // If we've used all content, get additional images
       const unusedImage = getRandomUnusedImage(usedImages, availableImages);
       if (unusedImage) {
-        contentAssignments.push({ type: 'image', value: unusedImage });
+        contentAssignments[i] = { type: 'image', value: unusedImage };
       } else {
         // If we've used all images, reset and try again
         usedImages.clear();
         const newImage = getRandomUnusedImage(usedImages, availableImages);
         if (newImage) {
-          contentAssignments.push({ type: 'image', value: newImage });
+          contentAssignments[i] = { type: 'image', value: newImage };
         }
       }
     }
