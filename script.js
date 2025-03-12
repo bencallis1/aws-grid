@@ -642,6 +642,13 @@ function createChart(chartId, chartType, data, colorArray) {
           gaugeDiv.style.flexDirection = 'column';
           gaugeDiv.style.alignItems = 'center';
           gaugeDiv.style.justifyContent = 'center';
+          gaugeDiv.style.position = 'absolute';
+          gaugeDiv.style.top = '0';
+          gaugeDiv.style.left = '0';
+          gaugeDiv.style.right = '0';
+          gaugeDiv.style.bottom = '0';
+          gaugeDiv.style.boxSizing = 'border-box';
+          gaugeDiv.style.padding = '20px';
           
           // Gauge value
           const valueDiv = document.createElement('div');
@@ -657,10 +664,10 @@ function createChart(chartId, chartType, data, colorArray) {
           titleDiv.style.marginTop = '10px';
           titleDiv.textContent = data[0]?.category || 'Metric';
           
-          // Gauge visual (semi-circle)
+          // Gauge visual (semi-circle) - make dimensions responsive
           const gaugeVisual = document.createElement('div');
-          gaugeVisual.style.width = '150px';
-          gaugeVisual.style.height = '75px';
+          gaugeVisual.style.width = 'min(150px, 60%)';
+          gaugeVisual.style.height = 'min(75px, 30%)';
           gaugeVisual.style.background = `conic-gradient(
             ${colors[0]} 0% ${pct * 100}%, 
             #444 ${pct * 100}% 100%
