@@ -573,26 +573,53 @@ function createChart(chartId, chartType, data, colorArray) {
           break;
           
         case 'pie chart':
+          // Calculate the total for percentages
+          const total = data.reduce((sum, d) => sum + d.value, 0);
+          
+          // Create a pie layout
+          const pieData = data.map((d, i) => {
+            // Calculate the start and end angles
+            const startAngle = i > 0 
+              ? data.slice(0, i).reduce((sum, d) => sum + d.value, 0) / total * 2 * Math.PI 
+              : 0;
+            const endAngle = (data.slice(0, i + 1).reduce((sum, d) => sum + d.value, 0)) / total * 2 * Math.PI;
+            
+            return {
+              ...d,
+              startAngle,
+              endAngle,
+              innerRadius: 0,
+              outerRadius: 80,
+              index: i
+            };
+          });
+          
           chart = Plot.plot({
             style: {
               background: "transparent",
               color: "white",
               fontFamily: "'Open Sans', sans-serif"
             },
-            margin: 20,
+            margin: 40,
+            aspect: 1,
             marks: [
-              Plot.pie(data, {
-                value: "value",
-                fill: (d, i) => colors[i % colors.length],
+              Plot.arc(pieData, {
+                startAngle: "startAngle",
+                endAngle: "endAngle",
+                innerRadius: "innerRadius",
+                outerRadius: "outerRadius",
+                fill: d => colors[d.index % colors.length],
                 stroke: "#fff",
                 strokeWidth: 1
               }),
-              Plot.text(data.map((d, i) => ({
+              Plot.text(pieData.map(d => ({
                 ...d,
-                angle: i / data.length * 2 * Math.PI + Math.PI / data.length
+                // Position labels in the middle of each slice
+                angle: (d.startAngle + d.endAngle) / 2,
+                radius: 100
               })), {
-                x: d => Math.cos(d.angle) * 80,
-                y: d => Math.sin(d.angle) * 80,
+                x: d => Math.cos(d.angle) * d.radius,
+                y: d => Math.sin(d.angle) * d.radius,
                 text: d => `${d.category}`,
                 fill: "white",
                 fontWeight: "bold",
