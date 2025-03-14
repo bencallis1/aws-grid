@@ -73,17 +73,29 @@ export const layoutDefinitions = {
             desktop: { 
                 columns: "repeat(7, minmax(0.5, 1fr))", 
                 rows: "repeat(3, minmax(0, 1fr))" 
-              }
+              },
+              tablet: {  
+                columns: "repeat(4, minmax(0.5, 1fr))",
+                rows: "repeat(3, minmax(200px, 1fr))"
+            },
+            mobile: {  
+                columns: "repeat(2, minmax(0.5, 1fr))", 
+                rows: "repeat(6, minmax(100px, auto))"
+            }
             },
         placements: [
-            { itemId: 'main-slogan',  gridArea: { 
+            { itemId: 'main-slogan',  
+                gridArea: { 
                 desktop: '1 / 1 / span 2 / span 2', 
-                tablet: '1 / 1 / 2 / 3', 
+                tablet: '1 / 1 / span  / span 2', 
                 mobile: '1 / 1 / 2 / 3' 
               }, className: 'color-bg main-slogan grid-item ' },
 
-            { itemId: 'image4',  gridArea: { 
-                desktop: '1 / 3 / span 2 / span 1'
+            { itemId: 'image4',  
+                gridArea: { 
+                desktop: '1 / 3 / span 2 / span 1',
+                tablet: '1 / 3 / span 2 / span 1',
+                mobile: '1 / 3 / span 2 / span 1'
               }, className: 'image-item' },
             // { itemId: 'image11', gridArea: { desktop: '1 / 6 / span 2 / span 1', tablet: '4 / 1 / 5 / 2', mobile: '4 / 1 / 5 / 2' }, className: 'image-item ' },
             { itemId: 'summary1', gridArea: { desktop: '2 / 4 / auto / span 2', tablet: '4 / 2 / 6 / 4', mobile: '5 / 1 / 7 / 3' }, className: 'image-item ' },
@@ -91,30 +103,34 @@ export const layoutDefinitions = {
           
             { itemId: 'data2',  gridArea: { 
                 desktop: '1 / 6 / span 2 / span 2', 
-                tablet: '1 / 3 / 2 / 5', 
+                tablet: '2 / 1 / span 1 / span 2', 
                 mobile: '2 / 1 / 3 / 3' 
               }, className: 'data-container ' },
               
             { itemId: 'data1',  gridArea: { 
                 desktop: '1 / 4 / auto / span 2', 
-                tablet: '1 / 3 / 2 / 5', 
+                tablet: '4 / 1 / span 2 / span 3', 
                 mobile: '2 / 1 / 3 / 3' 
               }, className: 'data-container' },
              
               { itemId: 'data2',  gridArea: { 
                 desktop: '3 / 5 / auto / span 1',
+                tablet: '7 / 1 / span 1 / span 2', 
+                mobile: '6 / 1 / 3 / 3' 
               }, className: 'data-container' },
             // { itemId: 'image9', gridArea: { desktop: '1 / 4 / span 1 / span 2', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bgm' },
 
             { itemId: 'domopalooza', gridArea: { 
-                desktop: '3 / 1 / auto  / span 2'
+                desktop: '3 / 1 / auto  / span 2',
+                tablet: '3 / 1 / span 1 / span 3', 
+                mobile: '6 / 1 / 3 / 3' 
               }, className: 'color-bg' },
             
-            { itemId: 'titleCard', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '8 / 1 / 9 / 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
+            { itemId: 'titleCard', gridArea: { desktop: '3 / 4 / auto / span 1', tablet: '8 / 1 / 9 / 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
 
-            { itemId: 'summary2', gridArea: { desktop: '3 / 6 / auto / span 2', tablet: '8 / 1 / 9 / 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
-            { itemId: 'image8', gridArea: { desktop: '3 / 4 / auto / span 1', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
-            // { itemId: 'summary1', gridArea: { desktop: '1 / 3 / 2 / 3', tablet: '1 / 1 / 2 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg ' },
+            { itemId: 'summary2', gridArea: { desktop: '3 / 6 / auto / span 2', tablet: '6 / 1 / span 1 / span 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
+            { itemId: 'image8', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
+            // { itemId: 'image11', gridArea: { desktop: '1 / 3 / 2 / 3', tablet: '1 / 1 / 2 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg ' },
            
             // { itemId: 'image6', gridArea: { desktop: '3 / 4 / span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
             // { itemId: 'image7', gridArea: { desktop: '3 / 5 / span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
@@ -146,15 +162,15 @@ export const layoutDefinitions = {
             { itemId: 'summary3', gridArea: { desktop: '1 / 1 / 2 / 2', tablet: '4 / 1 / span 2 / span 4', mobile: '6 / 1 / span 2 / 3' }, className: 'color-bg main-slogan ' },
             { itemId: 'image5', gridArea: { desktop: '2 / 1 / 3 / 2', tablet: '3 / 3 / 4 / 5', mobile: '8 / 1 / span 1 / span 1' }, className: 'image-item,  ' },
             { itemId: 'summary2', gridArea: { desktop: '2 / 2 / 3 / 3', tablet: '11 / 3 / span 1 / span 2', mobile: '8 / 2 / span 1 / span 1' }, className: 'color-bg ' },
-            { itemId: 'image3', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '11 / 1 / span 1 / span 2', mobile: '9 / 1 / span 1 / 3' }, className: 'color-bg ' },
+            { itemId: 'image3', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '11 / 1 / span 1 / span 2', mobile: '13 / 1 / span 1 / 3' }, className: 'color-bg ' },
             // { itemId: 'summary5', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '11 / 3 / span 1 / 5', mobile: '10 / 1 / span 1 / 3' }, className: 'color-bg ' },
             
-            { itemId: 'data1', gridArea: { desktop: '3 / 1 / auto / span 2', tablet: '7 / 1 / span 2 / 5', mobile: '8 / 1 / span 2 / 4' }, className: 'data-container  ' },
-            { itemId: 'image11', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '12 / 4 / span 1 / 5', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg ' },
+            { itemId: 'data1', gridArea: { desktop: '3 / 1 / auto / span 2', tablet: '7 / 1 / span 2 / 5', mobile: '8 / 1 / span 2 / span 2' }, className: 'data-container  ' },
+            { itemId: 'image11', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '12 / 4 / span 1 / 5', mobile: '12 / 1 / span 1 / span 1' }, className: 'color-bg ' },
             
-            { itemId: 'image10', gridArea: { desktop: '3 / 6 / auto / span 1', tablet: '12 / 3 / span 1 / 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg ' },
+            { itemId: 'image10', gridArea: { desktop: '3 / 6 / auto / span 1', tablet: '12 / 3 / span 1 / 3', mobile: '12 / 2 / span 1 / span 1' }, className: 'color-bg ' },
             
-            { itemId: 'titleCard', gridArea: { desktop: '3 / 4 / auto / span 1', tablet: '12 / 1 / span 1 / span 2', mobile: '11 / 1 / 12 / 3' }, className: 'color-bg ' },
+            { itemId: 'titleCard', gridArea: { desktop: '3 / 4 / auto / span 1', tablet: '12 / 1 / span 1 / span 2', mobile: '10 / 1 / span 1 / span 2' }, className: 'color-bg ' },
         ]
     },
 
@@ -368,7 +384,7 @@ function createGridItem(contentItem, placement, screenSize) {
             const img = document.createElement('img');
             img.src = 'domopalooza.png';
             img.alt = 'Domopalooza';
-            img.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain';
+            img.style.cssText = 'max-width: 600px; max-height: 100%; object-fit: contain';
 
             container.appendChild(img);
             gridItem.appendChild(container);
@@ -562,6 +578,26 @@ function handleResize() {
 function initGridSystem(initialLayoutId, containerId) {
     // Add basic styles
     const style = document.createElement('style');
+    style.textContent = `
+        .grid-item {
+            border-radius: 0px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .grid-item.hover-enabled:hover,
+        .grid-item.focused {
+            transform: scale(1.1);
+            z-index: 100;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    `;
 
     document.head.appendChild(style);
 
@@ -575,7 +611,62 @@ function initGridSystem(initialLayoutId, containerId) {
     // Add resize handler
     window.addEventListener('resize', handleResize);
 
+    // Start the focus animation after a short delay
+    setTimeout(() => {
+        startGridItemsFocus(containerId);
+    }, 1000);
+}
 
+/**
+ * Cycles through grid items adding a "focused" class temporarily
+ * @param {string} containerId - The ID of the grid container
+ */
+function startGridItemsFocus(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const gridItems = Array.from(container.querySelectorAll('.grid-item'));
+    if (gridItems.length === 0) return;
+
+    let currentIndex = 0;
+    const focusDuration = 2000; // Duration to keep focus on each item
+    const animationDelay = 2500; // Total time between starting each item's focus
+
+    function focusNextItem() {
+        // Remove focus from all items
+        gridItems.forEach(item => item.classList.remove('focused'));
+        
+        // Add focus to current item
+        const currentItem = gridItems[currentIndex];
+        currentItem.classList.add('focused');
+        
+        // Remove focus after duration
+        setTimeout(() => {
+            currentItem.classList.remove('focused');
+        }, focusDuration);
+
+        // Move to next item
+        currentIndex = (currentIndex + 1) % gridItems.length;
+    }
+
+    // Start the cycle
+    focusNextItem();
+    const intervalId = setInterval(focusNextItem, animationDelay);
+
+    // Store the interval ID on the container for cleanup
+    container.dataset.focusIntervalId = intervalId;
+
+    // Add event listener to stop animation on hover
+    container.addEventListener('mouseenter', () => {
+        clearInterval(intervalId);
+        gridItems.forEach(item => item.classList.remove('focused'));
+    });
+
+    // Optional: Restart animation when mouse leaves
+    container.addEventListener('mouseleave', () => {
+        const newIntervalId = setInterval(focusNextItem, animationDelay);
+        container.dataset.focusIntervalId = newIntervalId;
+    });
 }
 
 
@@ -616,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             gridData = jsonData; // Update the gridData with parsed JSON
-            initGridSystem('layout2', 'grid-container'); // Initialize with the randomly selected layout
+            initGridSystem('layout1', 'grid-container'); // Initialize with the randomly selected layout
         })
         .catch(error => {
             console.error('Error loading data:', error);
