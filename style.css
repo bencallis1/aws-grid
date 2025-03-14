@@ -132,7 +132,7 @@ body {
 
 .hero-text {
   padding: 1.5rem 3rem 1.5rem 1.5rem;
-  opacity: .8;
+  /* opacity: .8; */
 
   /* font-size: 3rem; */
   font-weight: bold;
@@ -153,7 +153,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  opacity: .7;
+  /* opacity: .7; */
   /* font-size: 3rem; */
   font-weight: bold;
   line-height: 1.2;
@@ -209,7 +209,7 @@ body {
   padding: .5rem;
   font-size: 1rem;
   text-transform: uppercase;
-  opacity: .7;
+  /* opacity: .7; */
 
 
   /* padding: .5rem 2rem 0rem .5rem; */

@@ -33,14 +33,25 @@ function setRandomThemeColors() {
             textColors: ['#212121', '#FFFFFF', '#212121', '#FFFFFF']
         },
         purple: {
-            colors: ['#871379', '#aa429d', '#e3c0de', '#c781be'],
-            textColors: ['#FFFFFF', '#FFFFFF', '#212121', '#212121']
+            colors: ['#7A3CA3', '#9563B5', '#AF8AC8', '#CAB1DA'],
+            textColors: ['#CAB1DA', '#CAB1DA', '#F2EBF6', '#CAB1DA']
+        },
+        green: {
+            colors: ['#569C3C', '#78B063', '#9AC48A', '#BBD7B1'],
+            textColors: ['#F2EBF6', '#3D8223', '#F2EBF6', '#3D8223']
+        },
+        pink: {
+            colors: ['#A82593', '#B13B9E', '#C266B3', '#D392C9'],
+            textColors: ['#E5BEDF', '#E5BEDF', '#E5BEDF', '#E5BEDF']
         }
     };
 
-    // Choose one color set randomly for this grid layout
-    window.useBlueColors = Math.random() < 0.5;
-    const colorSet = window.useBlueColors ? COLOR_ARRAYS.blue : COLOR_ARRAYS.purple;
+    // Get all available theme names
+    const themeNames = Object.keys(COLOR_ARRAYS);
+    
+    // Choose a random theme
+    const randomTheme = themeNames[Math.floor(Math.random() * themeNames.length)];
+    const colorSet = COLOR_ARRAYS[randomTheme];
 
     // Store the colors and their corresponding text colors
     window.gridColors = {
@@ -48,7 +59,8 @@ function setRandomThemeColors() {
         secondary: { bg: colorSet.colors[1], text: colorSet.textColors[1] },
         tertiary: { bg: colorSet.colors[2], text: colorSet.textColors[2] },
         quaternary: { bg: colorSet.colors[3], text: colorSet.textColors[3] },
-        all: colorSet.colors
+        all: colorSet.colors,
+        currentTheme: randomTheme // Store the current theme name for reference
     };
 
     // Update CSS custom properties
@@ -685,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const selectedLayout = `layout${randomLayoutIndex}`;
 
 
-    console.log('the layout', selectedLayout)
+    // console.log('the layout', selectedLayout)
 
     // Fetch the data file
     fetch('data.json')
