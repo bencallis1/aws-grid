@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domo AI Grid</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+        .grid-container {
+            display: grid;
+            gap: 0;
+            padding: 0;
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
+            height: calc(100vh - 70px); /* Account for header height */
+            overflow: auto;
+            padding-top:32px
+        }
+
+        /* Responsive grid adjustments */
+        @media screen and (max-width: 1200px) {
+            .grid-container {
+                gap: 0;
+                padding: 0;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .grid-container {
+                gap: 0;
+                padding: 0;
+                height: auto;
+                min-height: calc(100vh - 80px);
+            }
+        }
+
+        /* Ensure grid items maintain aspect ratio */
+        .grid-item {
+            min-height: 150px;
+            transition: all 0.3s ease;
+        }
+
+        @media screen and (max-width: 768px) {
+            .grid-item {
+                min-height: 100px;
+            }
+        }
+
+        /* Adjust text content for better readability */
+        .grid-item h2 {
+            font-size: clamp(16px, 2vw, 24px);
+            line-height: 1.2;
+        }
+
+        .grid-item p {
+            font-size: clamp(14px, 1.5vw, 18px);
+            line-height: 1.4;
+        }
+
+        /* Chart container responsive adjustments */
+        .chart-container {
+            min-height: 200px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .chart-container {
+                min-height: 150px;
+            }
+        }
+    </style>
+
+    <!-- Load Chart.js and its plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    
+    <!-- Load our grid system -->
+    <script src="gridCharts.js" type="module"></script>
+    <script type="module">
+        import { initializeGrid, updateGridLayout } from './gridSystem.js';
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if on mobile device and set a data attribute on body
+            const isMobile = window.innerWidth <= 768;
+            document.body.setAttribute('data-device', isMobile ? 'mobile' : 'desktop');
+
+            // Add resize listener to handle orientation changes
+            window.addEventListener('resize', () => {
+                const currentIsMobile = window.innerWidth <= 768;
+                document.body.setAttribute('data-device', currentIsMobile ? 'mobile' : 'desktop');
+                updateGridLayout(); // Update grid layout on resize
+            });
+
+            // Initialize the grid system
+            initializeGrid();
+
+            // Create a color theme
+            setRandomThemeColors();
+
+            // Enable hover effects after page load
+            requestAnimationFrame(() => {
+                const gridItems = document.querySelectorAll('.grid-item');
+                for (let item of gridItems) {
+                    item.classList.add('hover-enabled');
+                }
+            });
+    
+            // Simulate CSV data fetch and processing after a delay
+            simulateDataFetch(document.getElementById('grid-container'));
+        });
+    </script>
+</head>
+<body>
+    <div class="app-root fill-viewport">
+        <main class="app-main fill-viewport">
+          <header class="top-panel sticky-header ">
+            <!-- Logo -->
+            <div class="logo">
+                <div class="inner">
+                    <img src="domoai.png" alt="Domo AI Logo" height="65">
+                </div>
+            </div>
+           </header>
+           <div class="mosaic-root">
+    <div id="grid-container" class="grid-container">
+        <!-- Grid items will be added dynamically by JS -->
+    </div>
+</div>
+    </main>
+    </div>
+
+    <script>
+        // Import layoutDefinitions from createGrids.js
+        import { layoutDefinitions } from './createGrids.js';
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if on mobile device and set a data attribute on body
+            const isMobile = window.innerWidth <= 768;
+            document.body.setAttribute('data-device', isMobile ? 'mobile' : 'desktop');
+
+            // Add resize listener to handle orientation changes
+            window.addEventListener('resize', () => {
+                const currentIsMobile = window.innerWidth <= 768;
+                document.body.setAttribute('data-device', currentIsMobile ? 'mobile' : 'desktop');
+                updateGridLayout(); // Update grid layout on resize
+            });
+
+            // Initialize the grid system
+            initializeGrid();
+        });
+
+        function initializeGridSystem() {
+            // Get the grid container
+            const gridContainer = document.getElementById('grid-container');
+            if (!gridContainer) {
+                console.error('Grid container not found');
+                return;
+            }
+
+            // Create a color theme
+            setRandomThemeColors();
+
+            // Enable hover effects after page load
+            requestAnimationFrame(() => {
+                const gridItems = document.querySelectorAll('.grid-item');
+                for (let item of gridItems) {
+                    item.classList.add('hover-enabled');
+                }
+            });
+    
+            // Simulate CSV data fetch and processing after a delay
+            simulateDataFetch(gridContainer);
+        }
+
+        // Function to update grid layout based on screen size
+        function updateGridLayout() {
+            const container = document.getElementById('grid-container');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // On mobile, use a single column layout
+                container.style.gridTemplateColumns = '1fr';
+                container.style.gridTemplateRows = 'auto';
+                container.style.gridAutoRows = 'minmax(150px, auto)';
+                
+                // Update all grid items to full width
+                const gridItems = container.querySelectorAll('.grid-item');
+                gridItems.forEach(item => {
+                    item.style.gridColumn = '1 / -1';
+                    item.style.gridRow = 'auto';
+                });
+            } else {
+                // On desktop, use the layout from layoutDefinitions
+                const layoutId = container.dataset.selectedLayout;
+                const layout = layoutDefinitions[layoutId];
+                
+                if (layout) {
+                    const screenSize = getScreenSize();
+                    const gridSettings = layout.gridSettings[screenSize];
+                    
+                    container.style.gridTemplateColumns = gridSettings.columns;
+                    container.style.gridTemplateRows = gridSettings.rows;
+                    container.style.gridAutoRows = 'initial';
+                    
+                    // Restore original grid positions
+                    const gridItems = container.querySelectorAll('.grid-item');
+                    gridItems.forEach((item, index) => {
+                        const position = layout.placements[index];
+                        if (position) {
+                            const gridArea = position.gridArea[screenSize];
+                            if (gridArea) {
+                                const [rowStart, colStart, rowEnd, colEnd] = gridArea.split('/').map(s => s.trim());
+                                item.style.gridRowStart = rowStart;
+                                item.style.gridRowEnd = rowEnd;
+                                item.style.gridColumnStart = colStart;
+                                item.style.gridColumnEnd = colEnd;
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        function getScreenSize() {
+            const width = window.innerWidth;
+            if (width >= 1024) return 'desktop';
+            if (width >= 768) return 'tablet';
+            return 'mobile';
+        }
+
+        // Create the grid items based on the selected layout
+        function createGridItems(layout, container) {
+            // Clear existing content
+            container.innerHTML = '';
+            
+            // Create grid items based on the grid structure
+            layout.placements.forEach((position) => {
+                // Create grid item
+                const gridItem = document.createElement('div');
+                gridItem.className = `${position.className} loading`;
+                
+                // Store original position data for responsive handling
+                gridItem.dataset.originalColumn = position.gridArea.desktop;
+                gridItem.dataset.originalRow = position.gridArea.desktop;
+                gridItem.dataset.itemId = position.itemId;
+                
+                // Add empty text for loading state
+                gridItem.innerHTML = '';
+                
+                // Append grid item to grid container
+                container.appendChild(gridItem);
+            });
+        }
+
+        // Simulate fetching CSV data and processing it
+        let gridItemPositions = []; // Define at a higher scope
+
+        function simulateDataFetch(container) {
+            // Keep track of all available images and used images
+            const usedImages = new Set();
+            const availableImages = new Set();
+
+            // Fisher-Yates shuffle algorithm
+            function shuffleArray(array) {
+                const newArray = [...array];
+                let i = newArray.length;
+                while (i > 0) {
+                    const j = Math.floor(Math.random() * i--);
+                    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+                }
+                return newArray;
+            }
+
+            // Fetch the CSV file
+            fetch('data.csv')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(csvData => {
+                    // Parse CSV data more efficiently
+                    const rows = csvData.split('\n');
+                    const dataRows = [];
+
+                    // First pass: collect all available images
+                    for (let i = 1; i < rows.length; i++) {
+                        if (rows[i] && rows[i].trim()) {
+                            const row = parseCSVRow(rows[i]);
+                            // Add all images (columns 2-10) to available images pool
+                            for (let j = 2; j <= 10; j++) {
+                                if (row[j] && row[j].trim()) {
+                                    availableImages.add(row[j]);
+                                }
+                            }
+                            dataRows.push(row);
+                        }
+                    }
+
+                    if (dataRows.length < 3) {
+                        throw new Error('Not enough data rows available');
+                    }
+
+                    // Initialize content arrays
+                    let titleCards = [];
+                    let imageCards = [];
+                    let chartCards = [];
+                    let otherContent = [];
+
+                    // Define the domopalooza card
+                    const domopaloozaCard = { type: 'domopalooza', value: 'domopalooza' };
+
+                    // Add domopalooza card - this must always be present
+                    otherContent.push(domopaloozaCard);
+
+                    // Select at least 3 unique random rows
+                    const availableIndices = new Set(Array.from({ length: dataRows.length }, (_, i) => i));
+                    const rowIndices = [];
+
+                    // Keep selecting rows until we have at least 3 title cards and 3 text content cards
+                    while ((rowIndices.length < dataRows.length) && 
+                           (titleCards.length < 3 || otherContent.length < 3)) {
+                        if (availableIndices.size === 0) break;
+                        
+                        const availableArray = Array.from(availableIndices);
+                        const randomIndex = Math.floor(Math.random() * availableArray.length);
+                        const selectedIndex = availableArray[randomIndex];
+                        
+                        const rowData = dataRows[selectedIndex];
+                        
+                        // Skip header row
+                        if (rowData[0] === "ID") {
+                            availableIndices.delete(selectedIndex);
+                            continue;
+                        }
+                        
+                        // Check if this row would contribute to our needed content
+                        const hasTitle = rowData[1] && rowData[1].trim();
+                        const hasText = rowData[13] && rowData[13].trim();
+                        
+                        if ((titleCards.length < 3 && hasTitle) || 
+                            (otherContent.length < 3 && hasText)) {
+                            rowIndices.push(selectedIndex);
+                            
+                            // Add title if we need it
+                            if (hasTitle && titleCards.length < 3) {
+                                titleCards.push({ type: 'title', value: rowData[1] });
+                            }
+                            
+                            // Add text content if we need it
+                            if (hasText && otherContent.length < 3) {
+                                otherContent.push({ type: 'text', value: rowData[13] });
+                            }
+                            
+                            // Add chart content if present
+                            if (rowData[12]) {
+                                chartCards.push({ type: 'chart', value: rowData[12] });
+                            }
+                            
+                            // Add images from the row
+                            for (let i = 2; i <= 10; i++) {
+                                if (rowData[i] && !usedImages.has(rowData[i])) {
+                                    imageCards.push({ type: 'image', value: rowData[i] });
+                                    usedImages.add(rowData[i]);
+                                }
+                            }
+                        }
+                        
+                        availableIndices.delete(selectedIndex);
+                    }
+
+                    if (titleCards.length < 3 || otherContent.length < 3) {
+                        throw new Error('Not enough title/text content available in CSV data');
+                    }
+
+                    // Find wide grid items (spanning multiple columns)
+                    const gridItems = Array.from(container.querySelectorAll('.grid-item'));
+                    const wideGridItems = gridItems.reduce((acc, item, index) => {
+                        const columnSpan = item.style.gridColumn;
+                        // Check if the item spans multiple columns
+                        if (columnSpan && columnSpan.includes('span') && !columnSpan.includes('1')) {
+                            acc.push(index);
+                        }
+                        return acc;
+                    }, []);
+
+                    // Track used chart types to avoid duplicates
+                    const usedChartTypes = new Set();
+                    const defaultCharts = ['Bar Chart', 'Pie Chart', 'Area Chart', 'Combined Chart'];
+
+                    // Clear existing chart cards and add two random unique chart types
+                    chartCards = [];
+                    
+                    // Get two random unique chart types
+                    const availableCharts = [...defaultCharts];
+                    for (let i = 0; i < 2; i++) {
+                        if (availableCharts.length === 0) break;
+                        const randomIndex = Math.floor(Math.random() * availableCharts.length);
+                        const selectedChart = availableCharts.splice(randomIndex, 1)[0];
+                        chartCards.push({ type: 'chart', value: selectedChart });
+                    }
+
+                    // Get all grid items and their positions
+                    gridItemPositions = gridItems.map(item => {
+                        const rect = item.getBoundingClientRect();
+                        return {
+                            element: item,
+                            left: rect.left,
+                            right: rect.right,
+                            top: rect.top,
+                            bottom: rect.bottom,
+                            width: rect.width,
+                            height: rect.height
+                        };
+                    });
+
+                    // Find best positions for charts
+                    const chartIndices = findBestChartPositions();
+
+                    // Create combined pool of content, excluding charts and domopalooza
+                    let allContent = [
+                        ...titleCards,
+                        ...imageCards,
+                        ...otherContent.filter(item => item.type !== 'domopalooza')
+                    ];
+
+                    // Make sure we have a title card near the top
+                    const titleCardIndex = allContent.findIndex(item => item.type === 'title');
+                    if (titleCardIndex !== -1) {
+                        const titleCard = allContent.splice(titleCardIndex, 1)[0];
+                        allContent.unshift(titleCard);
+                    }
+
+                    // Shuffle remaining content
+                    allContent = shuffleArray(allContent);
+
+                    // Apply content to grid items after a delay
+                    setTimeout(() => {
+                        // First pass: Place charts in their optimal positions
+                        let chartCount = 0;
+                        gridItems.forEach((item, index) => {
+                            if (chartIndices.has(index) && chartCount < chartCards.length) {
+                                applyContentToGridItem(item, chartCards[chartCount]);
+                                chartCount++;
+                            }
+                        });
+
+                        // Second pass: Place Domopalooza in a wide grid item if available
+                        let domopaloozaPlaced = false;
+                        if (wideGridItems.length > 0) {
+                            // Try to place in a wide spot that's not used by a chart
+                            for (const wideIndex of wideGridItems) {
+                                if (!chartIndices.has(wideIndex)) {
+                                    applyContentToGridItem(gridItems[wideIndex], domopaloozaCard);
+                                    domopaloozaPlaced = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // If no wide spot was available, place in the largest remaining spot
+                        if (!domopaloozaPlaced) {
+                            const availableIndices = Array.from(gridItems.keys())
+                                .filter(i => !chartIndices.has(i))
+                                .sort((a, b) => {
+                                    const aRect = gridItems[a].getBoundingClientRect();
+                                    const bRect = gridItems[b].getBoundingClientRect();
+                                    return (bRect.width * bRect.height) - (aRect.width * aRect.height);
+                                });
+                            
+                            if (availableIndices.length > 0) {
+                                applyContentToGridItem(gridItems[availableIndices[0]], domopaloozaCard);
+                                domopaloozaPlaced = true;
+                            }
+                        }
+
+                        // Third pass: Place remaining content
+                        let contentIndex = 0;
+                        gridItems.forEach((item, index) => {
+                            // Skip positions that already have content (charts and domopalooza)
+                            if (!chartIndices.has(index) && 
+                                !(domopaloozaPlaced && index === wideGridItems[0]) && 
+                                contentIndex < allContent.length) {
+                                applyContentToGridItem(item, allContent[contentIndex]);
+                                contentIndex++;
+                            } else if (!chartIndices.has(index) && 
+                                     !(domopaloozaPlaced && index === wideGridItems[0]) && 
+                                     contentIndex >= allContent.length) {
+                                // If we've used all content, try to add an unused image
+                                const unusedImage = getRandomUnusedImage(usedImages, availableImages);
+                                if (unusedImage) {
+                                    applyContentToGridItem(item, { type: 'image', value: unusedImage });
+                                }
+                            }
+                        });
+                            
+                            // Remove loading class after a delay
+                        gridItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.remove('loading');
+                            }, 200 * index);
+                        });
+                    }, 500);
+                })
+                .catch(error => {
+                    console.error('Error loading CSV data:', error);
+                    // Remove loading state on error
+                    const gridItems = Array.from(container.querySelectorAll('.grid-item'));
+                    for (let item of gridItems) {
+                        item.classList.remove('loading');
+                        item.textContent = 'Error loading content';
+                    }
+                });
+        }
+
+        // Parse CSV row handling quoted fields with commas
+        function parseCSVRow(row) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            const len = row.length;
+
+            for (let i = 0; i < len; i++) {
+                const char = row[i];
+
+                if (char === '"' && (i === 0 || row[i - 1] !== '\\')) {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+
+            if (current) {
+                result.push(current);
+            }
+
+            return result;
+        }
+
+
+        // Create a color theme
+        function setRandomThemeColors() {
+            // Define color arrays from your original code
+            const COLOR_ARRAYS = {
+                blue: ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'],
+                purple: ['#871379', '#aa429d', '#e3c0de', '#c781be']
+            };
+            
+            // Choose one color set randomly for this grid layout
+            window.useBlueColors = Math.random() < 0.5;
+            const colorArray = window.useBlueColors ? COLOR_ARRAYS.blue : COLOR_ARRAYS.purple;
+            
+            // Update CSS custom properties with the selected color palette
+            document.documentElement.style.setProperty('--primary-red', colorArray[0]);
+            document.documentElement.style.setProperty('--tomato-red', colorArray[1]);
+            document.documentElement.style.setProperty('--gold', colorArray[2]);
+            document.documentElement.style.setProperty('--steel-blue', colorArray[1]);
+            document.documentElement.style.setProperty('--spring-green', colorArray[2]);
+
+            // --app-text-color
+            //--app-body-color
+            // --card-background-color
+            
+            // Store the color array for later use
+            window.currentColorArray = colorArray;
+            
+            return colorArray;
+        }
+
+        // Get a random unused image from the available pool
+        // this helper function is used to add an image to the grid when there is no other content to add
+        function getRandomUnusedImage(usedImages, availableImages) {
+            const unusedImages = Array.from(availableImages).filter(img => !usedImages.has(img));
+            if (unusedImages.length === 0) return null;
+            const randomIndex = Math.floor(Math.random() * unusedImages.length);
+            const selectedImage = unusedImages[randomIndex];
+            usedImages.add(selectedImage);
+            return selectedImage;
+        }
+
+        // Function to check if a position is adjacent to any chart
+        // This 
+        function isAdjacentToChart(index, chartPositions) {
+            const current = gridItemPositions[index];
+            return chartPositions.some(chartPos => {
+                const horizontallyAdjacent = Math.abs(current.left - chartPos.right) < 1 || 
+                                           Math.abs(current.right - chartPos.left) < 1;
+                const verticallyAdjacent = Math.abs(current.top - chartPos.bottom) < 1 || 
+                                         Math.abs(current.bottom - chartPos.top) < 1;
+                return horizontallyAdjacent || verticallyAdjacent;
+            });
+        }
+
+        // Function to find best positions for charts
+        function findBestChartPositions() {
+            const MIN_CHART_WIDTH = 200; // Minimum width in pixels for a chart
+            const MIN_CHART_HEIGHT = 150; // Minimum height in pixels for a chart
+            const ASPECT_RATIO_THRESHOLD = 2; // Maximum height/width ratio for a suitable chart container
+            
+            // Filter positions that meet both minimum width and height requirements and sort by size
+            const suitablePositions = [...gridItemPositions]
+                .map((pos, index) => ({ ...pos, index }))
+                .filter(pos => {
+                    const heightToWidthRatio = pos.height / pos.width;
+                    return pos.width >= MIN_CHART_WIDTH && 
+                           pos.height >= MIN_CHART_HEIGHT && 
+                           heightToWidthRatio <= ASPECT_RATIO_THRESHOLD;
+                })
+                .sort((a, b) => (b.width * b.height) - (a.width * a.height));
+
+            const chartPositions = [];
+            const selectedIndices = new Set();
+
+            // Find positions for at least 2 charts from suitable positions
+            for (let i = 0; i < suitablePositions.length && chartPositions.length < 2; i++) {
+                const pos = suitablePositions[i];
+                if (!isAdjacentToChart(pos.index, chartPositions) && !selectedIndices.has(pos.index)) {
+                    chartPositions.push(pos);
+                    selectedIndices.add(pos.index);
+                }
+            }
+
+            // If we couldn't find enough suitable positions, log a warning
+            if (selectedIndices.size < 2) {
+                console.warn(`Could only find ${selectedIndices.size} suitable positions for charts. Some charts may not be displayed.`);
+            }
+
+            return selectedIndices;
+        }
+
+        // Apply content to a specific grid item
+        function applyContentToGridItem(gridItem, content) {
+            // Get color array based on global flag
+            const COLOR_ARRAYS = {
+                blue: ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'],
+                purple: ['#871379', '#aa429d', '#e3c0de', '#c781be']
+            };
+            
+            const colorArray = window.useBlueColors ? COLOR_ARRAYS.blue : COLOR_ARRAYS.purple;
+            
+            // Get random color from the palette
+            const randomColorIndex = Math.floor(Math.random() * colorArray.length);
+
+            //TODO: the base color should be known by us and not random
+            const baseColor = colorArray[randomColorIndex];
+            
+            // Clear existing content
+            gridItem.innerHTML = '';
+            
+            // Apply content based on type
+            switch(content.type) {
+                case 'title':
+                case 'text': {
+                    // Common setup for text-based content
+                    const isTitle = content.type === 'title';
+                            const textureNum = Math.floor(Math.random() * 4) + 1;
+                    const colorRGBA = hexToRGBA(baseColor, 0.75);
+
+                    // Configure item styles
+                    gridItem.style.backgroundColor = baseColor;
+                    gridItem.style.backgroundImage = `url('textures/texture${textureNum}.png')`;
+                    gridItem.style.backgroundSize = 'cover';
+                    gridItem.style.backgroundPosition = 'center';
+                    gridItem.style.position = 'relative';
+                    gridItem.style.padding = '10px';
+
+                    if (!isTitle) {
+                        gridItem.style.overflow = 'auto';
+                    }
+
+                    // Create overlay
+                    const overlay = document.createElement('div');
+                    overlay.style.position = 'absolute';
+                    overlay.style.top = '0';
+                    overlay.style.left = '0';
+                    overlay.style.width = '100%';
+                    overlay.style.height = '100%';
+                    overlay.style.backgroundColor = colorRGBA;
+                    gridItem.appendChild(overlay);
+
+                    // Create text element
+                    const textElement = isTitle ? document.createElement('h2') : document.createElement('p');
+                    
+                    // Format any numbers in the text
+                    const formattedText = content.value.replace(/\d+/g, match => {
+                        const num = parseInt(match);
+                        return !isNaN(num) ? formatLargeNumber(num) : match;
+                    });
+                    
+                    textElement.textContent = formattedText;
+                    textElement.style.position = 'relative';
+                    textElement.style.zIndex = '2';
+                    textElement.style.textTransform = 'uppercase';
+                    textElement.style.textAlign = 'left';
+
+                    // Set dark text color when background is light purple
+                    if (baseColor === '#e3c0de') {
+                        textElement.style.color = '#212121';
+                    }
+                            
+                            // Check if on mobile
+                            const isMobile = window.innerWidth <= 768;
+                            if (isMobile) {
+                        // Adjust font size on mobile
+                        if (isTitle) {
+                            textElement.style.fontSize = '20px';
+                            textElement.style.lineHeight = '1.2';
+                        } else {
+                            textElement.style.fontSize = '14px';
+                            textElement.style.lineHeight = '1.4';
+                        }
+
+                        // Truncate long text on mobile
+                        if (content.value.length > 120) {
+                            textElement.textContent = formattedText.substring(0, 120) + '...';
+                        }
+                    }
+
+                    gridItem.appendChild(textElement);
+                            break;
+                }
+
+                case 'image': {
+                    const img = new Image();
+                    img.onload = () => {
+                        // Only remove loading class when image is loaded
+                        setTimeout(() => gridItem.classList.remove('loading'), 200);
+                    };
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    img.src = `images/${content.value}.png`;
+                    img.alt = `Image ${content.value}`;
+                    gridItem.appendChild(img);
+                    gridItem.style.padding = '0';
+                    break;
+                }
+
+                case 'chart': {
+                    const chartContainer = document.createElement('div');
+                    chartContainer.className = 'chart-container';
+                    chartContainer.style.cssText = `
+                        width: 100%;
+                        height: 100%;
+                        position: relative;
+                        padding: 10px;
+                        box-sizing: border-box;
+                    `;
+                    
+                    // Import the darkenColor function from gridCharts.js
+                    import('./gridCharts.js').then(module => {
+                        // Apply darkened background color
+                        const darkenedColor = module.darkenColor(baseColor);
+                        gridItem.style.backgroundColor = darkenedColor;
+                        
+                        // Create semi-transparent overlay with the darkened color
+                        const colorRGBA = hexToRGBA(darkenedColor, 0.75);
+                        
+                        // Add overlay
+                        const overlay = document.createElement('div');
+                        overlay.style.cssText = `
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background-color: ${colorRGBA};
+                            z-index: 1;
+                        `;
+                        gridItem.appendChild(overlay);
+                    });
+                    
+                    gridItem.style.position = 'relative';
+                    
+                    // Create chart div with unique ID
+                    const chartId = `chart-${Math.random().toString(36).substring(2, 9)}`;
+                    const chartDiv = document.createElement('div');
+                    chartDiv.style.cssText = `
+                        width: 100%;
+                        height: 100%;
+                        position: relative;
+                        z-index: 2;
+                        padding: 10px;
+                        box-sizing: border-box;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    `;
+                    
+                    // Create a wrapper for better sizing control
+                    const chartWrapper = document.createElement('div');
+                    chartWrapper.style.cssText = `
+                        width: 100%;
+                        height: 100%;
+                        max-width: 900px;
+                        max-height: 600px;
+                        margin: auto;
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    `;
+                    
+                    // Create single canvas element
+                    const canvas = document.createElement('canvas');
+                    canvas.id = chartId + '-canvas';
+                    canvas.style.cssText = `
+                        width: 100% !important;
+                        height: 100% !important;
+                        max-width: 100%;
+                        max-height: 100%;
+                    `;
+                    
+                    // Append elements in the correct order
+                    chartWrapper.appendChild(canvas);
+                    chartDiv.appendChild(chartWrapper);
+                    chartContainer.appendChild(chartDiv);
+                    gridItem.appendChild(chartContainer);
+                    
+                    // Generate some random data for the chart
+                    const chartData = generateRandomChartData();
+                    
+                    // Determine chart type from content value
+                    const chartType = content.value || 'Bar Chart';
+                    
+                    // Create chart based on type
+                    createChart(chartId + '-canvas', chartType, chartData, colorArray);
+                    
+                    break;
+                }
+
+                case 'domopalooza': {
+                    const container = document.createElement('div');
+                    container.style.cssText = 'width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;';
+
+                    const img = document.createElement('img');
+                    img.src = 'domopalooza.png';
+                    img.alt = 'Domopalooza';
+                    img.style.cssText = 'max-width: 100%; max-height: 100%; object-fit: contain;';
+
+                    container.appendChild(img);
+                    gridItem.appendChild(container);
+
+                    gridItem.style.padding = '10px';
+                    gridItem.style.backgroundColor = '#212121'; // Always use this specific color
+                    break;
+                }
+            }
+        }
+
+        // Generate random chart data for visualization
+        function generateRandomChartData() {
+            // Generate between 3-8 data points
+            const count = Math.floor(Math.random() * 6) + 3;
+            const data = [];
+            
+            // Generate category names
+            const categories = ['Speed', 'Power', 'Handling', 'Control', 'Efficiency', 'Innovation', 'Style', 'Performance'];
+            
+            for (let i = 0; i < count; i++) {
+                data.push({
+                    category: categories[i % categories.length],
+                    value: Math.floor(Math.random() * 90) + 10
+                });
+            }
+            
+            return data;
+        }
+
+
+        // Define the breakout session data
+        const breakoutSessionData = [
+            { category: "NBA's Domo Journey to AI", value: 478 },
+            { category: "Connections & Integration", value: 422 },
+            { category: "Domo Workflows", value: 392 },
+            { category: "From Data to $$$", value: 357 }
+        ];
+
+        // Create a chart based on the provided type and data
+        async function createChart(chartId, chartType, data, colorArray) {
+            // Get the canvas element
+            const canvas = document.getElementById(chartId);
+            if (!canvas) {
+                console.error(`Canvas element with id '${chartId}' not found`);
+                return;
+            }
+            
+            // Check container dimensions
+            const containerRect = canvas.parentElement.getBoundingClientRect();
+            const MIN_CHART_WIDTH = 200;
+            const MIN_CHART_HEIGHT = 150;
+            
+            if (containerRect.width < MIN_CHART_WIDTH || containerRect.height < MIN_CHART_HEIGHT) {
+                // Container is too small, display a message instead
+                canvas.parentElement.innerHTML = `
+                    <div style="
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        color: white;
+                        padding: 10px;
+                        font-size: 12px;
+                    ">
+                        Chart preview not available in this view
+                    </div>
+                `;
+                return;
+            }
+
+            // Get theme colors
+            const colors = colorArray || window.currentColorArray || ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
+
+            try {
+                // Import chart functions from gridCharts.js
+                const module = await import('./gridCharts.js');
+                
+                // Create chart based on type
+                let chart;
+                switch(chartType.toLowerCase()) {
+                    case 'bar chart':
+                        chart = module.createBarChart(colors[0], chartId);
+                        break;
+                    case 'pie chart':
+                        chart = module.createPieChart(colors[0], chartId);
+                        break;
+                    case 'area chart':
+                        chart = module.createPolarAreaChart(colors[0], chartId);
+                        break;
+                    case 'combined chart':
+                        chart = module.createBubbleChart(colors[0], chartId);
+                        break;
+                    default:
+                        chart = module.createBarChart(colors[0], chartId);
+                }
+            } catch (error) {
+                console.error('Error creating chart:', error);
+                canvas.parentElement.innerHTML = `
+                    <div style="
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        color: white;
+                        padding: 10px;
+                        font-size: 12px;
+                    ">
+                        Error loading chart: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+
+
+
+        // Helper function to convert hex to RGBA
+        function hexToRGBA(hex, opacity) {
+            hex = hex.replace('#', '');
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+            return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+        }
+
+        // Format large numbers to readable format (e.g., 6.4T for 6.4 trillion)
+        function formatLargeNumber(num) {
+            const absNum = Math.abs(num);
+            if (absNum >= 1e12) {
+                return (num / 1e12).toFixed(1) + 'T';
+            } else if (absNum >= 1e9) {
+                return (num / 1e9).toFixed(1) + 'B';
+            } else if (absNum >= 1e6) {
+                return (num / 1e6).toFixed(1) + 'M';
+            } else if (absNum >= 1e3) {
+                return (num / 1e3).toFixed(1) + 'K';
+            }
+            return num.toString();
+        }
+    </script>
+</body>
+</html>

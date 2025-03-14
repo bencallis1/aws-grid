@@ -1,0 +1,71 @@
+{
+    "items": [
+
+        { "id": "main-slogan", "type": "HERO_TEXT", "content": "Which Breakout Sessions Are Drawing the Biggest Crowds?" },
+        { "id": "titleCard", "type": "HERO_TEXT_SMALL", "content": "579 Trillion Rows Ingested!" },
+        { "id": "titleCard", "type": "HERO_TEXT_SMALL", "content": "579 Trillion Rows Ingested!" },
+
+        
+        { "id": "image1", "type": "IMAGE", "src": "/images/1.png", "alt": "Yellow backpack" },
+        { "id": "image2", "type": "IMAGE", "src": "/images/2.png", "alt": "Person watching sunset" },
+        { "id": "image3", "type": "IMAGE", "src": "/images/3.png", "alt": "Leather wallet" },
+        { "id": "image4", "type": "IMAGE", "src": "/images/4.png", "alt": "Hiker on mountain" },
+        { "id": "summary1", "type": "TEXT_SUMMARY", "content": "Breakout Sessions Are on Fire! AI, automation, and data mastery—top sessions are filling fast. Grab your spot before they're gone!" },
+        {
+            "id": "data1", "type": "DATA_VISUAL", "content": [{
+                "data": [{ "industry": "High Tech", "percentage": 17.95 },
+                { "industry": "Manufacturing", "percentage": 9.9 },
+                { "industry": "Financial Services", "percentage": 9.36 },
+                { "industry": "Media", "percentage": 9.25 },
+                { "industry": "Professional Services", "percentage": 8.27 },
+                { "industry": "Retail", "percentage": 5.98 },
+                { "industry": "Other Industries", "percentage": 39.29 }
+                ],
+                "chartType": "bar chart"
+            }]
+        },
+        {
+            "id": "data2", "type": "DATA_VISUAL", "content": [{
+                "data": [
+                    { "month": "January", "year": "2019", "registrants": 200 },
+                    { "month": "February", "year": "2019", "registrants": 450 },
+                    { "month": "March", "year": "2019", "registrants": 890 },
+                    { "month": "January", "year": "2024", "registrants": 250 },
+                    { "month": "February", "year": "2024", "registrants": 550 },
+                    { "month": "March", "year": "2024", "registrants": 949 },
+                    { "month": "January", "year": "2025", "registrants": 320 },
+                    { "month": "February", "year": "2025", "registrants": 650 },
+                    { "month": "March", "year": "2025", "registrants": 999 }
+                ],
+                "chartType": "pie chart"
+            }]
+        },
+        {
+            "id": "data3", "type": "DATA_VISUAL", "content": [{
+                "data": [
+                    { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                    { "session": "Connections & Integration", "registrants": 422 },
+                    { "session": "Domo Workflows", "registrants": 392 },
+                    { "session": "From Data to $$", "registrants": 357 }
+                ],
+                "chartType": "sankey"
+            }]
+        },
+        { "id": "domopalooza", "type": "DOMO", "src": "/domopalooza.png", "alt": "DomoPalooza" },
+
+        { "id": "image5", "type": "IMAGE", "src": "/images/5.png", "alt": "Person watching sunset" },
+        { "id": "image6", "type": "IMAGE", "src": "/images/9.png", "alt": "Leather wallet" },
+        { "id": "image7", "type": "IMAGE", "src": "/images/14.png", "alt": "Hiker on mountain" },
+        { "id": "image8", "type": "IMAGE", "src": "/images/19.png", "alt": "Hiker on mountain" },
+        { "id": "image9", "type": "IMAGE", "src": "/images/donut.png", "alt": "Peoplkees mountain" },
+        { "id": "image10", "type": "IMAGE", "src": "/images/42.png", "alt": "Hiker" },
+        { "id": "image11", "type": "IMAGE", "src": "/images/32.png", "alt": "Mountain" },
+
+
+        { "id": "summary2", "type": "TEXT_SUMMARY", "content": "Your data ecosystem is thriving—this year, we ingested an astonishing 579 Trillion rows, ensuring you have the freshest, most actionable insights at your fingertips" },
+        { "id": "summary3", "type": "TEXT_SUMMARY", "content": "Domo's Magic ETL processed a mind-blowing 6.4 Quadrillion rows, empowering you with clean, connected, and ready-to-use data for game-changing analytics." },
+        { "id": "summary4", "type": "TEXT_SUMMARY", "content": "Data on Overdrive – 579 Trillion Rows Ingested!" },
+        { "id": "summary5", "type": "TEXT_SUMMARY", "content": "AI at Scale – 43 Billion+ Model Executions!" },
+        { "id": "summary6", "type": "TEXT_SUMMARY", "content": "Magic ETL Powerhouse – 6.4 Quadrillion Rows Transformed!" }
+    ]
+}

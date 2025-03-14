@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domo AI Grid</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+
+      
+
+      
+      /* .text-summary {
+        padding: 1rem;
+        font-weight: bold;
+      }
+      
+    
+      
+      .main-slogan {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .main-slogan .hero-text {
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+      }
+      
+      @media (max-width: 1023px) {
+        .hero-text {
+          font-size: 1.5rem;
+        }
+      }
+      
+      @media (max-width: 767px) {
+        .hero-text {
+          font-size: 1.25rem;
+        }
+        
+        .text-summary {
+          font-size: 0.875rem;
+        }
+      } */
+
+ 
+    </style>
+
+    <!-- Load Chart.js and its plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    
+    <!-- Load our charts -->
+</head>
+<body>
+    <div class="app-root fill-viewport">
+        <main class="app-main fill-viewport">
+          <header class="top-panel sticky-header ">
+            <!-- Logo -->
+            <div class="logo">
+                <div class="inner">
+                    <img src="domoai.png" alt="Domo AI Logo" height="65">
+                </div>
+            </div>
+           </header>
+           <div class="mosaic-root">
+            
+    <div id="grid-container" class="grid-container">
+        <!-- Grid items will be added dynamically by JS -->
+    </div>
+</div>
+    </main>
+    </div>
+
+    <script src="createGrids.js" type="module"></script>
+
+
+
+  
+</body>
+</html>

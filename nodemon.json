@@ -1,0 +1,9 @@
+{
+  "watch": ["*.css", "*.html", "*.js"],
+  "ext": "css,html,js",
+  "ignore": ["node_modules/*"],
+  "verbose": true,
+  "events": {
+    "restart": "echo \"File changed, restarting...\""
+  }
+} 

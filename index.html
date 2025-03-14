@@ -8,16 +8,30 @@
   <meta name="description" content="CSS Mosaic Grid Layout Example">
   <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' domo.domo.com">
   <title>Domopalooza Nova Grid</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
+  <div class="app-root fill-viewport">
+    <main class="app-main fill-viewport">
+      <header class="top-panel sticky-header ">
+        <!-- Logo -->
+        <div class="logo">
+            <div class="inner">
+                <img src="domoai.png" alt="Domo AI Logo" height="65">
+            </div>
+        </div>
+       </header>
+
   <header class="sticky-header">
     <img src="domoai.png" alt="Domo AI Logo" height="65">
   </header>
 
   <div class="mosaic-grid" id="mosaic-container">
+
     <div class="grid-item item-1"></div>
     <div class="grid-item item-2 item-wide"></div>
     <div class="grid-item item-3 item-tall"></div>
@@ -45,7 +59,13 @@
     <div class="grid-item item-25"></div>
   </div>
 
+  <script type="module">
+    import { initBarChart } from './barchart.js';
+    document.addEventListener('DOMContentLoaded', initBarChart);
+</script>
+
   <script src="script.js"></script>
+
 </body>
 
 </html>

@@ -1,0 +1,403 @@
+
+  
+  /* Grid item base styling */
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  /* Content type styling */
+  .grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .hero-text {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.2;
+    font-weight: 800;
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .text-summary {
+    padding: 1.25rem;
+    font-weight: 600;
+    font-size: clamp(0.875rem, 1.5vw, 1rem);
+    line-height: 1.4;
+  }
+  
+  /* Color theme classes */
+  .yellow-bg {
+    background-color: #ffcc00;
+    color: #000;
+  }
+  
+  .purple-bg {
+    background-color: #5c2a9d;
+    color: #fff;
+  }
+  
+  .tomato-bg {
+    background-color: #ff6347;
+    color: #fff;
+  }
+  
+  .turquoise-bg {
+    background-color: #30d5c8;
+    color: #000;
+  }
+  
+  /* ====== LAYOUT DEFINITIONS ====== */
+  
+  /* Layout 1 - as shown in Image 1 */
+  .layout-1 {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+  }
+  
+  .layout-1 .item-spa-text {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+  
+  .layout-1 .item-main-slogan {
+    grid-area: 1 / 3 / 3 / 7;
+  }
+  
+  .layout-1 .item-sunset {
+    grid-area: 1 / 7 / 3 / 9;
+  }
+  
+  .layout-1 .item-leather-detail {
+    grid-area: 1 / 9 / 2 / 11;
+  }
+  
+  .layout-1 .item-backpack {
+    grid-area: 1 / 11 / 3 / 13;
+  }
+  
+  .layout-1 .item-suitcase {
+    grid-area: 2 / 1 / 3 / 3;
+  }
+  
+  .layout-1 .item-wallet {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+  
+  .layout-1 .item-getaway-text {
+    grid-area: 3 / 3 / 4 / 7;
+  }
+  
+  .layout-1 .item-road {
+    grid-area: 3 / 7 / 4 / 9;
+  }
+  
+  .layout-1 .item-banquet {
+    grid-area: 2 / 9 / 4 / 11;
+  }
+  
+  .layout-1 .item-mountain {
+    grid-area: 3 / 11 / 4 / 13;
+  }
+  
+  /* Layout 2 - as shown in Image 2 */
+  .layout-2 {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+  }
+  
+  .layout-2 .item-goldenrod-text {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+  
+  .layout-2 .item-handbag {
+    grid-area: 1 / 3 / 2 / 5;
+  }
+  
+  .layout-2 .item-backpack {
+    grid-area: 1 / 5 / 3 / 9;
+  }
+  
+  .layout-2 .item-banquet {
+    grid-area: 1 / 9 / 3 / 11;
+  }
+  
+  .layout-2 .item-main-slogan {
+    grid-area: 1 / 11 / 3 / 13;
+  }
+  
+  .layout-2 .item-mountain {
+    grid-area: 2 / 1 / 3 / 3;
+  }
+  
+  .layout-2 .item-indigo-text {
+    grid-area: 2 / 3 / 3 / 5;
+  }
+  
+  .layout-2 .item-tomato-text {
+    grid-area: 3 / 3 / 4 / 5;
+  }
+  
+  .layout-2 .item-banquet-hall {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+  
+  .layout-2 .item-wallet {
+    grid-area: 3 / 5 / 4 / 7;
+  }
+  
+  .layout-2 .item-getaway-text {
+    grid-area: 3 / 7 / 4 / 9;
+  }
+  
+  .layout-2 .item-spa-text {
+    grid-area: 3 / 11 / 4 / 13;
+  }
+  
+  .layout-2 .item-sunset {
+    grid-area: 3 / 9 / 4 / 11;
+  }
+  
+  /* Layout 3 - as shown in Image 3 */
+  .layout-3 {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+  }
+  
+  .layout-3 .item-main-slogan {
+    grid-area: 1 / 1 / 3 / 5;
+  }
+  
+  .layout-3 .item-mountain {
+    grid-area: 1 / 5 / 2 / 7;
+  }
+  
+  .layout-3 .item-getaway-text {
+    grid-area: 1 / 7 / 2 / 10;
+  }
+  
+  .layout-3 .item-backpack {
+    grid-area: 1 / 10 / 3 / 13;
+  }
+  
+  .layout-3 .item-road {
+    grid-area: 2 / 11 / 3 / 13;
+  }
+  
+  .layout-3 .item-goldenrod-text {
+    grid-area: 2 / 5 / 3 / 7;
+  }
+  
+  .layout-3 .item-banquet {
+    grid-area: 2 / 7 / 4 / 10;
+  }
+  
+  .layout-3 .item-wallet {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+  
+  .layout-3 .item-suitcase {
+    grid-area: 3 / 3 / 4 / 5;
+  }
+  
+  .layout-3 .item-leather-detail {
+    grid-area: 3 / 5 / 4 / 7;
+  }
+  
+  .layout-3 .item-handbag {
+    grid-area: 4 / 1 / 5 / 3;
+  }
+  
+  .layout-3 .item-sunset {
+    grid-area: 4 / 11 / 5 / 13;
+  }
+  
+  /* Layout 4 - as shown in Image 4 */
+  .layout-4 {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+  }
+  
+  .layout-4 .item-sunset {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+  
+  .layout-4 .item-handbag {
+    grid-area: 1 / 3 / 2 / 5; 
+  }
+  
+  .layout-4 .item-mountain {
+    grid-area: 2 / 1 / 3 / 3;
+  }
+  
+  .layout-4 .item-backpack {
+    grid-area: 1 / 5 / 3 / 9;
+  }
+  
+  .layout-4 .item-wallet {
+    grid-area: 1 / 9 / 2 / 11;
+  }
+  
+  .layout-4 .item-spa-text {
+    grid-area: 1 / 11 / 2 / 13;
+  }
+  
+  .layout-4 .item-main-slogan {
+    grid-area: 2 / 11 / 4 / 13;
+  }
+  
+  .layout-4 .item-tomato-text {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+  
+  .layout-4 .item-banquet {
+    grid-area: 3 / 3 / 4 / 5;
+  }
+  
+  .layout-4 .item-goldenrod-text {
+    grid-area: 3 / 5 / 4 / 7;
+  }
+  
+  .layout-4 .item-leather-detail {
+    grid-area: 3 / 7 / 4 / 9;
+  }
+  
+  .layout-4 .item-turquoise-text {
+    grid-area: 3 / 9 / 4 / 11;
+  }
+  
+  .layout-4 .item-indigo-text {
+    grid-area: 4 / 1 / 5 / 3;
+  }
+  
+  .layout-4 .item-road {
+    grid-area: 4 / 3 / 5 / 5;
+  }
+  
+  /* Layout 5 - as shown in Image 5 */
+  .layout-5 {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+  }
+  
+  .layout-5 .item-suitcase {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+  
+  .layout-5 .item-main-slogan {
+    grid-area: 1 / 3 / 3 / 7;
+  }
+  
+  .layout-5 .item-backpack {
+    grid-area: 1 / 7 / 3 / 11;
+  }
+  
+  .layout-5 .item-mountain {
+    grid-area: 2 / 1 / 3 / 3;
+  }
+  
+  .layout-5 .item-handbag {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+  
+  .layout-5 .item-goldenrod-text {
+    grid-area: 3 / 3 / 4 / 5;
+  }
+  
+  .layout-5 .item-getaway-text {
+    grid-area: 3 / 5 / 4 / 7;
+  }
+  
+  .layout-5 .item-spa-text {
+    grid-area: 3 / 7 / 4 / 9;
+  }
+  
+  .layout-5 .item-leather-detail {
+    grid-area: 3 / 9 / 4 / 11;
+  }
+  
+  .layout-5 .item-sunset {
+    grid-area: 3 / 11 / 4 / 13;
+  }
+  
+  /* Layout 6 - as shown in Image 6 */
+  .layout-6 {
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(120px, auto);
+  }
+  
+  .layout-6 .item-spa-text {
+    grid-area: 1 / 1 / 2 / 5;
+  }
+  
+  .layout-6 .item-banquet {
+    grid-area: 1 / 5 / 3 / 9;
+  }
+  
+  .layout-6 .item-backpack {
+    grid-area: 1 / 9 / 3 / 13;
+  }
+  
+  .layout-6 .item-main-slogan {
+    grid-area: 2 / 11 / 4 / 13;
+  }
+  
+  .layout-6 .item-goldenrod-text {
+    grid-area: 2 / 1 / 3 / 3;
+  }
+  
+  .layout-6 .item-road {
+    grid-area: 2 / 3 / 3 / 5;
+  }
+  
+  .layout-6 .item-handbag {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+  
+  .layout-6 .item-mountain {
+    grid-area: 3 / 3 / 4 / 5;
+  }
+  
+  .layout-6 .item-leather-detail {
+    grid-area: 3 / 5 / 4 / 7;
+  }
+  
+  .layout-6 .item-sunset {
+    grid-area: 3 / 7 / 4 / 9;
+  }
+  
+  .layout-6 .item-getaway-text {
+    grid-area: 4 / 5 / 5 / 9;
+  }
+  
+  .layout-6 .item-wallet {
+    grid-area: 4 / 9 / 5 / 11;
+  }
+  
+  .layout-6 .item-suitcase {
+    grid-area: 4 / 11 / 5 / 13;
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 1023px) {
+    /* Tablet layouts */
+    .luxury-grid {
+      grid-template-columns: repeat(8, 1fr);
+    }
+    
+    /* Layout 1 - Tablet */
+    .layout-1 .item-main-slogan {
+      grid-area: 1 / 1 / 3 / 5;
+    }
+    
+    .layout-1 .item-sunset {
+      grid-area: 1 / 5 / 2 / 9;
+    }
+    
+    .layout-1 .item-backpack {
+      grid-area: 2
