@@ -1,71 +1,82 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="description" content="CSS Mosaic Grid Layout Example">
-  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'self' domo.domo.com">
-  <title>Domopalooza Nova Grid</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="style.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domo AI Grid</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <style>
+
+      
+
+      
+      /* .text-summary {
+        padding: 1rem;
+        font-weight: bold;
+      }
+      
+    
+      
+      .main-slogan {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .main-slogan .hero-text {
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+      }
+      
+      @media (max-width: 1023px) {
+        .hero-text {
+          font-size: 1.5rem;
+        }
+      }
+      
+      @media (max-width: 767px) {
+        .hero-text {
+          font-size: 1.25rem;
+        }
+        
+        .text-summary {
+          font-size: 0.875rem;
+        }
+      } */
+
+ 
+    </style>
+
+    <!-- Load Chart.js and its plugins -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    
+    <!-- Load our charts -->
 </head>
-
 <body>
-  <div class="app-root fill-viewport">
-    <main class="app-main fill-viewport">
-      <header class="top-panel sticky-header ">
-        <!-- Logo -->
-        <div class="logo">
-            <div class="inner">
-                <img src="domoai.png" alt="Domo AI Logo" height="65">
+    <div class="app-root fill-viewport">
+        <main class="app-main fill-viewport">
+          <header class="top-panel sticky-header ">
+            <!-- Logo -->
+            <div class="logo">
+                <div class="inner">
+                    <img src="domoai.png" alt="Domo AI Logo" height="65">
+                </div>
             </div>
-        </div>
-       </header>
+           </header>
+           <div class="mosaic-root">
+            
+    <div id="grid-container" class="grid-container">
+        <!-- Grid items will be added dynamically by JS -->
+    </div>
+</div>
+    </main>
+    </div>
 
-  <header class="sticky-header">
-    <img src="domoai.png" alt="Domo AI Logo" height="65">
-  </header>
+    <script src="createGrids.js" type="module"></script>
 
-  <div class="mosaic-grid" id="mosaic-container">
 
-    <div class="grid-item item-1"></div>
-    <div class="grid-item item-2 item-wide"></div>
-    <div class="grid-item item-3 item-tall"></div>
-    <div class="grid-item item-4"></div>
-    <div class="grid-item item-5 item-large"></div>
-    <div class="grid-item item-6"></div>
-    <div class="grid-item item-7 item-wide"></div>
-    <div class="grid-item item-8"></div>
-    <div class="grid-item item-9 item-tall"></div>
-    <div class="grid-item item-10"></div>
-    <div class="grid-item item-11"></div>
-    <div class="grid-item item-12 item-wide"></div>
-    <div class="grid-item item-13"></div>
-    <div class="grid-item item-14 item-wide"></div>
-    <div class="grid-item item-15"></div>
-    <div class="grid-item item-16 item-tall"></div>
-    <div class="grid-item item-17"></div>
-    <div class="grid-item item-18"></div>
-    <div class="grid-item item-19 item-wide"></div>
-    <div class="grid-item item-20"></div>
-    <div class="grid-item item-21 item-tall"></div>
-    <div class="grid-item item-22"></div>
-    <div class="grid-item item-23"></div>
-    <div class="grid-item item-24 item-wide"></div>
-    <div class="grid-item item-25"></div>
-  </div>
 
-  <script type="module">
-    import { initBarChart } from './barchart.js';
-    document.addEventListener('DOMContentLoaded', initBarChart);
-</script>
-
-  <script src="script.js"></script>
-
+  
 </body>
-
 </html>
