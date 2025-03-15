@@ -64,7 +64,25 @@
             "Transforming Process with Automation,Empowering Decision-Making with Custom Apps, Integration and Adoption with Domo",
             "It's a Benefits Revolution!, PlayStation + Domo Unifying Data Experiences, Unifying Data and Workflows with Push-Button Apps",
             "How Turo Transformed its Business Insights,Streamlining Data to Solve Business Challenges, TaylorMade + Domo: Unifying Data from Retail to AI, Using Data to Learn and Leverage Truth"
-        ]
+        ],
+        "images":[ 
+         "/images/1.png",
+        "/images/3.png",
+        "/images/8.png",
+        "/images/9.png",
+        "/images/15.png",
+        "/images/16.png",
+        "/images/31.png",
+        "/images/46.png",
+        "/images/11.png",
+        "/images/20.png",
+        "/images/32.png",
+        "/images/37.png",
+        "/images/26.png",
+        "/images/41.png",
+        "/images/6.png",
+        "/images/21.png"
+    ]
     },
     {
         "ID": "attendance",
@@ -120,8 +138,27 @@
             "Semantic Layer Adoption for Business Transformation AI-Driven Data Preparation and Analysis, Real-Time Decision Intelligence Platforms",
             "Automated Data Governance and Compliance, Metrics Stores for Unified Business Definitions, Data Observability and Quality Monitoring",
             "AI Agents for Data Exploration and Insight Generation,Data Storytelling Tools for Executive Communication,Data as a Product Strategy and Implementation",
-            "Conversational Analytics for Business Users, Time Series Forecasting with Advanced Models, Data Catalogs with Automated Discovery"
-        ]
+            "Conversational Analytics for Business Users, Time Series Forecasting with Advanced Models, Data Catalogs with Automated Discovery",
+            "Data Storytelling Tools for Executive Communication,Data as a Product Strategy and Implementation"
+        ],
+        "images":[ 
+            "/images/1.png",
+           "/images/3.png",
+           "/images/8.png",
+           "/images/9.png",
+           "/images/15.png",
+           "/images/16.png",
+           "/images/31.png",
+           "/images/46.png",
+           "/images/11.png",
+           "/images/20.png",
+           "/images/32.png",
+           "/images/37.png",
+           "/images/26.png",
+           "/images/41.png",
+           "/images/6.png",
+           "/images/21.png"
+       ]
     },
     {
         "ID": "industry",
@@ -199,7 +236,25 @@
                 "Government - Federal: 3 agency representatives improving citizen services through analytics",
                 "Aerospace & Defense: 2 aerospace professionals advancing mission-critical analytics"
               
-        ]
+        ],
+        "images":[ 
+            "/images/1.png",
+           "/images/3.png",
+           "/images/8.png",
+           "/images/9.png",
+           "/images/15.png",
+           "/images/16.png",
+           "/images/31.png",
+           "/images/46.png",
+           "/images/11.png",
+           "/images/20.png",
+           "/images/32.png",
+           "/images/37.png",
+           "/images/26.png",
+           "/images/41.png",
+           "/images/6.png",
+           "/images/21.png"
+       ]
     },
     {
         "ID": "registrations",
@@ -272,7 +327,25 @@
             "The Countdown Is On: 1109+ Data Leaders Have Secured Their Spot",
             "Your Network Is Waiting: Connect with 1109+ Data Professionals",
             "Be Where the Action Is: 1109+ Analytics Experts Already Registered"
-        ]
+        ],
+        "images":[ 
+            "/images/1.png",
+           "/images/3.png",
+           "/images/8.png",
+           "/images/9.png",
+           "/images/15.png",
+           "/images/16.png",
+           "/images/31.png",
+           "/images/46.png",
+           "/images/11.png",
+           "/images/20.png",
+           "/images/32.png",
+           "/images/37.png",
+           "/images/26.png",
+           "/images/41.png",
+           "/images/6.png",
+           "/images/21.png"
+       ]
     },
   
     {
@@ -333,7 +406,25 @@
             "Where the World's Top Data Minds Connect",
             "Global Insights, Local Applications",
             "The Worldwide Community of Data Leaders & AI Leaders"
-        ]
+        ],
+        "images":[ 
+            "/images/1.png",
+           "/images/3.png",
+           "/images/8.png",
+           "/images/9.png",
+           "/images/15.png",
+           "/images/16.png",
+           "/images/31.png",
+           "/images/46.png",
+           "/images/11.png",
+           "/images/20.png",
+           "/images/32.png",
+           "/images/37.png",
+           "/images/26.png",
+           "/images/41.png",
+           "/images/6.png",
+           "/images/21.png"
+       ]
         
     },
   
@@ -413,7 +504,25 @@
             "Multi-Cloud Data Integration: Unifying Data Sources Across Cloud Providers",
             "Visual App Building: Drag-and-Drop Creation of Data-Powered Applications",
             "Metadata Management: Building a Comprehensive Data Knowledge Base"
-           ]
+           ],
+           "images":[ 
+            "/images/1.png",
+           "/images/3.png",
+           "/images/8.png",
+           "/images/9.png",
+           "/images/15.png",
+           "/images/16.png",
+           "/images/31.png",
+           "/images/46.png",
+           "/images/11.png",
+           "/images/20.png",
+           "/images/32.png",
+           "/images/37.png",
+           "/images/26.png",
+           "/images/41.png",
+           "/images/6.png",
+           "/images/21.png"
+       ]
     },
     {
         "ID": "ai",
@@ -486,7 +595,25 @@
             "Data to Decisions in Real-Time: 43+ Billion AI Runs",
             "Unprecedented Processing Power: 43 Billion AI Runs for Your Business",
             "AI Revolution in Numbers: 43+ Billion Model Executions"
-           ]
+           ],
+           "images":[ 
+            "/images/1.png",
+           "/images/3.png",
+           "/images/8.png",
+           "/images/9.png",
+           "/images/15.png",
+           "/images/16.png",
+           "/images/31.png",
+           "/images/46.png",
+           "/images/11.png",
+           "/images/20.png",
+           "/images/32.png",
+           "/images/37.png",
+           "/images/26.png",
+           "/images/41.png",
+           "/images/6.png",
+           "/images/21.png"
+       ]
     },
     {
         "ID": "dataIngestion",
@@ -559,7 +686,25 @@
             "Data-Driven Excellence: 579 Trillion Rows Supporting Your Decisions",
             "Massive Scale, Immediate Impact: 579 Trillion Rows of Intelligence",
             "From Data Ingestion to Insight: 579 Trillion Rows Transformed"
-           ]
+           ],
+           "images":[ 
+            "/images/1.png",
+           "/images/3.png",
+           "/images/8.png",
+           "/images/9.png",
+           "/images/15.png",
+           "/images/16.png",
+           "/images/31.png",
+           "/images/46.png",
+           "/images/11.png",
+           "/images/20.png",
+           "/images/32.png",
+           "/images/37.png",
+           "/images/26.png",
+           "/images/41.png",
+           "/images/6.png",
+           "/images/21.png"
+       ]
     },
     {
         "ID": "magicETL",
@@ -619,6 +764,24 @@
             "Empowering Analytics Through Superior ETL",
             "The Power Behind Your Analytics Engine",
             "Transforming Data into Actionable Intelligence"
-        ]
+        ],
+        "images":[ 
+            "/images/1.png",
+           "/images/3.png",
+           "/images/8.png",
+           "/images/9.png",
+           "/images/15.png",
+           "/images/16.png",
+           "/images/31.png",
+           "/images/46.png",
+           "/images/11.png",
+           "/images/20.png",
+           "/images/32.png",
+           "/images/37.png",
+           "/images/26.png",
+           "/images/41.png",
+           "/images/6.png",
+           "/images/21.png"
+       ]
     }
 ]

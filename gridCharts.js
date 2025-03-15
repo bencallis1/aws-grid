@@ -1,5 +1,4 @@
-
- function generateMonochromaticColors(baseColor, count = 1) {
+function generateMonochromaticColors(baseColor, count = 1) {
   // Input validation
   let colorToUse = baseColor;
   if (Array.isArray(baseColor)) {
@@ -42,10 +41,10 @@
   
   // Generate monochromatic colors by varying lightness only
   const colors = [];
-  const lightnessRange = 70; // Range of lightness to span
+  const lightnessRange = 40; 
   
-  // Adjust starting lightness based on the base color's lightness
-  let startLightness = Math.max(10, l - lightnessRange / 2);
+  // Adjust starting lightness to be closer to the base color's lightness
+  let startLightness = Math.max(l - 5, l - lightnessRange / 2); // Start only 5% darker than base
   if (startLightness + lightnessRange > 90) {
     startLightness = 90 - lightnessRange;
   }
@@ -201,57 +200,37 @@ export function createBarChart(baseColor = '#4B56D2', canvasId, data) {
   barChart = new Chart(canvas, {
     type: 'bar',
     data: {
-      labels: data.map(d => d.session),
+      labels: data.map(d => ""),
       datasets: [{
         label: 'Registrants',
         data: data.map(d => d.registrants),
         backgroundColor: chartColor,
         borderColor: 'transparent',
-        borderWidth: 1
+        borderRadius:20,
+        borderWidth: 0
       }]
     },
     options: {
       ...commonChartOptions,
-      indexAxis: 'y',
       plugins: {
         ...commonChartOptions.plugins,
         legend: {
           display: false
-        },
-        datalabels: {
-          color: 'white',
-          anchor: 'end',
-          align: 'right',
-          offset: 4,
-          font: {
-            size: 9,
-            weight: 'bold'
-          },
-          formatter: function(value) {
-            return value;
-          }
         }
       },
       scales: {
         x: {
-          grid: {
-            color: 'rgba(255, 255, 255, 0.1)'
-          },
-          ticks: {
-            color: 'white',
-            font: {
-              size: 9
-            }
-          }
+          stacked: true
         },
         y: {
           grid: {
             display: false
           },
           ticks: {
+            display:false,
             color: 'white',
             font: {
-              size: 9
+              size: 4
             }
           }
         }
@@ -324,7 +303,7 @@ export function createPieChart(baseColor = '#4B56D2', canvasId) {
       plugins: {
         ...commonChartOptions.plugins,
         title: {
-          display: true,
+          display: false,
           text: 'Domopalooza Registration Trends',
           color: 'white',
           font: {

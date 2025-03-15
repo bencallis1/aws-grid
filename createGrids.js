@@ -1,27 +1,3 @@
-const domopaloozaImages = [
-    "/images/1.png",
-    "/images/3.png",
-    "/images/8.png",
-    "/images/9.png",
-    "/images/15.png",
-    "/images/16.png",
-    "/images/31.png",
-    "/images/46.png",
-    "/images/11.png",
-    "/images/20.png",
-    "/images/32.png",
-    "/images/37.png",
-    "/images/26.png",
-    "/images/41.png",
-    "/images/6.png",
-    "/images/21.png"
-]
-
-
-
-
-
-
 let imagePool = []
 let usedImages = []
 
@@ -35,9 +11,29 @@ let summaryCount = 0
 let kpi
 let kpiSummary
 
-
-
-
+// Define color arrays with their corresponding text colors
+const COLOR_ARRAYS = {
+    blue: {
+        colors: ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'],
+        textColors: ['#212121', '#FFFFFF', '#212121', '#FFFFFF'],
+        images:['/images/5.png','/images/8.png','/images/20.png','/images/29.png','/images/16.png','/images/40.png','/images/29.png','/images/42.png','/images/41.png']
+    },
+    purple: {
+        colors: ['#7A3CA3', '#9563B5', '#AF8AC8', '#CAB1DA'],
+        textColors: ['#F6E9F4', '#F6E9F4', '#F2EBF6', '#F6E9F4'],
+        images:['/images/5.png','/images/61.png','/images/31.png','/images/34.png','/images/37.png','/images/60.png','/images/60.png']
+    },
+    green: {
+        colors: ['#569C3C', '#78B063', '#9AC48A', '#BBD7B1'],
+        textColors: ['#001D00', '#001D00', '#001D00', '#001D00'],
+        images:['/images/57.png','/images/58.png','/images/52.png','/images/53.png','/images/56.png','/images/55.png']
+    },
+    pink: {
+        colors: ['#A82593', '#B13B9E', '#C266B3', '#D392C9'],
+        textColors: ['#290014', '#290014', '#290014', '#290014'],
+        images:['/images/5.png','/images/7.png','/images/10.png','/images/64.png','/images/31.png','/images/34.png','/images/37.png','/images/63.png','/images/62.png']
+    }
+};
 
 export const CONTENT_TYPES = {
     HERO_TEXT: 'HERO_TEXT',
@@ -63,26 +59,6 @@ function hexToRGBA(hex, opacity) {
 
 // Create a color theme
 function setRandomThemeColors() {
-    // Define color arrays with their corresponding text colors
-    const COLOR_ARRAYS = {
-        blue: {
-            colors: ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'],
-            textColors: ['#212121', '#FFFFFF', '#212121', '#FFFFFF']
-        },
-        purple: {
-            colors: ['#7A3CA3', '#9563B5', '#AF8AC8', '#CAB1DA'],
-            textColors: ['#CAB1DA', '#CAB1DA', '#F2EBF6', '#CAB1DA']
-        },
-        green: {
-            colors: ['#569C3C', '#78B063', '#9AC48A', '#BBD7B1'],
-            textColors: ['#F2EBF6', '#3D8223', '#F2EBF6', '#3D8223']
-        },
-        pink: {
-            colors: ['#A82593', '#B13B9E', '#C266B3', '#D392C9'],
-            textColors: ['#E5BEDF', '#E5BEDF', '#E5BEDF', '#E5BEDF']
-        }
-    };
-
     // Get all available theme names
     const themeNames = Object.keys(COLOR_ARRAYS);
 
@@ -159,7 +135,7 @@ export const layoutDefinitions = {
             {
                 itemId: 'data2', 
                 gridArea: {
-                    desktop: '1 / 6 / span 2 / span 2',
+                    desktop: '1 / 6 / span 2 / span 3',
                     tablet: '2 / 1 / span 1 / span 2',
                     mobile: '2 / 1 / 3 / 3'
                 }, 
@@ -169,7 +145,7 @@ export const layoutDefinitions = {
             {
                 itemId: 'data1', 
                 gridArea: {
-                    desktop: '1 / 4 / span 2 / span 2',
+                    desktop: '1 / 4 / span 1 / span 2',
                     tablet: '4 / 1 / span 2 / span 3',
                     mobile: '3 / 1 / 4 / 3'
                 }, 
@@ -179,7 +155,7 @@ export const layoutDefinitions = {
             {
                 itemId: 'data3', 
                 gridArea: {
-                    desktop: '3 / 5 / span 1 / span 2',
+                    desktop: '3 / 4 / span 1 / span 1',
                     tablet: '7 / 1 / span 1 / span 2',
                     mobile: '4 / 1 / 5 / 3'
                 }, 
@@ -194,16 +170,16 @@ export const layoutDefinitions = {
                     mobile: '6 / 1 / 3 / 3'
                 }, className: 'color-bg'
             },
-            { itemId: 'image2', gridArea: { desktop: '3 / 3 / span 1 / span 2', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg' },
+            // { itemId: 'image2', gridArea: { desktop: '3 / 3 / span 1 / span 2', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg' },
 
 
-            { itemId: 'titleCard', gridArea: { desktop: '3 / 4 / auto / span 1', tablet: '8 / 1 / 9 / 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
+            { itemId: 'titleCard', gridArea: { desktop: '3 / 7 / auto / span 1', tablet: '8 / 1 / 9 / 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
 
-            { itemId: 'summary2', gridArea: { desktop: '3 / 6 / auto / span 2', tablet: '6 / 1 / span 1 / span 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
-            { itemId: 'image3', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
-            // { itemId: 'image11', gridArea: { desktop: '1 / 3 / 2 / 3', tablet: '1 / 1 / 2 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg ' },
+            // { itemId: 'summary2', gridArea: { desktop: '3 / 7 / auto / span 2', tablet: '6 / 1 / span 1 / span 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
+            { itemId: 'image2', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
+            { itemId: 'image3', gridArea: { desktop: '3 / 5 / span 1/ span 1', tablet: '1 / 1 / 2 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg ' },
 
-            // { itemId: 'image6', gridArea: { desktop: '3 / 4 / span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
+            { itemId: 'image4', gridArea: { desktop: '3 / 6/ span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
             // { itemId: 'image7', gridArea: { desktop: '3 / 5 / span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
             // { itemId: 'image8', gridArea: { desktop: '3 / 6 /span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
 
@@ -226,45 +202,66 @@ export const layoutDefinitions = {
             }
         },
         placements: [
-            { itemId: 'main-slogan', gridArea: { desktop: '1 / 5 / 3 / span 2', tablet: '1 / 1 / span 2 / span 2', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg ' },
-            { itemId: 'image3', gridArea: { desktop: '1 / 2 / 2 / 3', tablet: '3 / 1 / span 1 / span 1', mobile: '2 / 1 / span 1 / 2' }, className: 'image-item,  ' },
-            { itemId: 'image1', gridArea: { desktop: '3 / 5 / auto / span 1', tablet: '3 / 2 / span 1 / span 1', mobile: '2 / 2 / span 1 / 3' }, className: 'image-item,  ' },
-            { itemId: 'data3', gridArea: { desktop: '1 / 3 / 3 / span 2', tablet: '1 / 3 / span 2 / span 2', mobile: '3 / 1 / span 3 / 3' }, className: 'data-container ' },
-            { itemId: 'summary3', gridArea: { desktop: '1 / 1 / 2 / 2', tablet: '4 / 1 / span 2 / span 4', mobile: '6 / 1 / span 2 / 3' }, className: 'color-bg main-slogan ' },
-            { itemId: 'image5', gridArea: { desktop: '2 / 1 / 3 / 2', tablet: '3 / 3 / 4 / 5', mobile: '8 / 1 / span 1 / span 1' }, className: 'image-item,  ' },
-            { itemId: 'summary2', gridArea: { desktop: '2 / 2 / 3 / 3', tablet: '11 / 3 / span 1 / span 2', mobile: '8 / 2 / span 1 / span 1' }, className: 'color-bg ' },
-            { itemId: 'image3', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '11 / 1 / span 1 / span 2', mobile: '13 / 1 / span 1 / 3' }, className: 'color-bg ' },
-            { itemId: 'data1', gridArea: { desktop: '3 / 1 / auto / span 2', tablet: '7 / 1 / span 2 / 5', mobile: '8 / 1 / span 2 / span 2' }, className: 'data-container  ' },
-            { itemId: 'image11', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '12 / 4 / span 1 / 5', mobile: '12 / 1 / span 1 / span 1' }, className: 'color-bg ' },
+            { itemId: 'main-slogan', gridArea: { desktop: '1 / 6 / 3 / span 2', tablet: '1 / 1 / span 2 / span 2', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg ' },
+            { itemId: 'image1', gridArea: { desktop: '1 / 3 / span 1 / span 1', tablet: '3 / 1 / span 1 / span 1', mobile: '2 / 1 / span 1 / 2' }, className: 'image-item,  ' },
+            { itemId: 'image2', gridArea: { desktop: '3 / 6 / auto / span 1', tablet: '3 / 2 / span 1 / span 1', mobile: '2 / 2 / span 1 / 3' }, className: 'image-item,  ' },
+            { itemId: 'data2', gridArea: { desktop: '1 / 4 / 3 / span 2', tablet: '1 / 3 / span 2 / span 2', mobile: '3 / 1 / span 3 / 3' }, className: 'data-container ' },
+            { itemId: 'summary3', gridArea: { desktop: '1 / 2 / span 1 / span 1', tablet: '4 / 1 / span 2 / span 4', mobile: '6 / 1 / span 2 / 3' }, className: 'color-bg main-slogan ' },
+            // { itemId: 'image3', gridArea: { desktop: '1 / 2 / span 1 / span 1', tablet: '3 / 3 / 4 / 5', mobile: '8 / 1 / span 1 / span 1' }, className: 'image-item,  ' },
+            { itemId: 'summary2', gridArea: { desktop: '2 / 3 / span 1 / span 1', tablet: '11 / 3 / span 1 / span 2', mobile: '8 / 2 / span 1 / span 1' }, className: 'color-bg ' },
+            { itemId: 'image4', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '11 / 1 / span 1 / span 2', mobile: '13 / 1 / span 1 / 3' }, className: 'color-bg ' },
+            { itemId: 'data1', gridArea: { desktop: '2 / 1 / auto / span 2', tablet: '7 / 1 / span 2 / 5', mobile: '8 / 1 / span 2 / span 2' }, className: 'data-container  ' },
+            { itemId: 'image5', gridArea: { desktop: '1 / 1 / auto / span 1', tablet: '12 / 4 / span 1 / 5', mobile: '12 / 1 / span 1 / span 1' }, className: 'color-bg ' },
 
-            { itemId: 'image10', gridArea: { desktop: '3 / 6 / auto / span 1', tablet: '12 / 3 / span 1 / 3', mobile: '12 / 2 / span 1 / span 1' }, className: 'color-bg ' },
+            { itemId: 'image6', gridArea: { desktop: '3 / 7 / auto / span 1', tablet: '12 / 3 / span 1 / 3', mobile: '12 / 2 / span 1 / span 1' }, className: 'color-bg ' },
 
-            { itemId: 'titleCard', gridArea: { desktop: '3 / 4 / auto / span 1', tablet: '12 / 1 / span 1 / span 2', mobile: '10 / 1 / span 1 / span 2' }, className: 'color-bg ' },
+            { itemId: 'summary1', gridArea: { desktop: '3 / 4 / auto / span 2', tablet: '12 / 1 / span 1 / span 2', mobile: '10 / 1 / span 1 / span 2' }, className: 'color-bg ' },
+            {
+                itemId: 'domopalooza', gridArea: {
+                    desktop: '3 / 1 / auto  / span 2',
+                    tablet: '3 / 1 / span 1 / span 3',
+                    mobile: '6 / 1 / 3 / 3'
+                }, className: 'color-bg'
+            },
         ]
     },
 
     // Layout 3 (corresponds to Image 3)
     layout3: {
         gridSettings: {
-            desktop: { columns: 6, rows: 'auto' },
-            tablet: { columns: 4, rows: 'auto' },
-            mobile: { columns: 2, rows: 'auto' }
-        },
-        placements: [
-            { itemId: 'main-slogan', gridArea: { desktop: '1 / 4 / 2 / 5 ', tablet: '1 / 1 / 3 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg main-slogan' },
-            { itemId: 'image4', gridArea: { desktop: '1 / 3 / 2 / 4', tablet: '1 / 3 / 2 / 5', mobile: '2 / 1 / 3 / 3' }, className: 'image-item,  ' },
-            { itemId: 'summary2', gridArea: { desktop: '1 / 1 / 3 / 3', tablet: '3 / 1 / 4 / 3', mobile: '3 / 1 / 4 / 3' }, className: 'color-bg ' },
-            { itemId: 'image1', gridArea: { desktop: '1 / 5 / 3 / 7', tablet: '3 / 3 / 5 / 5', mobile: '4 / 1 / 6 / 3' }, className: 'image-item,  ' },
-            { itemId: 'summary3', gridArea: { desktop: '2 / 3 / 3 / 4', tablet: '5 / 1 / 6 / 3', mobile: '6 / 1 / 7 / 3' }, className: 'color-bg  ' },
-            { itemId: 'data1', gridArea: { desktop: '2 / 4 / 3 / 5', tablet: '5 / 3 / 6 / 5', mobile: '7 / 1 / 8 / 3' }, className: 'data-container ' },
-            { itemId: 'image3', gridArea: { desktop: '3 / 1 / 4 / 2', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 3' }, className: 'image-item,  ' },
-            { itemId: 'image2', gridArea: { desktop: '3 / 6 / 4 / 7', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
-            { itemId: 'image6', gridArea: { desktop: '3 / 6 / 4 / 7', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
-            { itemId: 'image7', gridArea: { desktop: '3 / 6 / 4 / 7', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
-            { itemId: 'image8', gridArea: { desktop: '3 / 6 / 4 / 7', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
-            { itemId: 'domopalooza', gridArea: { desktop: '3 / 1 / 4 / 3', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 2' }, className: 'color-bg ' },
+        desktop: {
+            columns: "repeat(8, 1fr)",
+            rows: "repeat(3, 1fr)"
 
-            { itemId: 'image9', gridArea: { desktop: '3 / 6 / 4 / 7', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+
+        },
+        tablet: {
+            columns: "repeat(4, minmax(0.5, 1fr))",
+            rows: "repeat(3, minmax(200px, 1fr))"
+        },
+        mobile: {
+            columns: "repeat(2, minmax(0.5, 1fr))",
+            rows: "repeat(6, minmax(100px, auto))"
+        }
+
+    },
+        placements: [
+            { itemId: 'main-slogan', gridArea: { desktop: '1 / 1 / span 2 / span 3 ', tablet: '1 / 1 / 3 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg main-slogan' },
+            // { itemId: 'image1', gridArea: { desktop: '1 / 1 / span 2 / span 1', tablet: '1 / 3 / 2 / 5', mobile: '2 / 1 / 3 / 3' }, className: 'image-item,  ' },
+            // { itemId: 'summary2', gridArea: { desktop: '1 / 1 / 3 / 3', tablet: '3 / 1 / 4 / 3', mobile: '3 / 1 / 4 / 3' }, className: 'color-bg ' },
+            // { itemId: 'image1', gridArea: { desktop: '1 / 5 / 3 / 7', tablet: '3 / 3 / 5 / 5', mobile: '4 / 1 / 6 / 3' }, className: 'image-item,  ' },
+            { itemId: 'data2', gridArea: { desktop: '1 / 4 / span 2 / span 3', tablet: '5 / 3 / 6 / 5', mobile: '7 / 1 / 8 / 3' }, className: 'data-container ' },
+            { itemId: 'image2', gridArea: { desktop: '3 / 4 / span 1 / span 1', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 3' }, className: 'image-item,  ' },
+            { itemId: 'image3', gridArea: { desktop: '1 / 8 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+            { itemId: 'image4', gridArea: { desktop: '2 / 8 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+            { itemId: 'image5', gridArea: { desktop: '2 / 7 / span 2 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+            { itemId: 'summary1', gridArea: { desktop: '1 / 7 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+            { itemId: 'summary2', gridArea: { desktop: '3 / 8 / span 1 / span 1', tablet: '5 / 1 / 6 / 3', mobile: '6 / 1 / 7 / 3' }, className: 'color-bg  ' },
+            { itemId: 'summary3', gridArea: { desktop: '3 / 3 / span 1 / span 1', tablet: '5 / 1 / 6 / 3', mobile: '6 / 1 / 7 / 3' }, className: 'color-bg  ' },
+            
+            { itemId: 'domopalooza', gridArea: { desktop: '3 / 1 / span 1 / span 2', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 2' }, className: 'color-bg ' },
+
+            { itemId: 'image6', gridArea: { desktop: '3 / 6 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
         ]
     },
 
@@ -409,10 +406,14 @@ function createGridItem(contentItem, placement, screenSize) {
     const textColor = window.gridColors.primary.text;
     const colorRGBA = hexToRGBA(baseColor, 0.95);
 
-    const textTuredBGOptions = ['textures/texture2.jpg', 'textures/texture3.jpg']
+    const textTuredBGOptions = ['textures/texture2.jpg','textures/texture2.jpg','textures/texture2.jpg', 'textures/texture3.jpg','textures/texture2.jpg','textures/texture3.jpg','textures/texture2.jpg']
     const randomTextureIndex = Math.floor(Math.random() * textTuredBGOptions.length);
     const textturedBG = `url('${textTuredBGOptions[randomTextureIndex]}')`;
     const titleCardBg = `url('textures/texture1.jpg')`;
+
+    const imageSrc = imagePool[contentItem.index % imagePool.length]
+
+    console.log('textturedBG', textturedBG)
 
     // Clear existing content
     gridItem.innerHTML = '';
@@ -465,13 +466,29 @@ function createGridItem(contentItem, placement, screenSize) {
         }
         case CONTENT_TYPES.IMAGE: {
             const img = new Image();
-            // img.src = contentItem.src;
-            img.src = domopaloozaImages[contentItem.index];
+            img.src = imageSrc;
             img.alt = contentItem.alt || '';
             img.loading = 'lazy';
             img.onload = removeLoading;
             gridItem.appendChild(img);
             break;
+            // const imageContainer = document.createElement('div');
+            // imageContainer.style.cssText = `
+            //     width: 100%;
+            //     height: 100%;
+            //     background: linear-gradient(0deg, rgba(74, 139, 188, 0.95) 0%, rgba(74, 139, 188, 0.95) 100%), url('${imageSrc}') lightgray 50% / cover no-repeat;
+            //     background-blend-mode: hard-light, normal;
+            // `;
+            
+            // Create a hidden image to handle loading state
+            // const hiddenImg = new Image();
+            // hiddenImg.src = imageSrc;
+            // hiddenImg.style.display = 'none';
+            // hiddenImg.onload = removeLoading;
+            
+            // imageContainer.appendChild(hiddenImg);
+            // gridItem.appendChild(imageContainer);
+            // break;
         }
         // case CONTENT_TYPES.TEXT_SUMMARY: {
         //     gridItem.innerHTML = `
@@ -526,7 +543,7 @@ function createGridItem(contentItem, placement, screenSize) {
                 align-items: center;
                 justify-content: center;
                 background-color: rgba(33, 33, 33, 0.75);
-                padding: 20px;
+                padding: 00px;
             `;
 
             // Create canvas element
@@ -752,6 +769,11 @@ function initGridSystem(initialLayoutId, containerId) {
             height: 100%;
             object-fit: cover;
         }
+            .grid-item .image-wrapper {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            }
 
         .loading-indicator {
             position: absolute;
@@ -860,10 +882,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Generate random layout index (1-6) and get the corresponding layout ID
-    const layouts = ['layout1', 'layout2'];
-    // const selectedLayout = layouts[Math.floor(Math.random() * layouts.length)];
-    const selectedLayout = 'layout1';
-    // console.log('Selected layout:', selectedLayout);
+    const layouts = ['layout1', 'layout2', 'layout3'];
+    const selectedLayout = layouts[Math.floor(Math.random() * layouts.length)];
+    // const selectedLayout = 'layout3';
+    console.log('Selected layout:', selectedLayout);
 
     // Fetch the data file
     fetch('data/marketingData.json')
@@ -1033,19 +1055,33 @@ async function createChart(chartType, chartId, data, colorConfig) {
 
 
 function shuffleArray(array) {
-    const newArray = [...array];
-    let i = newArray.length;
-    while (i > 0) {
-        const j = Math.floor(Math.random() * i--);
-        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    // Create a copy of the array to avoid modifying the original
+    const shuffled = [...array];
+    // Fisher-Yates shuffle algorithm
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
-    return newArray;
+    return shuffled;
 }
 
 function getRandomObjects(jsonData) {
+    // Reset all state variables to ensure fresh start
+    imagePool = [];
+    usedImages = [];
+    titlePool = [];
+    usedTitles = [];
+    summaryPool = [];
+    usedSummaries = [];
+    summaryCount = 0;
+
     // Select a random array item from the JSON data
     const randomArrayItem = Math.floor(Math.random() * jsonData.length);
     const gridDataArray = jsonData[randomArrayItem];
+
+    // Get images from the current theme instead of JSON data
+    const currentTheme = window.gridColors.currentTheme;
+    const themeImages = COLOR_ARRAYS[currentTheme].images;
 
     // Shuffle and store summary options
     summaryPool = shuffleArray(gridDataArray.summaryOptions);
@@ -1054,11 +1090,11 @@ function getRandomObjects(jsonData) {
     kpi = gridDataArray.kpiCards[0].kpi;
     kpiSummary = gridDataArray.kpiCards[0].summary;
 
-    // Create a shuffled pool of images
-    const shuffledImages = shuffleArray([...domopaloozaImages]);
-    let currentImageIndex = 0;
+    // Create a NEW shuffled pool of images from the theme
+    const shuffledImages = shuffleArray([...themeImages]);
+    imagePool = [...shuffledImages]; // Store shuffled images in imagePool for reference
 
-    let currentDataVisualIndex = 0;
+    let currentImageIndex = Math.floor(Math.random() * shuffledImages.length); // Random starting point
 
     // Collect all unique image IDs from the layout definitions
     const imageIds = new Set();
@@ -1070,10 +1106,11 @@ function getRandomObjects(jsonData) {
         });
     });
 
-    // Create a map of image objects for each image ID
+    // Create a map of image objects for each image ID using the shuffled images
     const imageObjects = {};
     Array.from(imageIds).forEach(imageId => {
-        const image = shuffledImages[currentImageIndex % shuffledImages.length];
+        currentImageIndex = (currentImageIndex + 1) % shuffledImages.length; // Increment and wrap around
+        const image = shuffledImages[currentImageIndex];
         imageObjects[imageId] = {
             id: imageId,
             type: CONTENT_TYPES.IMAGE,
@@ -1081,7 +1118,6 @@ function getRandomObjects(jsonData) {
             alt: `Grid Image ${imageId}`,
             index: currentImageIndex
         };
-        currentImageIndex++;
     });
 
     const selectedObjects = [];
@@ -1104,6 +1140,7 @@ function getRandomObjects(jsonData) {
 
             case 1:
             case 2:
+            case 3:
                 // Text summaries
                 transformedObject = {
                     id: `summary${i}`,
@@ -1112,15 +1149,15 @@ function getRandomObjects(jsonData) {
                 };
                 break;
 
-            case 3:
+            case 4:
                 transformedObject = {
                     id: 'domopalooza',
                     type: 'DOMO'
                 };
                 break;
 
-            case 4:
             case 5:
+            case 6:
                 // Images - use pre-created image objects
                 const imageId = `image${i-3}`; // This will create image1, image2, etc.
                 transformedObject = imageObjects[imageId] || {
@@ -1132,18 +1169,10 @@ function getRandomObjects(jsonData) {
                 };
                 break;
 
-            case 6:
+            case 7:
                 // Title card
                 transformedObject = {
                     id: 'titleCard',
-                    type: CONTENT_TYPES.HERO_TEXT_SMALL,
-                    content: summaryPool[i - 1] || 'Summary content'
-                };
-                break;
-
-            case 7:
-                transformedObject = {
-                    id: `summary${i}`,
                     type: CONTENT_TYPES.HERO_TEXT_SMALL,
                     content: summaryPool[i - 1] || 'Summary content'
                 };
