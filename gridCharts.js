@@ -168,22 +168,18 @@ const commonChartOptions = {
   }
 };
 
-/**
- * Creates a horizontal bar chart using Chart.js
- * @param {string} baseColor - The base color in hex format
- * @param {string} canvasId - The ID of the canvas element to render the chart
- * @returns {Chart} The created Chart.js instance
- */
-export function createBarChart(baseColor = '#4B56D2', canvasId) {
-  const data = [
-    {session: "NBA's Domo Journey to AI", registrants: 478},
-    {session: "Connections & Integration", registrants: 422},
-    {session: "Domo Workflows", registrants: 392},
-    {session: "From Data to $$", registrants: 357}
-  ];
+
+export function createBarChart(baseColor = '#4B56D2', canvasId, data) {
+  // const data = [
+  //   {session: "NBA's Domo Journey to AI", registrants: 478},
+  //   {session: "Connections & Integration", registrants: 422},
+  //   {session: "Domo Workflows", registrants: 392},
+  //   {session: "From Data to $$", registrants: 357}
+  // ];
   
   // Generate contrasting color
   // const chartColor = generateContrastingColors(baseColor)[0];
+
   const chartColor = generateMonochromaticColors(baseColor, data.length);
   
   // Get the canvas element
@@ -282,10 +278,10 @@ export function createPieChart(baseColor = '#4B56D2', canvasId) {
     {industry: "Retail", percentage: 5.98},
     {industry: "Other Industries", percentage: 39.29}
   ];
+  console.log('the pie chart stuff', data, canvasId)
+
   
   const title = "Industry Breakdown";
-  // Generate contrasting colors for each segment
-  const chartColors = generateContrastingColors(baseColor, data.length);
   const pieColors = generateMonochromaticColors(baseColor, data.length);
   
   // Get the canvas element
@@ -296,9 +292,10 @@ export function createPieChart(baseColor = '#4B56D2', canvasId) {
   }
   
   // Destroy existing chart if it exists
-  if (pieChart) {
-    pieChart.destroy();
-  }
+  // if (pieChart) {
+  //   console.log('destroying the pie chart')
+  //   pieChart.destroy();
+  // }
   
   // Create Chart.js pie chart
   pieChart = new Chart(canvas, {

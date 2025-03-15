@@ -26,7 +26,7 @@ let imagePool = []
 let usedImages = []
 
 let titlePool = []
-let usedTitles = [] 
+let usedTitles = []
 
 let summaryPool = []
 let usedSummaries = []
@@ -85,7 +85,7 @@ function setRandomThemeColors() {
 
     // Get all available theme names
     const themeNames = Object.keys(COLOR_ARRAYS);
-    
+
     // Choose a random theme
     const randomTheme = themeNames[Math.floor(Math.random() * themeNames.length)];
     const colorSet = COLOR_ARRAYS[randomTheme];
@@ -116,90 +116,112 @@ function setRandomThemeColors() {
 // Each layout defines where each content item should be positioned in the grid
 export const layoutDefinitions = {
     // Layout 1 (corresponds to Image 1)
-    
+
     layout1: {
         gridSettings: {
-            desktop: { 
-                columns: "repeat(7, minmax(0.5, 1fr))", 
-                rows: "repeat(3, minmax(0, 1fr))" 
-              },
-              tablet: {  
+            desktop: {
+                columns: "repeat(8, 1fr)",
+                rows: "repeat(3, 1fr)"
+
+ 
+            },
+            tablet: {
                 columns: "repeat(4, minmax(0.5, 1fr))",
                 rows: "repeat(3, minmax(200px, 1fr))"
             },
-            mobile: {  
-                columns: "repeat(2, minmax(0.5, 1fr))", 
+            mobile: {
+                columns: "repeat(2, minmax(0.5, 1fr))",
                 rows: "repeat(6, minmax(100px, auto))"
             }
-            },
+        },
         placements: [
-            { itemId: 'main-slogan',  
-                gridArea: { 
-                desktop: '1 / 1 / span 2 / span 2', 
-                tablet: '1 / 1 / span  / span 2', 
-                mobile: '1 / 1 / 2 / 3' 
-              }, className: 'color-bg main-slogan grid-item ' },
+            {
+                itemId: 'main-slogan',
+                gridArea: {
+                    desktop: '1 / 1 / span 2 / span 2',
+                    tablet: '1 / 1 / span  / span 2',
+                    mobile: '1 / 1 / 2 / 3'
+                }, className: 'color-bg main-slogan grid-item '
+            },
 
-            { itemId: 'image4',  
-                gridArea: { 
-                desktop: '1 / 3 / span 2 / span 1',
-                tablet: '1 / 3 / span 2 / span 1',
-                mobile: '1 / 3 / span 2 / span 1'
-              }, className: 'image-item' },
+            {
+                itemId: 'image1',
+                gridArea: {
+                    desktop: '1 / 3 / span 2 / span 1',
+                    tablet: '1 / 3 / span 2 / span 1',
+                    mobile: '1 / 3 / span 2 / span 1'
+                }, className: 'image-item'
+            },
             // { itemId: 'image11', gridArea: { desktop: '1 / 6 / span 2 / span 1', tablet: '4 / 1 / 5 / 2', mobile: '4 / 1 / 5 / 2' }, className: 'image-item ' },
             { itemId: 'summary1', gridArea: { desktop: '2 / 4 / auto / span 2', tablet: '4 / 2 / 6 / 4', mobile: '5 / 1 / 7 / 3' }, className: 'image-item ' },
             // { itemId: 'image4', gridArea: { desktop: '3 / 6 / 4 / 7', tablet: '6 / 1 / 7 / 2', mobile: '7 / 1 / 8 / 3' }, className: 'image-item ' },
-          
-            { itemId: 'data2',  gridArea: { 
-                desktop: '1 / 6 / span 2 / span 2', 
-                tablet: '2 / 1 / span 1 / span 2', 
-                mobile: '2 / 1 / 3 / 3' 
-              }, className: 'data-container ' },
-              
-            { itemId: 'data1',  gridArea: { 
-                desktop: '1 / 4 / auto / span 2', 
-                tablet: '4 / 1 / span 2 / span 3', 
-                mobile: '2 / 1 / 3 / 3' 
-              }, className: 'data-container' },
-             
-              { itemId: 'data2',  gridArea: { 
-                desktop: '3 / 5 / auto / span 1',
-                tablet: '7 / 1 / span 1 / span 2', 
-                mobile: '6 / 1 / 3 / 3' 
-              }, className: 'data-container' },
-            // { itemId: 'image9', gridArea: { desktop: '1 / 4 / span 1 / span 2', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bgm' },
 
-            { itemId: 'domopalooza', gridArea: { 
-                desktop: '3 / 1 / auto  / span 2',
-                tablet: '3 / 1 / span 1 / span 3', 
-                mobile: '6 / 1 / 3 / 3' 
-              }, className: 'color-bg' },
-            
+            {
+                itemId: 'data2', 
+                gridArea: {
+                    desktop: '1 / 6 / span 2 / span 2',
+                    tablet: '2 / 1 / span 1 / span 2',
+                    mobile: '2 / 1 / 3 / 3'
+                }, 
+                className: 'data-container chart-wrapper'
+            },
+
+            {
+                itemId: 'data1', 
+                gridArea: {
+                    desktop: '1 / 4 / span 2 / span 2',
+                    tablet: '4 / 1 / span 2 / span 3',
+                    mobile: '3 / 1 / 4 / 3'
+                }, 
+                className: 'data-container chart-wrapper'
+            },
+
+            {
+                itemId: 'data3', 
+                gridArea: {
+                    desktop: '3 / 5 / span 1 / span 2',
+                    tablet: '7 / 1 / span 1 / span 2',
+                    mobile: '4 / 1 / 5 / 3'
+                }, 
+                className: 'data-container chart-wrapper'
+            },
+           
+
+            {
+                itemId: 'domopalooza', gridArea: {
+                    desktop: '3 / 1 / auto  / span 2',
+                    tablet: '3 / 1 / span 1 / span 3',
+                    mobile: '6 / 1 / 3 / 3'
+                }, className: 'color-bg'
+            },
+            { itemId: 'image2', gridArea: { desktop: '3 / 3 / span 1 / span 2', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg' },
+
+
             { itemId: 'titleCard', gridArea: { desktop: '3 / 4 / auto / span 1', tablet: '8 / 1 / 9 / 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
 
             { itemId: 'summary2', gridArea: { desktop: '3 / 6 / auto / span 2', tablet: '6 / 1 / span 1 / span 3', mobile: '9 / 1 / 10 / 3' }, className: 'color-bg' },
-            { itemId: 'image8', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
+            { itemId: 'image3', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
             // { itemId: 'image11', gridArea: { desktop: '1 / 3 / 2 / 3', tablet: '1 / 1 / 2 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg ' },
-           
+
             // { itemId: 'image6', gridArea: { desktop: '3 / 4 / span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
             // { itemId: 'image7', gridArea: { desktop: '3 / 5 / span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
             // { itemId: 'image8', gridArea: { desktop: '3 / 6 /span 1 / span 1 ', tablet: '9 / 1 / 10 / 2', mobile: '10 / 1 / 11 / 3' }, className: 'color-bg ' },
-        
+
         ]
     },
 
     layout2: {
         gridSettings: {
-            desktop: {                 
-                columns: "repeat(auto-fit, minmax(150px, 1fr))", 
-                rows: "repeat(3, minmax(0, 1fr))"  
+            desktop: {
+                columns: "repeat(auto-fit, minmax(150px, 1fr))",
+                rows: "repeat(3, minmax(0, 1fr))"
             },
-            tablet: {  
+            tablet: {
                 columns: "repeat(4, minmax(0.5, 1fr))",
                 rows: "repeat(3, minmax(200px, 1fr))"
             },
-            mobile: {  
-                columns: "repeat(2, minmax(0.5, 1fr))", 
+            mobile: {
+                columns: "repeat(2, minmax(0.5, 1fr))",
                 rows: "repeat(6, minmax(100px, auto))"
             }
         },
@@ -207,18 +229,16 @@ export const layoutDefinitions = {
             { itemId: 'main-slogan', gridArea: { desktop: '1 / 5 / 3 / span 2', tablet: '1 / 1 / span 2 / span 2', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg ' },
             { itemId: 'image3', gridArea: { desktop: '1 / 2 / 2 / 3', tablet: '3 / 1 / span 1 / span 1', mobile: '2 / 1 / span 1 / 2' }, className: 'image-item,  ' },
             { itemId: 'image1', gridArea: { desktop: '3 / 5 / auto / span 1', tablet: '3 / 2 / span 1 / span 1', mobile: '2 / 2 / span 1 / 3' }, className: 'image-item,  ' },
-            { itemId: 'data2', gridArea: { desktop: '1 / 3 / 3 / span 2', tablet: '1 / 3 / span 2 / span 2', mobile: '3 / 1 / span 3 / 3' }, className: 'data-container ' },
+            { itemId: 'data3', gridArea: { desktop: '1 / 3 / 3 / span 2', tablet: '1 / 3 / span 2 / span 2', mobile: '3 / 1 / span 3 / 3' }, className: 'data-container ' },
             { itemId: 'summary3', gridArea: { desktop: '1 / 1 / 2 / 2', tablet: '4 / 1 / span 2 / span 4', mobile: '6 / 1 / span 2 / 3' }, className: 'color-bg main-slogan ' },
             { itemId: 'image5', gridArea: { desktop: '2 / 1 / 3 / 2', tablet: '3 / 3 / 4 / 5', mobile: '8 / 1 / span 1 / span 1' }, className: 'image-item,  ' },
             { itemId: 'summary2', gridArea: { desktop: '2 / 2 / 3 / 3', tablet: '11 / 3 / span 1 / span 2', mobile: '8 / 2 / span 1 / span 1' }, className: 'color-bg ' },
             { itemId: 'image3', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '11 / 1 / span 1 / span 2', mobile: '13 / 1 / span 1 / 3' }, className: 'color-bg ' },
-            // { itemId: 'summary5', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '11 / 3 / span 1 / 5', mobile: '10 / 1 / span 1 / 3' }, className: 'color-bg ' },
-            
             { itemId: 'data1', gridArea: { desktop: '3 / 1 / auto / span 2', tablet: '7 / 1 / span 2 / 5', mobile: '8 / 1 / span 2 / span 2' }, className: 'data-container  ' },
             { itemId: 'image11', gridArea: { desktop: '3 / 3 / auto / span 1', tablet: '12 / 4 / span 1 / 5', mobile: '12 / 1 / span 1 / span 1' }, className: 'color-bg ' },
-            
+
             { itemId: 'image10', gridArea: { desktop: '3 / 6 / auto / span 1', tablet: '12 / 3 / span 1 / 3', mobile: '12 / 2 / span 1 / span 1' }, className: 'color-bg ' },
-            
+
             { itemId: 'titleCard', gridArea: { desktop: '3 / 4 / auto / span 1', tablet: '12 / 1 / span 1 / span 2', mobile: '10 / 1 / span 1 / span 2' }, className: 'color-bg ' },
         ]
     },
@@ -389,7 +409,7 @@ function createGridItem(contentItem, placement, screenSize) {
     const textColor = window.gridColors.primary.text;
     const colorRGBA = hexToRGBA(baseColor, 0.95);
 
-    const textTuredBGOptions = ['textures/texture2.jpg','textures/texture3.jpg']
+    const textTuredBGOptions = ['textures/texture2.jpg', 'textures/texture3.jpg']
     const randomTextureIndex = Math.floor(Math.random() * textTuredBGOptions.length);
     const textturedBG = `url('${textTuredBGOptions[randomTextureIndex]}')`;
     const titleCardBg = `url('textures/texture1.jpg')`;
@@ -427,7 +447,7 @@ function createGridItem(contentItem, placement, screenSize) {
             break;
         }
         case CONTENT_TYPES.HERO_TEXT_SMALL: {
-            summaryCount+=1
+            summaryCount += 1
 
             console.log('summaryCount', summaryCount)
             gridItem.innerHTML = `
@@ -445,7 +465,8 @@ function createGridItem(contentItem, placement, screenSize) {
         }
         case CONTENT_TYPES.IMAGE: {
             const img = new Image();
-            img.src = contentItem.src;
+            // img.src = contentItem.src;
+            img.src = domopaloozaImages[contentItem.index];
             img.alt = contentItem.alt || '';
             img.loading = 'lazy';
             img.onload = removeLoading;
@@ -483,73 +504,32 @@ function createGridItem(contentItem, placement, screenSize) {
             break;
         }
         case CONTENT_TYPES.DATA_VISUAL: {
-            console.log('here is the content item',contentItem.content[0].chartType)
+            console.log('Creating data visualization for:', contentItem);
+            
+            // Get chart data and type
+            const chartData = contentItem.content[0].data || generateRandomChartData();
+            const chartType = contentItem.content[0].chartType || 'Bar Chart';
+            const chartId = `chart-${contentItem.id}-${Math.random().toString(36).substring(2, 9)}`;
+
+            console.log(`Setting up chart ${chartType} with ID ${chartId}`, { data: chartData });
+
+            // Create a container for the chart
             const chartContainer = document.createElement('div');
             chartContainer.className = 'chart-container';
             chartContainer.style.cssText = `
                 width: 100%;
                 height: 100%;
+                min-height: 300px;
                 position: relative;
-                padding: 10px;
-                box-sizing: border-box;
-            `;
-            
-            // Import the darkenColor function from gridCharts.js
-            import('./gridCharts.js').then(module => {
-                // Apply darkened background color
-                const darkenedColor = module.darkenColor("#212121");
-                gridItem.style.backgroundColor = darkenedColor;
-                
-                // Create semi-transparent overlay with the darkened color
-                const colorRGBA = hexToRGBA(darkenedColor, 0.75);
-                
-                // Add overlay
-                const overlay = document.createElement('div');
-                overlay.style.cssText = `
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background-color: ${colorRGBA};
-                    z-index: 1;
-                `;
-                gridItem.appendChild(overlay);
-            });
-            
-            gridItem.style.position = 'relative';
-            
-            // Create chart div with unique ID
-            const chartId = `chart-${Math.random().toString(36).substring(2, 9)}`;
-            const chartDiv = document.createElement('div');
-            chartDiv.style.cssText = `
-                width: 100%;
-                height: 100%;
-                position: relative;
-                z-index: 2;
-                padding: 10px;
-                box-sizing: border-box;
+                z-index: 1;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color: ${window.gridColors.primary.text};
+                background-color: rgba(33, 33, 33, 0.75);
+                padding: 20px;
             `;
-            
-            // Create a wrapper for better sizing control
-            const chartWrapper = document.createElement('div');
-            chartWrapper.style.cssText = `
-                width: 100%;
-                height: 100%;
-                max-width: 900px;
-                max-height: 600px;
-                margin: auto;
-                position: relative;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            `;
-            
-            // Create single canvas element
+
+            // Create canvas element
             const canvas = document.createElement('canvas');
             canvas.id = chartId;
             canvas.style.cssText = `
@@ -557,28 +537,81 @@ function createGridItem(contentItem, placement, screenSize) {
                 height: 100% !important;
                 max-width: 100%;
                 max-height: 100%;
+                position: relative;
+                z-index: 3;
             `;
+
+            // Append canvas to container
+            chartContainer.appendChild(canvas);
             
-            // Append elements in the correct order
-            chartWrapper.appendChild(canvas);
-            chartDiv.appendChild(chartWrapper);
-            chartContainer.appendChild(chartDiv);
+            // Append container to grid item
             gridItem.appendChild(chartContainer);
-            
-            // Generate some random data for the chart
-            const chartData = generateRandomChartData();
-            
-            // Determine chart type from content value
-            const chartType = contentItem.content[0].chartType || 'Bar Chart';
-            
-            // Create chart after a short delay to ensure DOM elements are mounted
-            setTimeout(() => {
-                createChart(chartId, chartType, chartData, {
-                    colors: window.gridColors.all,
-                    textColor: window.gridColors.primary.text
-                }).then(removeLoading);
-            }, 0);
-            
+
+            // Create chart after ensuring the container is in the DOM
+            const createChartWithRetry = async (attempts = 0) => {
+                const maxAttempts = 10;
+                const retryDelay = 100;
+
+                if (attempts >= maxAttempts) {
+                    console.error(`Failed to create chart after ${maxAttempts} attempts`);
+                    return;
+                }
+
+                try {
+                    const canvasElement = document.getElementById(chartId);
+                    if (!canvasElement) {
+                        setTimeout(() => createChartWithRetry(attempts + 1), retryDelay);
+                        return;
+                    }
+
+                    const module = await import('./gridCharts.js');
+                    let chart;
+
+                    if (chartType.toLowerCase().includes('pie')) {
+                        chart = await module.createPieChart(window.gridColors.all[0], chartId, chartData);
+                    } else if (chartType.toLowerCase().includes('bar')) {
+                        chart = await module.createBarChart(window.gridColors.all[0], chartId, chartData);
+                    } else if (chartType.toLowerCase().includes('area')) {
+                        chart = await module.createAreaChart(window.gridColors.all[0], chartId, chartData);
+                    } else {
+                        chart = await module.createBarChart(window.gridColors.all[0], chartId, chartData);
+                    }
+
+                    if (chart) {
+                        console.log('Chart created successfully:', chart);
+                        removeLoading();
+                    }
+                } catch (error) {
+                    console.error('Error creating chart:', error);
+                    if (attempts < maxAttempts - 1) {
+                        setTimeout(() => createChartWithRetry(attempts + 1), retryDelay);
+                    } else {
+                        const errorDiv = document.createElement('div');
+                        errorDiv.style.cssText = `
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-align: center;
+                            color: ${window.gridColors.primary.text};
+                            padding: 10px;
+                            font-size: 12px;
+                            background-color: rgba(33, 33, 33, 0.75);
+                        `;
+                        errorDiv.textContent = `Error creating chart: ${error.message}`;
+                        chartContainer.innerHTML = '';
+                        chartContainer.appendChild(errorDiv);
+                        removeLoading();
+                    }
+                }
+            };
+
+            // Start the chart creation process
+            requestAnimationFrame(() => {
+                setTimeout(() => createChartWithRetry(), 50);
+            });
+
             break;
         }
         //   case CONTENT_TYPES.DATA_VISUAL:
@@ -628,7 +661,7 @@ function handleResize() {
     // Get current screen size
     const screenSize = getScreenSize();
     const gridSettings = layoutDef.gridSettings[screenSize];
-    
+
     // Apply grid settings for current screen size
     container.style.gridTemplateColumns = gridSettings.columns;
     container.style.gridTemplateRows = gridSettings.rows;
@@ -638,7 +671,7 @@ function handleResize() {
     gridItems.forEach(item => {
         const contentId = item.dataset.contentId;
         const placement = layoutDef.placements.find(p => p.itemId === contentId);
-        
+
         if (placement && placement.gridArea[screenSize]) {
             const [rowStart, colStart, rowEnd, colEnd] = placement.gridArea[screenSize].split('/').map(s => s.trim());
             item.style.gridRowStart = rowStart;
@@ -655,7 +688,7 @@ function handleResize() {
             if (canvas) {
                 const chartData = generateRandomChartData();
                 const chartType = gridData.items.find(i => i.id === item.dataset.contentId)?.content[0]?.chartType || 'Bar Chart';
-                createChart(canvas.id, chartType, chartData, {
+                createChart(chartType, canvas.id, chartData, {
                     colors: window.gridColors.all,
                     textColor: window.gridColors.primary.text
                 });
@@ -781,11 +814,11 @@ function startGridItemsFocus(containerId) {
     function focusNextItem() {
         // Remove focus from all items
         gridItems.forEach(item => item.classList.remove('focused'));
-        
+
         // Add focus to current item
         const currentItem = gridItems[currentIndex];
         currentItem.classList.add('focused');
-        
+
         // Remove focus after duration
         setTimeout(() => {
             currentItem.classList.remove('focused');
@@ -828,9 +861,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Generate random layout index (1-6) and get the corresponding layout ID
     const layouts = ['layout1', 'layout2'];
-    const selectedLayout = layouts[Math.floor(Math.random() * layouts.length)];
-
-    console.log('Selected layout:', selectedLayout);
+    // const selectedLayout = layouts[Math.floor(Math.random() * layouts.length)];
+    const selectedLayout = 'layout1';
+    // console.log('Selected layout:', selectedLayout);
 
     // Fetch the data file
     fetch('data/marketingData.json')
@@ -846,7 +879,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Get random selection of objects
             const randomObjects = getRandomObjects(jsonData);
-            
+
             // Update gridData with random selection
             gridData = { items: randomObjects };
 
@@ -872,73 +905,129 @@ function generateRandomChartData() {
     // Generate between 3-8 data points
     const count = Math.floor(Math.random() * 6) + 3;
     const data = [];
-    
+
     // Generate category names
     const categories = ['Speed', 'Power', 'Handling', 'Control', 'Efficiency', 'Innovation', 'Style', 'Performance'];
-    
+
     for (let i = 0; i < count; i++) {
         data.push({
             category: categories[i % categories.length],
             value: Math.floor(Math.random() * 90) + 10
         });
     }
-    
+
     return data;
 }
 
-//Create a chart based on the provided type and data
-async function createChart(chartId, chartType, data, colorConfig) {
-    console.log('chart type',chartType, chartId)
-    // Get the canvas element
-    const canvas = document.getElementById(chartId);
-    if (!canvas) {
-        console.error(`Canvas element with id '${chartId}' not found`);
-        return;
-    }
-    
-    // Get theme colors
-    const colors = colorConfig.colors || window.gridColors.all || ['#99CCEE', '#39464F', '#B2D7F0', '#222C33'];
-    const textColor = colorConfig.textColor || window.gridColors.primary.text || '#000000';
+// Create a chart based on the provided type and data
+async function createChart(chartType, chartId, data, colorConfig) {
+    console.log('Creating chart with:', { chartType, chartId, data, colorConfig });
 
     try {
         // Import chart functions from gridCharts.js
         const module = await import('./gridCharts.js');
-        
-        // Create chart based on type
-        let chart;
-        switch(chartType.toLowerCase()) {
-            case 'bar chart':
-                chart = module.createBarChart(colors[0], chartId, textColor);
-                break;
-            case 'pie chart':
-                chart = module.createPieChart(colors[0], chartId, textColor);
-                break;
-            case 'area chart':
-                chart = module.createPolarAreaChart(colors[0], chartId, textColor);
-                break;
-            case 'combined chart':
-                chart = module.createBubbleChart(colors[0], chartId, textColor);
-                break;
-            default:
-                chart = module.createPieChart(colors[0], chartId, textColor);
-        }
-    } catch (error) {
-        console.error('Error creating chart:', error);
-        canvas.parentElement.innerHTML = `
-            <div style="
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                color: ${textColor};
-                padding: 10px;
-                font-size: 12px;
-            ">
-                Error loading chart: ${error.message}
-            </div>
+
+        // Create chart container with a fixed height to ensure proper rendering
+        const chartContainer = document.createElement('div');
+        chartContainer.className = 'chart-container';
+        chartContainer.style.cssText = `
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(33, 33, 33, 0.75);
+            padding: 20px;
         `;
+
+        // Create canvas element
+        const canvas = document.createElement('canvas');
+        canvas.id = chartId;
+        canvas.style.cssText = `
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100%;
+            max-height: 100%;
+            position: relative;
+            z-index: 3;
+        `;
+
+        // Append canvas directly to container
+        chartContainer.appendChild(canvas);
+
+        // Create and return a promise that resolves when the chart is created
+        return new Promise((resolve) => {
+            // Function to create the chart
+            const createChartInstance = async () => {
+                try {
+                    // Normalize chart type
+                    const normalizedChartType = (chartType || '').toLowerCase().trim();
+                    console.log(`Creating ${normalizedChartType} chart with ID: ${chartId}`);
+
+                    // Create chart based on type
+                    let chart;
+                    if (normalizedChartType.includes('pie')) {
+                        console.log('Creating pie chart with data:', data);
+                        chart = await module.createPieChart(colorConfig.colors[0], chartId, data);
+                    } else if (normalizedChartType.includes('bar')) {
+                        chart = await module.createBarChart(colorConfig.colors[0], chartId, data);
+                    } else if (normalizedChartType.includes('area')) {
+                        chart = await module.createAreaChart(colorConfig.colors[0], chartId, data);
+                    } else {
+                        console.warn(`Unknown chart type: ${chartType}, defaulting to bar chart`);
+                        chart = await module.createBarChart(colorConfig.colors[0], chartId, data);
+                    }
+
+                    console.log(`Chart created successfully:`, chart);
+                    resolve(chartContainer);
+                } catch (error) {
+                    console.error('Error creating chart:', error);
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.cssText = `
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        text-align: center;
+                        color: ${colorConfig.textColor};
+                        padding: 10px;
+                        font-size: 12px;
+                        background-color: rgba(33, 33, 33, 0.75);
+                    `;
+                    errorDiv.textContent = `Error creating chart: ${error.message}`;
+                    chartContainer.innerHTML = '';
+                    chartContainer.appendChild(errorDiv);
+                    resolve(chartContainer);
+                }
+            };
+
+            // Wait for next frame to ensure DOM is ready
+            requestAnimationFrame(() => {
+                // Small delay to ensure canvas is in DOM
+                setTimeout(createChartInstance, 50);
+            });
+        });
+    } catch (error) {
+        console.error('Error in chart creation process:', error);
+        const errorContainer = document.createElement('div');
+        errorContainer.style.cssText = `
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: ${colorConfig.textColor};
+            padding: 10px;
+            font-size: 12px;
+            background-color: rgba(33, 33, 33, 0.75);
+        `;
+        errorContainer.textContent = `Error in chart creation: ${error.message}`;
+        return errorContainer;
     }
 }
 
@@ -957,33 +1046,52 @@ function getRandomObjects(jsonData) {
     // Select a random array item from the JSON data
     const randomArrayItem = Math.floor(Math.random() * jsonData.length);
     const gridDataArray = jsonData[randomArrayItem];
-    
+
     // Shuffle and store summary options
     summaryPool = shuffleArray(gridDataArray.summaryOptions);
-    
+
     // Store KPI data
     kpi = gridDataArray.kpiCards[0].kpi;
     kpiSummary = gridDataArray.kpiCards[0].summary;
-    
+
+    // Create a shuffled pool of images
+    const shuffledImages = shuffleArray([...domopaloozaImages]);
+    let currentImageIndex = 0;
+
+    let currentDataVisualIndex = 0;
+
+    // Collect all unique image IDs from the layout definitions
+    const imageIds = new Set();
+    Object.values(layoutDefinitions).forEach(layout => {
+        layout.placements.forEach(placement => {
+            if (placement.itemId.startsWith('image')) {
+                imageIds.add(placement.itemId);
+            }
+        });
+    });
+
+    // Create a map of image objects for each image ID
+    const imageObjects = {};
+    Array.from(imageIds).forEach(imageId => {
+        const image = shuffledImages[currentImageIndex % shuffledImages.length];
+        imageObjects[imageId] = {
+            id: imageId,
+            type: CONTENT_TYPES.IMAGE,
+            src: image,
+            alt: `Grid Image ${imageId}`,
+            index: currentImageIndex
+        };
+        currentImageIndex++;
+    });
+
     const selectedObjects = [];
     const numObjectsNeeded = 12;
-    
-    // Create a shuffled copy of the images array to ensure unique selections
-    const availableImages = shuffleArray([...domopaloozaImages]);
-    let imageIndex = 0;
-    
-    // Helper function to get a unique image
-    const getUniqueImage = () => {
-        const image = availableImages[imageIndex % availableImages.length];
-        imageIndex++;
-        return image;
-    };
 
     // Create objects for each grid position
     for (let i = 0; i < numObjectsNeeded; i++) {
         let transformedObject;
-        
-        switch(i) {
+
+        switch (i) {
             case 0:
                 // Main slogan with KPI data
                 transformedObject = {
@@ -993,7 +1101,7 @@ function getRandomObjects(jsonData) {
                     contentSummary: kpiSummary
                 };
                 break;
-                
+
             case 1:
             case 2:
                 // Text summaries
@@ -1003,27 +1111,27 @@ function getRandomObjects(jsonData) {
                     content: summaryPool[i - 1] || 'Summary content'
                 };
                 break;
-                
+
             case 3:
-            case 4:
-                // Images
-                transformedObject = {
-                    id: `image${i}`,
-                    type: CONTENT_TYPES.IMAGE,
-                    src: getUniqueImage(),
-                    alt: `Grid Image ${i}`
-                };
-                break;
-                
-            case 5:
-                // Domopalooza special item
                 transformedObject = {
                     id: 'domopalooza',
-                    type: 'DOMO',
-                    content: 'Domopalooza Event'
+                    type: 'DOMO'
                 };
                 break;
-                
+
+            case 4:
+            case 5:
+                // Images - use pre-created image objects
+                const imageId = `image${i-3}`; // This will create image1, image2, etc.
+                transformedObject = imageObjects[imageId] || {
+                    id: imageId,
+                    type: CONTENT_TYPES.IMAGE,
+                    src: shuffledImages[currentImageIndex % shuffledImages.length],
+                    alt: `Grid Image ${i}`,
+                    index: currentImageIndex++
+                };
+                break;
+
             case 6:
                 // Title card
                 transformedObject = {
@@ -1032,28 +1140,58 @@ function getRandomObjects(jsonData) {
                     content: summaryPool[i - 1] || 'Summary content'
                 };
                 break;
-                
+
             case 7:
-            case 8:
-                // Data visualizations
                 transformedObject = {
-                    id: `data${i-6}`,
+                    id: `summary${i}`,
+                    type: CONTENT_TYPES.HERO_TEXT_SMALL,
+                    content: summaryPool[i - 1] || 'Summary content'
+                };
+                break;
+
+            case 8:
+            case 9:
+            case 10: {
+                // Data visualizations with proper index handling
+                const chartIndex = i - 8; // This will give us 0, 1, 2 for the three chart positions
+                const chartId = `data${i-7}`;
+                
+                // Get chart data from the array or generate fallback
+                let chartData;
+                let chartType;
+                
+                if (gridDataArray.charts && gridDataArray.charts[chartIndex] && gridDataArray.charts[chartIndex].content[0]) {
+                    chartData = gridDataArray.charts[chartIndex].content[0].data;
+                    chartType = gridDataArray.charts[chartIndex].content[0].chartType;
+                } else {
+                    chartData = generateRandomChartData();
+                    chartType = chartIndex === 0 ? 'Bar Chart' : chartIndex === 1 ? 'Pie Chart' : 'Area Chart';
+                }
+
+                console.log(`Creating chart ${chartId} of type ${chartType}`, { chartData });
+
+                transformedObject = {
+                    id: chartId,
                     type: CONTENT_TYPES.DATA_VISUAL,
                     content: [{
-                        chartType: gridDataArray.chartType || 'Bar Chart',
-                        data: gridDataArray.data || []
+                        chartType: chartType,
+                        data: chartData
                     }]
                 };
                 break;
-                
+            }
+     
+
             default:
-                // Additional images or summaries
+                // Additional items alternate between images and summaries
                 if (i % 2 === 0) {
-                    transformedObject = {
-                        id: `image${i}`,
+                    const fallbackImageId = `image${Math.floor(i/2)}`;
+                    transformedObject = imageObjects[fallbackImageId] || {
+                        id: fallbackImageId,
                         type: CONTENT_TYPES.IMAGE,
-                        src: getUniqueImage(),
-                        alt: `Grid Image ${i}`
+                        src: shuffledImages[currentImageIndex % shuffledImages.length],
+                        alt: `Grid Image ${i}`,
+                        index: currentImageIndex++
                     };
                 } else {
                     transformedObject = {
@@ -1063,9 +1201,16 @@ function getRandomObjects(jsonData) {
                     };
                 }
         }
-        
+
         selectedObjects.push(transformedObject);
     }
-    
+
+    // Add any remaining image objects that weren't added in the switch statement
+    Object.values(imageObjects).forEach(imageObj => {
+        if (!selectedObjects.some(obj => obj.id === imageObj.id)) {
+            selectedObjects.push(imageObj);
+        }
+    });
+
     return selectedObjects;
 }

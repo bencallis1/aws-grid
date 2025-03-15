@@ -2,7 +2,51 @@
     {
         "ID": "breakout",
         "Title": "Which Breakout Sessions Are Drawing the Biggest Crowds?",
-        "chartType": "Line Chart",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "summary": "Breakout Sessions Are on Fire! AI, automation, and data mastery—top sessions are filling fast. Grab your spot before they’re gone!",
         "kpiCards": [
             {
@@ -25,7 +69,46 @@
     {
         "ID": "attendance",
         "Title": "In-Person Attendance Surges! See How This Year Compares",
-        "chartType": "Line Chart",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                        { "session": "Connections & Integration", "registrants": 422 },
+                        { "session": "Domo Workflows", "registrants": 392 },
+                        { "session": "From Data to $$", "registrants": 357 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "summary": "2025 Attendance Is Exploding! More in-person attendees than last year—AI, automation, and hands-on innovation. Be there!",
         "kpiCards": [
             {
@@ -43,7 +126,46 @@
     {
         "ID": "industry",
         "Title": "Who’s Coming? Industry Breakdown of Domopalooza Attendees",
-        "chartType": "bar chart",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                        { "session": "Connections & Integration", "registrants": 422 },
+                        { "session": "Domo Workflows", "registrants": 392 },
+                        { "session": "From Data to $$", "registrants": 357 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "summary": "Who’s in the Room? Tech, finance, retail & more—connect with top industry leaders shaping the future.",
         "kpiCards": [
             {
@@ -82,7 +204,46 @@
     {
         "ID": "registrations",
         "Title": "Total Registrations Are In—See How We’re Trending!",
-        "chartType": "bar chart",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                        { "session": "Connections & Integration", "registrants": 422 },
+                        { "session": "Domo Workflows", "registrants": 392 },
+                        { "session": "From Data to $$", "registrants": 357 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "summary": "1109+ Registered—Are You? The biggest minds in AI & data are here. Join the movement!",
         "kpiCards": [
             {
@@ -117,7 +278,46 @@
     {
         "ID": "global",
         "Title": "Global Impact: Attendees Representing 15 Countries",
-        "chartType": "globe",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                        { "session": "Connections & Integration", "registrants": 422 },
+                        { "session": "Domo Workflows", "registrants": 392 },
+                        { "session": "From Data to $$", "registrants": 357 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "summary": "Global Innovation Hub! 14+ countries, one AI-powered event. Meet the world’s top data minds!",
         "kpiCards": [
             {
@@ -141,7 +341,46 @@
     {
         "ID": "features",
         "Title": "95 Features Released – Innovation at Full Speed!",
-        "chartType": "bar chart",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                        { "session": "Connections & Integration", "registrants": 422 },
+                        { "session": "Domo Workflows", "registrants": 392 },
+                        { "session": "From Data to $$", "registrants": 357 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "summary": "We’ve been hard at work delivering 95 powerful new features to help you maximize your Domo experience, boost productivity, and stay ahead of the curve.",
         "kpiCards": [
             {
@@ -179,7 +418,46 @@
     {
         "ID": "ai",
         "Title": "AI at Scale – 43 Billion+ Model Executions!",
-        "chartType": "bar chart",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                        { "session": "Connections & Integration", "registrants": 422 },
+                        { "session": "Domo Workflows", "registrants": 392 },
+                        { "session": "From Data to $$", "registrants": 357 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "summary": "Our AI models ran an incredible 43,482,372,372 times, driving smarter insights, faster decisions, and unprecedented automation for your business.",
         "kpiCards": [
             {
@@ -213,7 +491,46 @@
     {
         "ID": "dataIngestion",
         "Title": "Data on Overdrive – 579 Trillion Rows Ingested!",
-        "chartType": "bar chart",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                        { "session": "Connections & Integration", "registrants": 422 },
+                        { "session": "Domo Workflows", "registrants": 392 },
+                        { "session": "From Data to $$", "registrants": 357 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "summary": "Your data ecosystem is thriving—this year, we ingested an astonishing 579 Trillion rows, ensuring you have the freshest, most actionable insights at your fingertips.",
         "kpiCards": [
             {
@@ -247,7 +564,46 @@
     {
         "ID": "magicETL",
         "Title": "Magic ETL Powerhouse – 6.4 Quadrillion Rows Transformed!",
-        "chartType": "bar chart",
+        "charts":[
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"session": "NBA's Domo Journey to AI", "registrants": 478},
+                        {"session": "Connections & Integration", "registrants": 422},
+                        {"session": "Domo Workflows", "registrants": 392},
+                        {"session": "From Data to $$", "registrants": 357}
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "month": "January", "year": "2019", "registrants": 200 },
+                        { "month": "February", "year": "2019", "registrants": 450 },
+                        { "month": "March", "year": "2019", "registrants": 890 },
+                        { "month": "January", "year": "2024", "registrants": 250 },
+                        { "month": "February", "year": "2024", "registrants": 550 },
+                        { "month": "March", "year": "2024", "registrants": 949 },
+                        { "month": "January", "year": "2025", "registrants": 320 },
+                        { "month": "February", "year": "2025", "registrants": 650 },
+                        { "month": "March", "year": "2025", "registrants": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "session": "NBA's Domo Journey to AI", "registrants": 478 },
+                        { "session": "Connections & Integration", "registrants": 422 },
+                        { "session": "Domo Workflows", "registrants": 392 },
+                        { "session": "From Data to $$", "registrants": 357 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
         "kpiCards": [
             {
                 "kpi": "6.4 ",
