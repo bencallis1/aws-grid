@@ -1,0 +1,118 @@
+[
+    {
+      "category": "High Tech",
+      "Registrants": 172
+    },
+    {
+      "category": "Manufacturing",
+      "Registrants": 99
+    },
+    {
+      "category": "Media",
+      "Registrants": 98
+    },
+    {
+      "category": "Professional Services",
+      "Registrants": 94
+    },
+    {
+      "category": "Financial Services",
+      "Registrants": 93
+    },
+    {
+      "category": "Retail",
+      "Registrants": 59
+    },
+    {
+      "category": "Logistics & Wholesale Distribution",
+      "Registrants": 49
+    },
+    {
+      "category": "Automotive",
+      "Registrants": 44
+    },
+    {
+      "category": "Healthcare & Health Services",
+      "Registrants": 42
+    },
+    {
+      "category": "Blank",
+      "Registrants": 30
+    },
+    {
+      "category": "Engineering & Construction",
+      "Registrants": 28
+    },
+    {
+      "category": "Non Profit Org",
+      "Registrants": 27
+    },
+    {
+      "category": "Insurance",
+      "Registrants": 25
+    },
+    {
+      "category": "Hotel & Restaurant Management",
+      "Registrants": 24
+    },
+    {
+      "category": "Real Estate & Property Management",
+      "Registrants": 23
+    },
+    {
+      "category": "Consumer Packaged Goods",
+      "Registrants": 20
+    },
+    {
+      "category": "Sports & Leisure",
+      "Registrants": 13
+    },
+    {
+      "category": "Other",
+      "Registrants": 13
+    },
+    {
+      "category": "Education - K12",
+      "Registrants": 11
+    },
+    {
+      "category": "Life Sciences",
+      "Registrants": 7
+    },
+    {
+      "category": "Travel & Transportation",
+      "Registrants": 6
+    },
+    {
+      "category": "Energy",
+      "Registrants": 6
+    },
+    {
+      "category": "Environmental Services",
+      "Registrants": 5
+    },
+    {
+      "category": "Government - Federal",
+      "Registrants": 3
+    },
+    {
+      "category": "Education - Higher",
+      "Registrants": 2
+    },
+    {
+      "category": "Aerospace & Defense",
+      "Registrants": 2
+    },
+    {
+      "category": "Education - Other",
+      "Registrants": 2
+    },
+    {
+      "category": "Government - Local",
+      "Registrants": 1
+    },
+    {
+      "category": "Wine & Beer",
+      "Registrants": 1
+    }
+   ]

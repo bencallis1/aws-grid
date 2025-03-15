@@ -1,7 +1,44 @@
-// Dynamic Luxury Travel Grid System
-// This system handles complex, responsive layouts with content from API
+const domopaloozaImages = [
+    "/images/1.png",
+    "/images/3.png",
+    "/images/8.png",
+    "/images/9.png",
+    "/images/15.png",
+    "/images/16.png",
+    "/images/31.png",
+    "/images/46.png",
+    "/images/11.png",
+    "/images/20.png",
+    "/images/32.png",
+    "/images/37.png",
+    "/images/26.png",
+    "/images/41.png",
+    "/images/6.png",
+    "/images/21.png"
+]
 
-// Define the content types we'll be working with
+
+
+
+
+
+let imagePool = []
+let usedImages = []
+
+let titlePool = []
+let usedTitles = [] 
+
+let summaryPool = []
+let usedSummaries = []
+let summaryCount = 0
+
+let kpi
+let kpiSummary
+
+
+
+
+
 export const CONTENT_TYPES = {
     HERO_TEXT: 'HERO_TEXT',
     IMAGE: 'IMAGE',
@@ -322,24 +359,46 @@ export function renderLayout(layoutId, contentItems, containerId) {
 
 function createGridItem(contentItem, placement, screenSize) {
     const gridItem = document.createElement('div');
-    gridItem.className = ` ${placement.className } grid-item`;
+    gridItem.className = `${placement.className} grid-item loading`;
     gridItem.dataset.contentId = contentItem.id;
     gridItem.dataset.contentType = contentItem.type;
+
+    // Add loading indicator
+    const loadingIndicator = document.createElement('div');
+    loadingIndicator.className = 'loading-indicator';
+    gridItem.appendChild(loadingIndicator);
+
+    // Calculate stagger delay based on grid position
+    const gridArea = placement.gridArea[screenSize];
+    let [rowStart, colStart] = gridArea.split('/').map(s => s.trim());
+    rowStart = parseInt(rowStart);
+    colStart = parseInt(colStart);
+    const staggerDelay = (rowStart + colStart) * 100; // 100ms delay per position
+
+    // Function to remove loading state with stagger
+    const removeLoading = () => {
+        setTimeout(() => {
+            gridItem.classList.remove('loading');
+            // Add a fade-in class for smooth appearance
+            gridItem.classList.add('fade-in');
+        }, 500 + staggerDelay); // Base delay + stagger delay
+    };
 
     // Use the stored colors with their corresponding text colors
     const baseColor = window.gridColors.primary.bg;
     const textColor = window.gridColors.primary.text;
     const colorRGBA = hexToRGBA(baseColor, 0.95);
 
-    const textureNum = Math.floor(Math.random() * 4) + 1;
-    const textturedBG = `url('textures/texture${textureNum}.png')`;
-    const texturedFold = `url('textures/texture-fold.jpg')`;
+    const textTuredBGOptions = ['textures/texture2.jpg','textures/texture3.jpg']
+    const randomTextureIndex = Math.floor(Math.random() * textTuredBGOptions.length);
+    const textturedBG = `url('${textTuredBGOptions[randomTextureIndex]}')`;
+    const titleCardBg = `url('textures/texture1.jpg')`;
 
     // Clear existing content
     gridItem.innerHTML = '';
+    gridItem.appendChild(loadingIndicator);
 
     // Apply grid positioning based on screen size
-    const gridArea = placement.gridArea[screenSize];
     if (gridArea) {
         const [rowStart, colStart, rowEnd, colEnd] = gridArea.split('/').map(s => s.trim());
         gridItem.style.gridRowStart = rowStart;
@@ -352,43 +411,60 @@ function createGridItem(contentItem, placement, screenSize) {
     switch (contentItem.type) {
         case CONTENT_TYPES.HERO_TEXT: {
             gridItem.innerHTML = `
+                <div class="loading-indicator"></div>
                 <div class="inner">
-                    <div class="content-text" style="background-color: ${colorRGBA}">
-                        <div class="bg-texture" style="background-image: ${textturedBG}"></div>
-                        <div class="hero-text" style="color: ${textColor}">${contentItem.content}</div>
+                    <div class="content-text hero-text-wrapper" style="background-color: ${colorRGBA}">
+                        <div class="bg-texture" style="background-image: ${titleCardBg}"></div>
+                        
+                        <div class="hero-text kpi-text" style="color: ${textColor}">${contentItem.content}</div>
+
+                        <div class="hero-text" style="color: ${textColor}">${contentItem.contentSummary}</div>
                     </div>
                 </div>
             `;
             gridItem.style.backgroundColor = baseColor;
+            removeLoading();
             break;
         }
         case CONTENT_TYPES.HERO_TEXT_SMALL: {
+            summaryCount+=1
+
+            console.log('summaryCount', summaryCount)
             gridItem.innerHTML = `
+                <div class="loading-indicator"></div>
                 <div class="inner">
-                    <div class="content-text" style="background-color: ${colorRGBA}">
-                        <div class="bg-texture" style="background-image: ${texturedFold}"></div>
+                    <div class="content-text hero-text-small-wrapper" style="background-color: ${colorRGBA}">
+                        <div class="bg-texture" style="background-image: ${textturedBG}"></div>
                         <div class="hero-text-small" style="color: ${textColor}">${contentItem.content}</div>
                     </div>
                 </div>
             `;
             gridItem.style.backgroundColor = baseColor;
+            removeLoading();
             break;
         }
         case CONTENT_TYPES.IMAGE: {
-            gridItem.innerHTML = `<img src="${contentItem.src}" alt="${contentItem.alt || ''}" loading="lazy">`;
+            const img = new Image();
+            img.src = contentItem.src;
+            img.alt = contentItem.alt || '';
+            img.loading = 'lazy';
+            img.onload = removeLoading;
+            gridItem.appendChild(img);
             break;
         }
-        case CONTENT_TYPES.TEXT_SUMMARY: {
-            gridItem.innerHTML = `
-            <div class="inner">
-                <div class="content-text" style="background-color: ${colorRGBA}">
-                    <div class="bg-texture" style="background-image: ${textturedBG}"></div>
-                    <div class="content-idea-text" style="color: ${textColor}">${contentItem.content}</div>
-                </div>
-            </div>
-        `;
-            break;
-        }
+        // case CONTENT_TYPES.TEXT_SUMMARY: {
+        //     gridItem.innerHTML = `
+        //         <div class="loading-indicator"></div>
+        //         <div class="inner">
+        //             <div class="content-text" style="background-color: ${colorRGBA}">
+        //                 <div class="bg-texture" style="background-image: ${textturedBG}"></div>
+        //                 <div class="content-idea-text" style="color: ${textColor}">${contentItem.content}</div>
+        //             </div>
+        //         </div>
+        //     `;
+        //     removeLoading();
+        //     break;
+        // }
         case 'DOMO': {
             const container = document.createElement('div');
             container.style.cssText = 'width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;';
@@ -403,6 +479,7 @@ function createGridItem(contentItem, placement, screenSize) {
 
             gridItem.style.padding = '10px';
             gridItem.style.backgroundColor = '#212121'; // Always use this specific color
+            removeLoading();
             break;
         }
         case CONTENT_TYPES.DATA_VISUAL: {
@@ -499,7 +576,7 @@ function createGridItem(contentItem, placement, screenSize) {
                 createChart(chartId, chartType, chartData, {
                     colors: window.gridColors.all,
                     textColor: window.gridColors.primary.text
-                });
+                }).then(removeLoading);
             }, 0);
             
             break;
@@ -518,6 +595,7 @@ function createGridItem(contentItem, placement, screenSize) {
         default:
             console.log(contentItem)
             gridItem.textContent = 'Unknown content type';
+            removeLoading();
     }
 
     return gridItem;
@@ -594,6 +672,38 @@ function initGridSystem(initialLayoutId, containerId) {
         .grid-item {
             border-radius: 0px;
             transition: all 0.3s ease-in-out;
+            position: relative;
+            background-color: rgba(33, 33, 33, 0.2);
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .grid-item.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        
+        .grid-item.loading {
+            opacity: 0.7;
+            background-color: rgba(33, 33, 33, 0.2);
+        }
+        
+        .grid-item.loading .inner,
+        .grid-item.loading img,
+        .grid-item.loading .chart-container,
+        .grid-item.loading .content-text {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .grid-item .inner,
+        .grid-item img,
+        .grid-item .chart-container,
+        .grid-item .content-text {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         }
         
         .grid-item.hover-enabled:hover,
@@ -608,6 +718,30 @@ function initGridSystem(initialLayoutId, containerId) {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .grid-item.loading .loading-indicator {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
     `;
 
@@ -693,23 +827,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Generate random layout index (1-6) and get the corresponding layout ID
-    const randomLayoutIndex = Math.floor(Math.random() * 4) + 1;
-    const selectedLayout = `layout${randomLayoutIndex}`;
+    const layouts = ['layout1', 'layout2'];
+    const selectedLayout = layouts[Math.floor(Math.random() * layouts.length)];
 
-
-    // console.log('the layout', selectedLayout)
+    console.log('Selected layout:', selectedLayout);
 
     // Fetch the data file
-    fetch('data.json')
+    fetch('data/marketingData.json')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Network response was not ok: ${response.status}`);
             }
-            return response.json(); // Parse as JSON instead of text
+            return response.json();
         })
         .then(jsonData => {
             // Create a color theme
             setRandomThemeColors();
+
+            // Get random selection of objects
+            const randomObjects = getRandomObjects(jsonData);
+            
+            // Update gridData with random selection
+            gridData = { items: randomObjects };
 
             // Enable hover effects after page load
             requestAnimationFrame(() => {
@@ -718,8 +857,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     item.classList.add('hover-enabled');
                 }
             });
-            gridData = jsonData; // Update the gridData with parsed JSON
-            initGridSystem('layout1', 'grid-container'); // Initialize with the randomly selected layout
+
+            initGridSystem(selectedLayout, 'grid-container');
         })
         .catch(error => {
             console.error('Error loading data:', error);
@@ -801,4 +940,132 @@ async function createChart(chartId, chartType, data, colorConfig) {
             </div>
         `;
     }
+}
+
+
+function shuffleArray(array) {
+    const newArray = [...array];
+    let i = newArray.length;
+    while (i > 0) {
+        const j = Math.floor(Math.random() * i--);
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+    return newArray;
+}
+
+function getRandomObjects(jsonData) {
+    // Select a random array item from the JSON data
+    const randomArrayItem = Math.floor(Math.random() * jsonData.length);
+    const gridDataArray = jsonData[randomArrayItem];
+    
+    // Shuffle and store summary options
+    summaryPool = shuffleArray(gridDataArray.summaryOptions);
+    
+    // Store KPI data
+    kpi = gridDataArray.kpiCards[0].kpi;
+    kpiSummary = gridDataArray.kpiCards[0].summary;
+    
+    const selectedObjects = [];
+    const numObjectsNeeded = 12;
+    
+    // Create a shuffled copy of the images array to ensure unique selections
+    const availableImages = shuffleArray([...domopaloozaImages]);
+    let imageIndex = 0;
+    
+    // Helper function to get a unique image
+    const getUniqueImage = () => {
+        const image = availableImages[imageIndex % availableImages.length];
+        imageIndex++;
+        return image;
+    };
+
+    // Create objects for each grid position
+    for (let i = 0; i < numObjectsNeeded; i++) {
+        let transformedObject;
+        
+        switch(i) {
+            case 0:
+                // Main slogan with KPI data
+                transformedObject = {
+                    id: 'main-slogan',
+                    type: CONTENT_TYPES.HERO_TEXT,
+                    content: kpi,
+                    contentSummary: kpiSummary
+                };
+                break;
+                
+            case 1:
+            case 2:
+                // Text summaries
+                transformedObject = {
+                    id: `summary${i}`,
+                    type: CONTENT_TYPES.HERO_TEXT_SMALL,
+                    content: summaryPool[i - 1] || 'Summary content'
+                };
+                break;
+                
+            case 3:
+            case 4:
+                // Images
+                transformedObject = {
+                    id: `image${i}`,
+                    type: CONTENT_TYPES.IMAGE,
+                    src: getUniqueImage(),
+                    alt: `Grid Image ${i}`
+                };
+                break;
+                
+            case 5:
+                // Domopalooza special item
+                transformedObject = {
+                    id: 'domopalooza',
+                    type: 'DOMO',
+                    content: 'Domopalooza Event'
+                };
+                break;
+                
+            case 6:
+                // Title card
+                transformedObject = {
+                    id: 'titleCard',
+                    type: CONTENT_TYPES.HERO_TEXT_SMALL,
+                    content: summaryPool[i - 1] || 'Summary content'
+                };
+                break;
+                
+            case 7:
+            case 8:
+                // Data visualizations
+                transformedObject = {
+                    id: `data${i-6}`,
+                    type: CONTENT_TYPES.DATA_VISUAL,
+                    content: [{
+                        chartType: gridDataArray.chartType || 'Bar Chart',
+                        data: gridDataArray.data || []
+                    }]
+                };
+                break;
+                
+            default:
+                // Additional images or summaries
+                if (i % 2 === 0) {
+                    transformedObject = {
+                        id: `image${i}`,
+                        type: CONTENT_TYPES.IMAGE,
+                        src: getUniqueImage(),
+                        alt: `Grid Image ${i}`
+                    };
+                } else {
+                    transformedObject = {
+                        id: `summary${i}`,
+                        type: CONTENT_TYPES.HERO_TEXT_SMALL,
+                        content: summaryPool[i] || 'Additional content'
+                    };
+                }
+        }
+        
+        selectedObjects.push(transformedObject);
+    }
+    
+    return selectedObjects;
 }

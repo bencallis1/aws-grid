@@ -1,0 +1,231 @@
+[
+    {
+        "ID": "breakout",
+        "Title": "Which Breakout Sessions Are Drawing the Biggest Crowds?",
+        "chartType": "Line Chart",
+        "summary": "Breakout Sessions Are on Fire! AI, automation, and data mastery—top sessions are filling fast. Grab your spot before they’re gone!",
+        "kpiCards": [
+            {
+                "kpi": "490",
+                "summary": "AI Automation"
+            }
+        ],
+        "summaryOptions": [
+            "AI Innovations: Sessions Filling at Record Pace",
+            "5 Generative AI Use Cases",
+            "AI Automation",
+            "AI-Powered Employee Retention",
+            "Automation and Democratization",
+            "Become A Domo Top Chef",
+            "Community Bar",
+            "Using AI and Chatbots",
+            "Data on the Right Trajectory",
+            "Domo Deep Dive: The Future of Data & Domo",
+            "Unlocking Your Domo Experience",
+            "Automate Busy Work, Unlock Productivity",
+            "Speeding Up Report Deployment with Domo Everywhere",
+            "How Domo Transforms Careers",
+            "Empowering Customer Interactions with Intelligent AI Solutions",
+            "From Data to $$$: Creating Business Value",
+            "Leveraging AI to Turn Insights into Strategic Decisions",
+            "From Rookie to All-Star",
+            "How Ideation Transforms Operations",
+            "Transforming Process with Automation",
+            "Empowering Decision-Making with Custom Apps",
+            "Integration and Adoption with Domo",
+            "It's a Benefits Revolution!",
+            "PlayStation + Domo Unifying Data Experiences",
+            "Unifying Data and Workflows with Push-Button Apps",
+            "How Turo Transformed its Business Insights",
+            "Streamlining Data to Solve Business Challenges",
+            "TaylorMade + Domo: Unifying Data from Retail to AI",
+            "Using Data to Learn and Leverage Truth"
+        ]
+    },
+    {
+        "ID": "attendance",
+        "Title": "In-Person Attendance Surges! See How This Year Compares",
+        "chartType": "Line Chart",
+        "summary": "2025 Attendance Is Exploding! More in-person attendees than last year—AI, automation, and hands-on innovation. Be there!",
+        "kpiCards": [
+            {
+                "kpi": "+23%",
+                "summary": "2025 Attendance"
+            }
+        ],
+        "summaryOptions": [
+            "Semantic Layer Adoption for Business Transformation",
+            "AI-Driven Data Preparation and Analysis",
+            "Real-Time Decision Intelligence Platforms",
+            "Automated Data Governance and Compliance",
+            "Metrics Stores for Unified Business Definitions",
+            "Data Observability and Quality Monitoring",
+            "AI Agents for Data Exploration and Insight Generation",
+            "Data Storytelling Tools for Executive Communication",
+            "Data as a Product Strategy and Implementation",
+            "Conversational Analytics for Business Users",
+            "Time Series Forecasting with Advanced Models",
+            "Data Catalogs with Automated Discovery"
+        ]
+    },
+    {
+        "ID": "industry",
+        "Title": "Who’s Coming? Industry Breakdown of Domopalooza Attendees",
+        "chartType": "bar chart",
+        "summary": "Who’s in the Room? Tech, finance, retail & more—connect with top industry leaders shaping the future.",
+        "kpiCards": [
+            {
+                "kpi": "28%",
+                "summary": "Different Industry Sectors"
+            }
+        ],
+        "summaryOptions": 
+            [
+                "High Tech: Leading digital innovation with 172 industry professionals registered",
+                "Manufacturing: 99 production experts exploring data-driven factory optimization",
+                "Media: 98 content professionals leveraging analytics for audience engagement",
+                "Professional Services: 94 consultants enhancing client outcomes through data insights",
+                "Financial Services: 93 finance professionals transforming risk analysis and customer experience",
+                "Retail: 59 retail strategists revolutionizing the shopping experience with data",
+                "Logistics & Wholesale: 49 distribution experts optimizing supply chain efficiency",
+                "Automotive: 44 industry leaders driving innovation in connected vehicle analytics",
+                "Healthcare: 42 healthcare professionals improving patient outcomes with data",
+                "Engineering & Construction: 28 builders using analytics to deliver projects on-time and on-budget",
+                "Non-Profit Organizations: 27 mission-driven professionals maximizing impact through data",
+                "Insurance: 25 risk management experts leveraging predictive analytics for better decisions",
+                "Hospitality Management: 24 service professionals enhancing guest experiences with insights",
+                "Real Estate: 23 property professionals optimizing portfolio performance with analytics",
+                "Consumer Packaged Goods: 20 brand specialists tracking consumer preferences and trends",
+                "Sports & Leisure: 13 entertainment professionals analyzing fan engagement and performance",
+                "Education - K12: 11 educators improving student outcomes through data-informed teaching",
+                "Life Sciences: 7 researchers accelerating discoveries with advanced analytics",
+                "Travel & Transportation: 6 mobility experts enhancing traveler experiences through data",
+                "Energy: 6 utility professionals optimizing resource allocation and sustainability",
+                "Environmental Services: 5 specialists using data to drive sustainability initiatives",
+                "Government - Federal: 3 agency representatives improving citizen services through analytics",
+                "Aerospace & Defense: 2 aerospace professionals advancing mission-critical analytics"
+              
+        ]
+    },
+    {
+        "ID": "registrations",
+        "Title": "Total Registrations Are In—See How We’re Trending!",
+        "chartType": "bar chart",
+        "summary": "1109+ Registered—Are You? The biggest minds in AI & data are here. Join the movement!",
+        "kpiCards": [
+            {
+                "kpi": "1109+",
+                "summary": "Registered, The biggest minds in AI & data are here "
+            }
+        ],
+        "summaryOptions": [
+            "Industry Data Leaders Registered: Will You Join Them?",
+            "Where AI Innovators Meet",
+            "The Data Revolution Has Begun: 1k+ Professionals Onboard",
+            "Connect with 1100+ Analytics Experts in One Place",
+            "Join the Elite: 1109+ Data Visionaries Already Registered",
+            "Transform Your Career with 1109+ Fellow Data Professionals",
+            "The Brightest Minds in AI Have Confirmed: Be One of Them",
+            "Don't Miss the Analytics Event of the Year: 1109+ Registered",
+            "Where Data Meets Opportunity: 1109+ Attendees and Counting",
+            "Be Part of Something Big: 1109+ Data Leaders Have Registered",
+            "The Data Community Is Gathering: 1109+ Strong and Growing",
+            "Elevate Your Data Game with 1109+ Industry Professionals",
+            "The Future of AI Is Here: Join 1109+ Registered Innovators",
+            "Connect with 1109+ Data-Driven Decision Makers",
+            "Your Industry Peers Are Coming: 1109+ Already Confirmed",
+            "Transform Your Data Strategy: Join 1109+ Professionals",
+            "Discover the Latest in AI with 1109+ Fellow Attendees",
+            "The Countdown Is On: 1109+ Data Leaders Have Secured Their Spot",
+            "Your Network Is Waiting: Connect with 1109+ Data Professionals",
+            "Be Where the Action Is: 1109+ Analytics Experts Already Registered"
+        ]
+    },
+    {
+        "ID": "agenda",
+        "Title": "Domopalooza Master Agenda: What’s Happening & When",
+        "chartType": "bar chart",
+        "summary": "Your Domopalooza Playbook! Breakouts, keynotes, networking, and live music—maximize every moment!"
+    },
+    {
+        "ID": "global",
+        "Title": "Global Impact: Attendees Representing 15 Countries",
+        "chartType": "globe",
+        "summary": "Global Innovation Hub! 14+ countries, one AI-powered event. Meet the world’s top data minds!",
+        "kpiCards": [
+            {
+                "kpi": "14+",
+                "summary": "countries, one AI-powered event. Meet the world’s top data minds!"
+            }
+        ],
+        "summaryOptions": [
+            "One AI-Powered Event: Global Expertise Converges",
+            "The Ultimate Data Intelligence Summit",
+            "Cross-Border Innovation: 14+ Nations, Countless Insights",
+            "A Truly Global Perspective: Data Experts from 14+ Countries",
+            "Where the World's Top Data Minds Connect",
+            "Global Insights, Local Applications",
+            "The Worldwide Community of Data Leaders & AI Leaders"
+        ]
+        
+    },
+  
+ 
+    {
+        "ID": "slopes",
+        "Title": "Hitting the Slopes! Ski Day Registration Numbers",
+        "chartType": "Bar Chart",
+        "summary": "Ski Day: Ready to Ride? 360 carving, 87 sending it—powder, peaks, and epic runs await!"
+    },
+    {
+        "ID": 10,
+        "Title": "Catering to Everyone: Dietary Restrictions Breakdown",
+        "chartType": "Pie Chart",
+        "summary": "Fueling Big Ideas & Big Appetites! Vegan, gluten-free, halal—we’ve got every diet covered."
+    },
+    {
+        "ID": 11,
+        "Title": "Pre-Conference Sessions Are Filling Up—Who's Attending What?",
+        "chartType": "Bar Chart",
+        "summary": "Pre-Conference Power-Up! Hands-on training, deep dives, and expert insights—start ahead!"
+    },
+    {
+        "ID": 12,
+        "Title": "95 Features Released – Innovation at Full Speed!",
+        "chartType": "bar chart",
+        "summary": "We’ve been hard at work delivering 95 powerful new features to help you maximize your Domo experience, boost productivity, and stay ahead of the curve."
+    },
+    {
+        "ID": 13,
+        "Title": "AI at Scale – 43 Billion+ Model Executions!",
+        "chartType": "bar chart",
+        "summary": "Our AI models ran an incredible 43,482,372,372 times, driving smarter insights, faster decisions, and unprecedented automation for your business."
+    },
+    {
+        "ID": 14,
+        "Title": "Data on Overdrive – 579 Trillion Rows Ingested!",
+        "chartType": "bar chart",
+        "summary": "Your data ecosystem is thriving—this year, we ingested an astonishing 579 Trillion rows, ensuring you have the freshest, most actionable insights at your fingertips."
+    },
+    {
+        "ID": 15,
+        "Title": "Magic ETL Powerhouse – 6.4 Quadrillion Rows Transformed!",
+        "chartType": "bar chart",
+        "kpiCards": [
+            {
+                "kpi": "6.4 Quadrillion",
+                "summary": "Total rows processed by Domo’s Magic ETL "
+            }
+        ],
+        "summaryOptions": [
+            "Clean Data: The Foundation of Quality Analytics",
+            "Beyond Traditional ETL: Magic at Enterprise Scale",
+            "Connected Intelligence Across Your Enterprise",
+            "Mind-Blowing Scale: Quadrillions of Rows Handled",
+            "Connected Data Ecosystems for Better Insights",
+            "Empowering Analytics Through Superior ETL",
+            "The Power Behind Your Analytics Engine",
+            "Transforming Data into Actionable Intelligence"
+        ]
+    }
+]

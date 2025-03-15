@@ -1,7 +1,3 @@
-/**
- * DP Chart.js Implementation
- * This file contains Chart.js implementations of the charts previously built with Observable Plot
- */
 
  function generateMonochromaticColors(baseColor, count = 1) {
   // Input validation
