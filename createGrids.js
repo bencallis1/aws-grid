@@ -1,3 +1,6 @@
+// Import animation functions
+import { prepareGridItemsForAnimation, animateGridItemsFromCenter } from './animate.js';
+
 let imagePool = []
 let usedImages = []
 
@@ -721,39 +724,42 @@ function initGridSystem(initialLayoutId, containerId) {
     style.textContent = `
         .grid-item {
             border-radius: 0px;
-            transition: all 0.3s ease-in-out;
             position: relative;
-            background-color: rgba(33, 33, 33, 0.2);
+            background-color: #f0f0f0;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            overflow: hidden;
             opacity: 1;
-            transform: translateY(0);
+            transform: rotateY(180deg);
         }
         
-        .grid-item.fade-in {
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-        
-        .grid-item.loading {
-            opacity: 0.7;
-            background-color: rgba(33, 33, 33, 0.2);
-        }
-        
-        .grid-item.loading .inner,
-        .grid-item.loading img,
-        .grid-item.loading .chart-container,
-        .grid-item.loading .content-text {
-            opacity: 0;
-            visibility: hidden;
-        }
-
         .grid-item .inner,
         .grid-item img,
         .grid-item .chart-container,
         .grid-item .content-text {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .grid-item.flip-animation {
+            animation: cardFlip 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+        }
+        
+        .grid-item.flip-animation .inner,
+        .grid-item.flip-animation img,
+        .grid-item.flip-animation .chart-container,
+        .grid-item.flip-animation .content-text {
             opacity: 1;
-            visibility: visible;
-            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+            transition-delay: 0.4s;
+        }
+        
+        @keyframes cardFlip {
+            0% {
+                transform: rotateY(180deg);
+            }
+            100% {
+                transform: rotateY(0deg);
+            }
         }
         
         .grid-item.hover-enabled:hover,
@@ -769,34 +775,11 @@ function initGridSystem(initialLayoutId, containerId) {
             height: 100%;
             object-fit: cover;
         }
-            .grid-item .image-wrapper {
+        
+        .grid-item .image-wrapper {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            }
-
-        .loading-indicator {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .grid-item.loading .loading-indicator {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        @keyframes spin {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
     `;
 
@@ -809,13 +792,27 @@ function initGridSystem(initialLayoutId, containerId) {
     // Render the initial layout
     renderLayout(initialLayoutId, gridData.items, containerId);
 
+    // Start animations after a delay
+    setTimeout(() => {
+        const gridItems = container.querySelectorAll('.grid-item');
+        gridItems.forEach((item, index) => {
+            const rowStart = parseInt(item.style.gridRowStart) || 1;
+            const colStart = parseInt(item.style.gridColumnStart) || 1;
+            const staggerDelay = (rowStart + colStart) * 150; // 150ms delay per position
+            
+            setTimeout(() => {
+                item.classList.add('flip-animation');
+            }, 500 + staggerDelay); // Add base delay of 500ms before starting animations
+        });
+        
+        // Start the focus animation after all items have flipped
+        setTimeout(() => {
+            startGridItemsFocus(containerId);
+        }, 3000); // Increased delay to ensure all flips are complete
+    }, 100);
+
     // Add resize handler
     window.addEventListener('resize', handleResize);
-
-    // Start the focus animation after a short delay
-    setTimeout(() => {
-        startGridItemsFocus(containerId);
-    }, 1000);
 }
 
 /**
