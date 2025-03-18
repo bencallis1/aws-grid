@@ -170,10 +170,10 @@ const commonChartOptions = {
 
 export function createBarChart(baseColor = '#4B56D2', canvasId, data) {
   // const data = [
-  //   {session: "NBA's Domo Journey to AI", registrants: 478},
-  //   {session: "Connections & Integration", registrants: 422},
-  //   {session: "Domo Workflows", registrants: 392},
-  //   {session: "From Data to $$", registrants: 357}
+  //   {name: "NBA's Domo Journey to AI", count: 478},
+  //   {name: "Connections & Integration", count: 422},
+  //   {name: "Domo Workflows", count: 392},
+  //   {name: "From Data to $$", count: 357}
   // ];
   
   // Generate contrasting color
@@ -189,7 +189,7 @@ export function createBarChart(baseColor = '#4B56D2', canvasId, data) {
   }
   
   // Sort data in descending order
-  data.sort((a, b) => b.registrants - a.registrants);
+  data.sort((a, b) => b.count - a.count);
   
   // Destroy existing chart if it exists
   if (barChart) {
@@ -202,8 +202,8 @@ export function createBarChart(baseColor = '#4B56D2', canvasId, data) {
     data: {
       labels: data.map(d => ""),
       datasets: [{
-        label: 'Registrants',
-        data: data.map(d => d.registrants),
+        label: 'count',
+        data: data.map(d => d.count),
         backgroundColor: chartColor,
         borderColor: 'transparent',
         borderRadius:20,
@@ -247,17 +247,17 @@ export function createBarChart(baseColor = '#4B56D2', canvasId, data) {
  * @param {string} canvasId - The ID of the canvas element to render the chart
  * @returns {Chart} The created Chart.js instance
  */
-export function createPieChart(baseColor = '#4B56D2', canvasId) {
-  const data = [
-    {industry: "High Tech", percentage: 17.95},
-    {industry: "Manufacturing", percentage: 9.9},
-    {industry: "Financial Services", percentage: 9.36},
-    {industry: "Media", percentage: 9.25},
-    {industry: "Professional Services", percentage: 8.27},
-    {industry: "Retail", percentage: 5.98},
-    {industry: "Other Industries", percentage: 39.29}
-  ];
-  console.log('the pie chart stuff', data, canvasId)
+export function createPieChart(baseColor = '#4B56D2', canvasId, data) {
+  // const data = [
+  //   {industry: "High Tech", percentage: 17.95},
+  //   {industry: "Manufacturing", percentage: 9.9},
+  //   {industry: "Financial Services", percentage: 9.36},
+  //   {industry: "Media", percentage: 9.25},
+  //   {industry: "Professional Services", percentage: 8.27},
+  //   {industry: "Retail", percentage: 5.98},
+  //   {industry: "Other Industries", percentage: 39.29}
+  // ];
+  // console.log('the pie chart stuff', data, canvasId)
 
   
   const title = "Industry Breakdown";
@@ -282,7 +282,7 @@ export function createPieChart(baseColor = '#4B56D2', canvasId) {
     data: {
       // labels: data.map(d => d.industry),
       datasets: [{
-        data: data.map(d => d.percentage),
+        data: data.map(d => d.count),
         backgroundColor: pieColors,
         borderColor: 'transparent',
         borderWidth: 0.1
@@ -355,7 +355,9 @@ export function createPieChart(baseColor = '#4B56D2', canvasId) {
             weight: 'bold'
           },
           formatter: function(value, context) {
-            return value > 8 ? `${value.toFixed(1)}%` : '';
+            return value > 8 ? Math.floor(value) : '';
+
+            // return value > 8 ? `${value.toFixed(1)}%` : '';
           }
         }
       }
@@ -365,6 +367,83 @@ export function createPieChart(baseColor = '#4B56D2', canvasId) {
   return pieChart;
 }
 
+export function createRadialChart(baseColor = '#4B56D2', canvasId, data) {
+  const chartColors = generateMonochromaticColors(baseColor, data.length);
+
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) {
+    console.error(`Canvas element with id '${canvasId}' not found`);
+    return null;
+  }
+
+  // Destroy existing chart if it exists
+  let radialChart = Chart.getChart(canvasId);
+  if (radialChart) {
+    radialChart.destroy();
+  }
+
+  const chartData = {
+    labels: data.map(d => d.name),
+    datasets: [{
+      label: 'Monthly Performance',
+      data: data.map(d => d.count),
+      backgroundColor: chartColors.map(color => color.replace(')', ', 0.6)').replace('hsl', 'hsla')),
+      borderColor: 'transparent',
+      borderWidth: 1
+    }]
+  };
+
+  radialChart = new Chart(canvas, {
+    type: 'polarArea',
+    data: chartData,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'right',
+          labels: {
+            color: 'white',
+            font: {
+              size: 10
+            }
+          }
+        },
+        title: {
+          display: true,
+          text: 'Performance Distribution',
+          color: 'white',
+          font: {
+            size: 14
+          }
+        }
+      },
+      scales: {
+        r: {
+          ticks: {
+            color: 'white',
+            backdropColor: 'transparent'
+          },
+          grid: {
+            color: 'rgba(255, 255, 255, 0.1)'
+          },
+          angleLines: {
+            color: 'rgba(255, 255, 255, 0.1)'
+          }
+        }
+      }
+    }
+  });
+
+  return radialChart;
+}
+
+
+
+
+
+
+
 /**
  * Creates a line chart using Chart.js
  * @param {string} baseColor - The base color in hex format
@@ -373,17 +452,17 @@ export function createPieChart(baseColor = '#4B56D2', canvasId) {
  */
 export function createLineChart(baseColor = '#4B56D2', canvasId) {
   const data = [
-    {month: "January", year: "2019", registrants: 200},
-    {month: "February", year: "2019", registrants: 450},
-    {month: "March", year: "2019", registrants: 890},
+    {month: "January", year: "2019", count: 200},
+    {month: "February", year: "2019", count: 450},
+    {month: "March", year: "2019", count: 890},
     
-    {month: "January", year: "2024", registrants: 250},
-    {month: "February", year: "2024", registrants: 550},
-    {month: "March", year: "2024", registrants: 949},
+    {month: "January", year: "2024", count: 250},
+    {month: "February", year: "2024", count: 550},
+    {month: "March", year: "2024", count: 949},
     
-    {month: "January", year: "2025", registrants: 320},
-    {month: "February", year: "2025", registrants: 650},
-    {month: "March", year: "2025", registrants: 999}
+    {month: "January", year: "2025", count: 320},
+    {month: "February", year: "2025", count: 650},
+    {month: "March", year: "2025", count: 999}
   ];
   
   // Generate contrasting colors for each year
@@ -409,7 +488,7 @@ export function createLineChart(baseColor = '#4B56D2', canvasId) {
       labels: ["January", "February", "March"],
       datasets: uniqueYears.map((year, index) => ({
         label: year,
-        data: data.filter(d => d.year === year).map(d => d.registrants),
+        data: data.filter(d => d.year === year).map(d => d.count),
         borderColor: chartColors[index],
         backgroundColor: chartColors[index].replace(')', ', 0.1)').replace('hsl', 'hsla'),
         tension: 0.4,
@@ -433,7 +512,7 @@ export function createLineChart(baseColor = '#4B56D2', canvasId) {
         tooltip: {
           callbacks: {
             label: function(context) {
-              return `${context.dataset.label}: ${context.raw} registrants`;
+              return `${context.dataset.label}: ${context.raw} count`;
             }
           }
         },
@@ -458,7 +537,7 @@ export function createLineChart(baseColor = '#4B56D2', canvasId) {
         y: {
           title: {
             display: true,
-            text: 'Number of Registrants',
+            text: 'Number of count',
             color: 'white'
           },
           min: 0,
@@ -526,17 +605,17 @@ if (typeof module !== 'undefined' && module.exports) {
  */
 export function createAreaChart(baseColor, canvasId) {
   const data = [
-    {month: "January", year: "2019", registrants: 200},
-    {month: "February", year: "2019", registrants: 450},
-    {month: "March", year: "2019", registrants: 890},
+    {month: "January", year: "2019", count: 200},
+    {month: "February", year: "2019", count: 450},
+    {month: "March", year: "2019", count: 890},
     
-    {month: "January", year: "2024", registrants: 250},
-    {month: "February", year: "2024", registrants: 550},
-    {month: "March", year: "2024", registrants: 949},
+    {month: "January", year: "2024", count: 250},
+    {month: "February", year: "2024", count: 550},
+    {month: "March", year: "2024", count: 949},
     
-    {month: "January", year: "2025", registrants: 320},
-    {month: "February", year: "2025", registrants: 650},
-    {month: "March", year: "2025", registrants: 999}
+    {month: "January", year: "2025", count: 320},
+    {month: "February", year: "2025", count: 650},
+    {month: "March", year: "2025", count: 999}
   ];
   
   // Generate monochromatic colors for each year
@@ -562,7 +641,7 @@ export function createAreaChart(baseColor, canvasId) {
       label: year,
       data: months.map(month => {
         const point = data.find(d => d.year === year && d.month === month);
-        return point ? point.registrants : null;
+        return point ? point.count : null;
       }),
       borderColor: chartColors[colorIndex],
       backgroundColor: chartColors[colorIndex].replace(')', ', 0.7)').replace('hsl', 'hsla'),
@@ -598,7 +677,7 @@ export function createAreaChart(baseColor, canvasId) {
           intersect: false,
           callbacks: {
             label: function(context) {
-              return `${context.dataset.label}: ${context.raw} registrants`;
+              return `${context.dataset.label}: ${context.raw} count`;
             },
             footer: function(tooltipItems) {
               // Calculate year-over-year growth
@@ -647,7 +726,7 @@ export function createAreaChart(baseColor, canvasId) {
         y: {
           title: {
             display: true,
-            text: 'Number of Registrants',
+            text: 'Number of count',
             color: 'white'
           },
           min: 0,
@@ -677,17 +756,17 @@ export function createAreaChart(baseColor, canvasId) {
 
 export function createCombinedChart(baseColor = '#4B56D2', canvasId = 'combined-chart') {
   const data = [
-    {month: "January", year: "2019", registrants: 200},
-    {month: "February", year: "2019", registrants: 450},
-    {month: "March", year: "2019", registrants: 890},
+    {month: "January", year: "2019", count: 200},
+    {month: "February", year: "2019", count: 450},
+    {month: "March", year: "2019", count: 890},
     
-    {month: "January", year: "2024", registrants: 250},
-    {month: "February", year: "2024", registrants: 550},
-    {month: "March", year: "2024", registrants: 949},
+    {month: "January", year: "2024", count: 250},
+    {month: "February", year: "2024", count: 550},
+    {month: "March", year: "2024", count: 949},
     
-    {month: "January", year: "2025", registrants: 320},
-    {month: "February", year: "2025", registrants: 650},
-    {month: "March", year: "2025", registrants: 999}
+    {month: "January", year: "2025", count: 320},
+    {month: "February", year: "2025", count: 650},
+    {month: "March", year: "2025", count: 999}
   ];
   
   // Generate colors - one for bars, one for line
@@ -710,8 +789,8 @@ export function createCombinedChart(baseColor = '#4B56D2', canvasId = 'combined-
     const previousYear = data.find(d => d.year === "2024" && d.month === month);
     
     if (currentYear && previousYear) {
-      barData.push(currentYear.registrants);
-      const growth = ((currentYear.registrants - previousYear.registrants) / previousYear.registrants) * 100;
+      barData.push(currentYear.count);
+      const growth = ((currentYear.count - previousYear.count) / previousYear.count) * 100;
       growthData.push(parseFloat(growth.toFixed(1)));
     }
   });
@@ -793,7 +872,7 @@ export function createCombinedChart(baseColor = '#4B56D2', canvasId = 'combined-
           position: 'left',
           title: {
             display: true,
-            text: 'Number of Registrants',
+            text: 'Number of count',
             color: 'white'
           },
           min: 0,
@@ -843,17 +922,17 @@ export function createCombinedChart(baseColor = '#4B56D2', canvasId = 'combined-
  */
 export function createGroupedBarChart(baseColor = '#4B56D2', canvasId = 'grouped-bar-chart') {
   const data = [
-    {month: "January", year: "2019", registrants: 200},
-    {month: "February", year: "2019", registrants: 450},
-    {month: "March", year: "2019", registrants: 890},
+    {month: "January", year: "2019", count: 200},
+    {month: "February", year: "2019", count: 450},
+    {month: "March", year: "2019", count: 890},
     
-    {month: "January", year: "2024", registrants: 250},
-    {month: "February", year: "2024", registrants: 550},
-    {month: "March", year: "2024", registrants: 949},
+    {month: "January", year: "2024", count: 250},
+    {month: "February", year: "2024", count: 550},
+    {month: "March", year: "2024", count: 949},
     
-    {month: "January", year: "2025", registrants: 320},
-    {month: "February", year: "2025", registrants: 650},
-    {month: "March", year: "2025", registrants: 999}
+    {month: "January", year: "2025", count: 320},
+    {month: "February", year: "2025", count: 650},
+    {month: "March", year: "2025", count: 999}
   ];
   
   // Generate monochromatic colors for each year
@@ -876,7 +955,7 @@ export function createGroupedBarChart(baseColor = '#4B56D2', canvasId = 'grouped
       label: year,
       data: months.map(month => {
         const point = data.find(d => d.year === year && d.month === month);
-        return point ? point.registrants : null;
+        return point ? point.count : null;
       }),
       backgroundColor: chartColors[index],
       borderColor: 'white',
@@ -916,7 +995,7 @@ export function createGroupedBarChart(baseColor = '#4B56D2', canvasId = 'grouped
         tooltip: {
           callbacks: {
             label: function(context) {
-              return `${context.dataset.label}: ${context.raw} registrants`;
+              return `${context.dataset.label}: ${context.raw} count`;
             }
           }
         },
@@ -966,7 +1045,7 @@ export function createGroupedBarChart(baseColor = '#4B56D2', canvasId = 'grouped
         y: {
           title: {
             display: true,
-            text: 'Number of Registrants',
+            text: 'Number of count',
             color: 'white'
           },
           min: 0,
@@ -985,16 +1064,16 @@ export function createGroupedBarChart(baseColor = '#4B56D2', canvasId = 'grouped
 }
 
 export function createPolarAreaChart(baseColor = '#4B56D2', canvasId = 'polar-chart') {
-  // Session data from the CSV
-  const sessionData = [
-    { session: "NBA's Domo Journey to AI", registrants: 478 },
-    { session: "Connections & Integration", registrants: 422 },
-    { session: "Domo Workflows", registrants: 392 },
-    { session: "From Data to $$$", registrants: 357 }
+  // name data from the CSV
+  const nameData = [
+    { name: "NBA's Domo Journey to AI", count: 478 },
+    { name: "Connections & Integration", count: 422 },
+    { name: "Domo Workflows", count: 392 },
+    { name: "From Data to $$$", count: 357 }
   ];
   
   // Generate monochromatic colors for each segment
-  const chartColors = generateMonochromaticColors(baseColor, sessionData.length);
+  const chartColors = generateMonochromaticColors(baseColor, nameData.length);
   
   // Get the canvas element
   const canvas = document.getElementById(canvasId);
@@ -1013,9 +1092,9 @@ export function createPolarAreaChart(baseColor = '#4B56D2', canvasId = 'polar-ch
   polarChart = new Chart(canvas, {
     type: 'polarArea',
     data: {
-      labels: sessionData.map(d => d.session),
+      labels: nameData.map(d => d.name),
       datasets: [{
-        data: sessionData.map(d => d.registrants),
+        data: nameData.map(d => d.count),
         backgroundColor: chartColors.map(color => color.replace(')', ', 0.8)').replace('hsl', 'hsla')),
         borderColor: 'transparent',
         borderWidth: 1
@@ -1056,7 +1135,7 @@ export function createPolarAreaChart(baseColor = '#4B56D2', canvasId = 'polar-ch
         },
         title: {
           display: true,
-          text: 'Breakout Session Registration Distribution',
+          text: 'Breakout name Registration Distribution',
           color: 'white',
           font: {
             size: 16
@@ -1213,7 +1292,7 @@ export function createBubbleChart(baseColor = '#4B56D2', canvasId = 'bubble-char
                 return [
                   `Year: ${dataPoint.year}`,
                   `Month: ${dataPoint.month}`,
-                  `Registrants: ${dataPoint.y}`,
+                  `count: ${dataPoint.y}`,
                   `Capacity filled: ${dataPoint.capacity}%`
                 ];
               }
@@ -1228,3 +1307,525 @@ export function createBubbleChart(baseColor = '#4B56D2', canvasId = 'bubble-char
   
   return bubbleChart;
 }
+
+const sessions = [
+  {
+      "topic": "Semantic Layer Basics",
+      "day": "Day 1",
+      "timeSlot": "Morning",
+      "room": "Room A",
+      "attendance": 87
+  },
+  {
+      "topic": "Semantic Layer Basics",
+      "day": "Day 1",
+      "timeSlot": "Afternoon",
+      "room": "Room A",
+      "attendance": 92
+  },
+  {
+      "topic": "Semantic Layer Basics",
+      "day": "Day 2",
+      "timeSlot": "Morning",
+      "room": "Room B",
+      "attendance": 78
+  },
+  {
+      "topic": "Semantic Layer Basics",
+      "day": "Day 2",
+      "timeSlot": "Afternoon",
+      "room": "Room A",
+      "attendance": 65
+  },
+  {
+      "topic": "Data Governance",
+      "day": "Day 1",
+      "timeSlot": "Morning",
+      "room": "Room B",
+      "attendance": 56
+  },
+  {
+      "topic": "Data Governance",
+      "day": "Day 1",
+      "timeSlot": "Afternoon",
+      "room": "Room B",
+      "attendance": 68
+  },
+  {
+      "topic": "Data Governance",
+      "day": "Day 2",
+      "timeSlot": "Morning",
+      "room": "Room A",
+      "attendance": 72
+  },
+  {
+      "topic": "Data Governance",
+      "day": "Day 2",
+      "timeSlot": "Afternoon",
+      "room": "Room B",
+      "attendance": 81
+  },
+  {
+      "topic": "Self-service Analytics",
+      "day": "Day 1",
+      "timeSlot": "Morning",
+      "room": "Room C",
+      "attendance": 95
+  },
+  {
+      "topic": "Self-service Analytics",
+      "day": "Day 1",
+      "timeSlot": "Afternoon",
+      "room": "Room C",
+      "attendance": 98
+  },
+  {
+      "topic": "Self-service Analytics",
+      "day": "Day 2",
+      "timeSlot": "Morning",
+      "room": "Room C",
+      "attendance": 91
+  },
+  {
+      "topic": "Self-service Analytics",
+      "day": "Day 2",
+      "timeSlot": "Afternoon",
+      "room": "Room C",
+      "attendance": 89
+  },
+  {
+      "topic": "Business Intelligence Tools",
+      "day": "Day 1",
+      "timeSlot": "Morning",
+      "room": "Room D",
+      "attendance": 76
+  },
+  {
+      "topic": "Business Intelligence Tools",
+      "day": "Day 1",
+      "timeSlot": "Afternoon",
+      "room": "Room D",
+      "attendance": 83
+  },
+  {
+      "topic": "Business Intelligence Tools",
+      "day": "Day 2",
+      "timeSlot": "Morning",
+      "room": "Room D",
+      "attendance": 79
+  },
+  {
+      "topic": "Business Intelligence Tools",
+      "day": "Day 2",
+      "timeSlot": "Afternoon",
+      "room": "Room D",
+      "attendance": 85
+  },
+  {
+      "topic": "Data Modeling",
+      "day": "Day 1",
+      "timeSlot": "Morning",
+      "room": "Room E",
+      "attendance": 63
+  },
+  {
+      "topic": "Data Modeling",
+      "day": "Day 1",
+      "timeSlot": "Afternoon",
+      "room": "Room E",
+      "attendance": 71
+  },
+  {
+      "topic": "Data Modeling",
+      "day": "Day 2",
+      "timeSlot": "Morning",
+      "room": "Room E",
+      "attendance": 68
+  },
+  {
+      "topic": "Data Modeling",
+      "day": "Day 2",
+      "timeSlot": "Afternoon",
+      "room": "Room E",
+      "attendance": 74
+  },
+  {
+      "topic": "ROI of Semantic Layers",
+      "day": "Day 1",
+      "timeSlot": "Morning",
+      "room": "Room F",
+      "attendance": 89
+  },
+  {
+      "topic": "ROI of Semantic Layers",
+      "day": "Day 1",
+      "timeSlot": "Afternoon",
+      "room": "Room F",
+      "attendance": 92
+  },
+  {
+      "topic": "ROI of Semantic Layers",
+      "day": "Day 2",
+      "timeSlot": "Morning",
+      "room": "Room F",
+      "attendance": 87
+  },
+  {
+      "topic": "ROI of Semantic Layers",
+      "day": "Day 2",
+      "timeSlot": "Afternoon",
+      "room": "Room F",
+      "attendance": 93
+  },
+  {
+      "topic": "Implementation Strategies",
+      "day": "Day 1",
+      "timeSlot": "Morning",
+      "room": "Room G",
+      "attendance": 82
+  },
+  {
+      "topic": "Implementation Strategies",
+      "day": "Day 1",
+      "timeSlot": "Afternoon",
+      "room": "Room G",
+      "attendance": 88
+  },
+  {
+      "topic": "Implementation Strategies",
+      "day": "Day 2",
+      "timeSlot": "Morning",
+      "room": "Room G",
+      "attendance": 86
+  },
+  {
+      "topic": "Implementation Strategies",
+      "day": "Day 2",
+      "timeSlot": "Afternoon",
+      "room": "Room G",
+      "attendance": 91
+  }
+];
+
+export function createHeatMap(baseColor = '#4B56D2', canvasId) {
+  const topics = [...new Set(sessions.map(s => s.topic))];
+  const timeSlots = ['Day 1 Morning', 'Day 1 Afternoon', 'Day 2 Morning', 'Day 2 Afternoon'];
+  const colors = generateMonochromaticColors(baseColor, years.length);
+  const data = sessions.map(session => {
+    const timeIndex = timeSlots.indexOf(`${session.day} ${session.timeSlot}`);
+    const topicIndex = topics.indexOf(session.topic);
+    
+    return {
+        x: timeIndex,
+        y: topicIndex,
+        v: session.attendance,
+        room: session.room
+    };
+});
+
+// Setup gradient for legend
+// const legendGradient = document.getElementById('legend-gradient');
+// for (let i = 0; i < 50; i++) {
+//     const percent = i / 50;
+//     const r = Math.floor(220 - percent * 170);
+//     const g = Math.floor(235 - percent * 190);
+//     const b = 255;
+    
+//     const div = document.createElement('div');
+//     div.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+//     div.style.flex = '1';
+//     legendGradient.appendChild(div);
+// }
+
+// Initialize Chart.js
+// const ctx = document.getElementById('heatmap').getContext('2d');
+const ctx = document.getElementById(canvasId).getContext('2d')
+const chart = new Chart(ctx, {
+    type: 'matrix',
+    data: {
+        datasets: [{
+            label: 'Attendance',
+            data: data,
+            backgroundColor(context) {
+                const value = context.dataset.data[context.dataIndex].v;
+                const min = 56; // Min attendance
+                const max = 98; // Max attendance
+                const normalizedValue = (value - min) / (max - min);
+                
+                // Blue color gradient (from light to dark)
+                const r = Math.floor(220 - normalizedValue * 170);
+                const g = Math.floor(235 - normalizedValue * 190);
+                const b = 255;
+                
+                return `rgb(${r}, ${g}, ${b})`;
+            },
+            borderColor: 'white',
+            borderWidth: 1,
+            width: ({ chart }) => (chart.chartArea || {}).width / 4 - 1,
+            height: ({ chart }) => (chart.chartArea || {}).height / 7 - 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title() {
+                        return '';
+                    },
+                    label(context) {
+                        const item = context.dataset.data[context.dataIndex];
+                        const topic = topics[item.y];
+                        const timeSlot = timeSlots[item.x];
+                        return [
+            
+                            `Attendance: ${item.v}%`,
+                            `Room: ${item.room}`
+                        ];
+                    }
+                }
+            },
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            x: {
+                type: 'category',
+                labels: timeSlots,
+                ticks: {
+                    font: {
+                        weight: 'bold'
+                    }
+                },
+                grid: {
+                    display: false
+                }
+            },
+            y: {
+                type: 'category',
+                labels: topics,
+                offset: true,
+                ticks: {
+                    font: {
+                        weight: 'bold'
+                    }
+                },
+                grid: {
+                    display: false
+                }
+            }
+        }
+    },
+    plugins: [{
+        id: 'heatmapLabels',
+        afterDatasetDraw(chart, args) {
+            const { ctx, data, chartArea, scales } = chart;
+            const dataset = data.datasets[0];
+            
+            ctx.save();
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            dataset.data.forEach((datapoint, index) => {
+                const x = scales.x.getPixelForValue(datapoint.x);
+                const y = scales.y.getPixelForValue(datapoint.y);
+                const width = dataset.width({ chart });
+                const height = dataset.height({ chart });
+                
+                const value = datapoint.v;
+                const room = datapoint.room;
+                
+                // Choose text color based on background darkness
+                ctx.fillStyle = value > 80 ? 'white' : 'black';
+                
+                // Draw attendance percentage
+                ctx.font = 'bold 14px Arial';
+                ctx.fillText(`${value}%`, x + width / 2, y + height / 2 - 8);
+                
+                // Draw room info
+                ctx.font = '12px Arial';
+                ctx.fillText(room, x + width / 2, y + height / 2 + 10);
+            });
+            
+            ctx.restore();
+        }
+    }]
+})
+
+  return chart
+
+}
+
+// const sessions = [
+//   {
+//     "x": "Day 1 Mid Afternoon",
+//     "y": "Henry Schein One",
+//     "value": 87,
+//     "room": "Room A"
+//   },
+//   {
+//     "x": "Day 1 Mid Afternoon",
+//     "y": "A+E Networks",
+//     "value": 92,
+//     "room": "Room A"
+//   },
+//   {
+//     "x": "Day 1 Mid Afternoon",
+//     "y": "Playstation",
+//     "value": 78,
+//     "room": "Room B"
+//   },
+//   {
+//     "x": "Day 1 Mid Afternoon",
+//     "y": "OneMagnify",
+//     "value": 65,
+//     "room": "Room A"
+//   },
+//   {
+//     "x": "Day 1 Mid Afternoon",
+//     "y": "Amazon",
+//     "value": 56,
+//     "room": "Room B"
+//   },
+//   {
+//     "x": "Day 1 Late Afternoon",
+//     "y": "Sol de Janeiro",
+//     "value": 68,
+//     "room": "Room B"
+//   },
+//   {
+//     "x": "Day 1 Late Afternoon",
+//     "y": "Lenovo",
+//     "value": 72,
+//     "room": "Room A"
+//   },
+//   {
+//     "x": "Day 1 Late Afternoon",
+//     "y": "Marriot",
+//     "value": 81,
+//     "room": "Room B"
+//   },
+//   {
+//     "x": "Day 1 Late Afternoon",
+//     "y": "Dashboard Dudes",
+//     "value": 95,
+//     "room": "Room C"
+//   },
+//   {
+//     "x": "Day 1 Late Afternoon",
+//     "y": "Turo",
+//     "value": 98,
+//     "room": "Room C"
+//   },
+//   {
+//     "x": "Day 2 Morning",
+//     "y": "Self-service Analytics",
+//     "value": 91,
+//     "room": "Room C"
+//   },
+//   {
+//     "x": "Day 2 Afternoon",
+//     "y": "Self-service Analytics",
+//     "value": 89,
+//     "room": "Room C"
+//   },
+//   {
+//     "x": "Day 1 Morning",
+//     "y": "Business Intelligence Tools",
+//     "value": 76,
+//     "room": "Room D"
+//   },
+//   {
+//     "x": "Day 1 Afternoon",
+//     "y": "Business Intelligence Tools",
+//     "value": 83,
+//     "room": "Room D"
+//   },
+//   {
+//     "x": "Day 2 Morning",
+//     "y": "Business Intelligence Tools",
+//     "value": 79,
+//     "room": "Room D"
+//   },
+//   {
+//     "x": "Day 2 Afternoon",
+//     "y": "Business Intelligence Tools",
+//     "value": 85,
+//     "room": "Room D"
+//   },
+//   {
+//     "x": "Day 1 Morning",
+//     "y": "Data Modeling",
+//     "value": 63,
+//     "room": "Room E"
+//   },
+//   {
+//     "x": "Day 1 Afternoon",
+//     "y": "Data Modeling",
+//     "value": 71,
+//     "room": "Room E"
+//   },
+//   {
+//     "x": "Day 2 Morning",
+//     "y": "Data Modeling",
+//     "value": 68,
+//     "room": "Room E"
+//   },
+//   {
+//     "x": "Day 2 Afternoon",
+//     "y": "Data Modeling",
+//     "value": 74,
+//     "room": "Room E"
+//   },
+//   {
+//     "x": "Day 1 Morning",
+//     "y": "ROI of Semantic Layers",
+//     "value": 89,
+//     "room": "Room F"
+//   },
+//   {
+//     "x": "Day 1 Afternoon",
+//     "y": "ROI of Semantic Layers",
+//     "value": 92,
+//     "room": "Room F"
+//   },
+//   {
+//     "x": "Day 2 Morning",
+//     "y": "ROI of Semantic Layers",
+//     "value": 87,
+//     "room": "Room F"
+//   },
+//   {
+//     "x": "Day 2 Afternoon",
+//     "y": "ROI of Semantic Layers",
+//     "value": 93,
+//     "room": "Room F"
+//   },
+//   {
+//     "x": "Day 1 Morning",
+//     "y": "Implementation Strategies",
+//     "value": 82,
+//     "room": "Room G"
+//   },
+//   {
+//     "x": "Day 1 Afternoon",
+//     "y": "Implementation Strategies",
+//     "value": 88,
+//     "room": "Room G"
+//   },
+//   {
+//     "x": "Day 2 Morning",
+//     "y": "Implementation Strategies",
+//     "value": 86,
+//     "room": "Room G"
+//   },
+//   {
+//     "x": "Day 2 Afternoon",
+//     "y": "Implementation Strategies",
+//     "value": 91,
+//     "room": "Room G"
+//   }
+// ];

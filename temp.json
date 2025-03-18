@@ -3,18 +3,24 @@
         "ID": "breakout",
         "Title": "Which Breakout names Are Drawing the Biggest Crowds?",
         "charts":[
-  
+            {
+                "id": "data4", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"name": "Domo's AI", "count": 43482372372},
+                        {"name": "Industry Average", "count": 10250000000},
+                        {"name": "Nearest Competitor", "count": 7893000000},
+                        {"name": "Global Daily Search Queries", "count": 8500000000}
+
+
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
             {
                 "id": "data1", "type": "DATA_VISUAL", "content": [{
                      "data":[
                         {"name": "NBA's Domo Journey to AI", "count": 478},
                         {"name": "Connections & Integration", "count": 422},
-                        {"name": "Connections & Integration", "count": 324},
-                        {"name": "Connections & Integration", "count": 408},
-                        {"name": "Connections & Integration", "count": 324},
-
-
-
                         {"name": "Domo Workflows", "count": 392},
                         {"name": "From Data to $$", "count": 357}
                       ],
@@ -95,18 +101,24 @@
         "ID": "attendance",
         "Title": "In-Person Attendance Surges! See How This Year Compares",
         "charts":[
-    
+            {
+                "id": "data4", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"name": "Domo's AI", "count": 43482372372},
+                        {"name": "Industry Average", "count": 1250000000},
+                        {"name": "Nearest Competitor", "count": 7893000000},
+                        {"name": "Global Daily Search Queries", "count": 8500000000}
+
+
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
             {
                 "id": "data1", "type": "DATA_VISUAL", "content": [{
                      "data":[
                         {"name": "NBA's Domo Journey to AI", "count": 478},
                         {"name": "Connections & Integration", "count": 422},
-                        {"name": "Connections & Integration", "count": 324},
-                        {"name": "Connections & Integration", "count": 408},
-                        {"name": "Connections & Integration", "count": 324},
-
-
-
                         {"name": "Domo Workflows", "count": 392},
                         {"name": "From Data to $$", "count": 357}
                       ],
@@ -178,18 +190,24 @@
         "ID": "industry",
         "Title": "Who’s Coming? Industry Breakdown of Domopalooza Attendees",
         "charts":[
- 
+            {
+                "id": "data4", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"name": "Domo's AI", "count": 43482372372},
+                        {"name": "Industry Average", "count": 10250000000},
+                        {"name": "Nearest Competitor", "count": 7893000000},
+                        {"name": "Global Daily Search Queries", "count": 8500000000}
+
+
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
             {
                 "id": "data1", "type": "DATA_VISUAL", "content": [{
                      "data":[
                         {"name": "NBA's Domo Journey to AI", "count": 478},
                         {"name": "Connections & Integration", "count": 422},
-                        {"name": "Connections & Integration", "count": 324},
-                        {"name": "Connections & Integration", "count": 408},
-                        {"name": "Connections & Integration", "count": 324},
-
-
-
                         {"name": "Domo Workflows", "count": 392},
                         {"name": "From Data to $$", "count": 357}
                       ],
@@ -281,18 +299,24 @@
         "ID": "registrations",
         "Title": "Total Registrations Are In—See How We’re Trending!",
         "charts":[
+            {
+                "id": "data4", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"name": "Domo's AI", "count": 43482372372},
+                        {"name": "Industry Average", "count": 10250000000},
+                        {"name": "Nearest Competitor", "count": 7893000000},
+                        {"name": "Global Daily Search Queries", "count": 8500000000}
 
+
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
             {
                 "id": "data1", "type": "DATA_VISUAL", "content": [{
                      "data":[
                         {"name": "NBA's Domo Journey to AI", "count": 478},
                         {"name": "Connections & Integration", "count": 422},
-                        {"name": "Connections & Integration", "count": 324},
-                        {"name": "Connections & Integration", "count": 408},
-                        {"name": "Connections & Integration", "count": 324},
-
-
-
                         {"name": "Domo Workflows", "count": 392},
                         {"name": "From Data to $$", "count": 357}
                       ],
@@ -380,15 +404,24 @@
         "ID": "global",
         "Title": "Global Impact: Attendees Representing 15 Countries",
         "charts":[
-          
+            {
+                "id": "data4", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"name": "Domo's AI", "count": 43482372372},
+                        {"name": "Industry Average", "count": 10250000000},
+                        {"name": "Nearest Competitor", "count": 7893000000},
+                        {"name": "Global Daily Search Queries", "count": 8500000000}
+
+
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
             {
                 "id": "data1", "type": "DATA_VISUAL", "content": [{
                      "data":[
                         {"name": "NBA's Domo Journey to AI", "count": 478},
                         {"name": "Connections & Integration", "count": 422},
-                        {"name": "Connections & Integration", "count": 324},
-                        {"name": "Connections & Integration", "count": 408},
-                        {"name": "Connections & Integration", "count": 324},
                         {"name": "Domo Workflows", "count": 392},
                         {"name": "From Data to $$", "count": 357}
                       ],
@@ -465,15 +498,24 @@
         "ID": "features",
         "Title": "95 Features Released – Innovation at Full Speed!",
         "charts":[
-            
+            {
+                "id": "data4", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"name": "Domo's AI", "count": 43482372372},
+                        {"name": "Industry Average", "count": 10250000000},
+                        {"name": "Nearest Competitor", "count": 7893000000},
+                        {"name": "Global Daily Search Queries", "count": 8500000000}
+
+
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
             {
                 "id": "data1", "type": "DATA_VISUAL", "content": [{
                      "data":[
                         {"name": "NBA's Domo Journey to AI", "count": 478},
                         {"name": "Connections & Integration", "count": 422},
-                        {"name": "Connections & Integration", "count": 324},
-                        {"name": "Connections & Integration", "count": 408},
-                        {"name": "Connections & Integration", "count": 324},
                         {"name": "Domo Workflows", "count": 392},
                         {"name": "From Data to $$", "count": 357}
                       ],
@@ -567,16 +609,13 @@
             {
                 "id": "data1", "type": "DATA_VISUAL", "content": [{
                      "data":[
-                        {"name": "NBA's Domo Journey to AI", "count": 478},
-                        {"name": "Connections & Integration", "count": 422},
-                        {"name": "Connections & Integration", "count": 324},
-                        {"name": "Connections & Integration", "count": 408},
-                        {"name": "Connections & Integration", "count": 324},
+                        {"name": "Domo's AI", "count": 43482372372},
+                        {"name": "Industry Average", "count": 10250000000},
+                        {"name": "Nearest Competitor", "count": 7893000000},
+                        {"name": "Global Daily Search Queries", "count": 8500000000},
+                        {"name": "Human Decisions Annual", "count": 2760000000000}
 
 
-
-                        {"name": "Domo Workflows", "count": 392},
-                        {"name": "From Data to $$", "count": 357}
                       ],
                     "chartType": "bar chart"
                 }]
@@ -905,4 +944,105 @@
        ]
     }
     
+]
+
+[
+    {
+        "ID": "breakout",
+        "Title": "Which Breakout names Are Drawing the Biggest Crowds?",
+        "charts":[
+            {
+                "id": "data4", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"name": "Domo's AI", "count": 43482372372},
+                        {"name": "Industry Average", "count": 10250000000},
+                        {"name": "Nearest Competitor", "count": 7893000000},
+                        {"name": "Global Daily Search Queries", "count": 8500000000}
+
+
+                      ],
+                    "chartType": "bar chart"
+                }]
+            },
+            {
+                "id": "data1", "type": "DATA_VISUAL", "content": [{
+                     "data":[
+                        {"name": "NBA's Domo Journey to AI", "count": 478},
+                        {"name": "Connections & Integration", "count": 422},
+                        {"name": "Domo Workflows", "count": 392},
+                        {"name": "From Data to $$", "count": 357}
+                      ],
+                    "chartType": "heatmap"
+                }]
+            },
+            {
+                "id": "data2", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "name": "January", "year": "2019", "count": 200 },
+                        { "name": "February", "year": "2019", "count": 450 },
+                        { "name": "March", "year": "2019", "count": 890 },
+                        { "name": "January", "year": "2024", "count": 250 },
+                        { "name": "February", "year": "2024", "count": 550 },
+                        { "name": "March", "year": "2024", "count": 949 },
+                        { "name": "January", "year": "2025", "count": 320 },
+                        { "name": "February", "year": "2025", "count": 650 },
+                        { "name": "March", "year": "2025", "count": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            },
+            {
+                "id": "data3", "type": "DATA_VISUAL", "content": [{
+                    "data": [
+                        { "name": "January", "year": "2019", "count": 200 },
+                        { "name": "February", "year": "2019", "count": 450 },
+                        { "name": "March", "year": "2019", "count": 890 },
+                        { "name": "January", "year": "2024", "count": 250 },
+                        { "name": "February", "year": "2024", "count": 550 },
+                        { "name": "March", "year": "2024", "count": 949 },
+                        { "name": "January", "year": "2025", "count": 320 },
+                        { "name": "February", "year": "2025", "count": 650 },
+                        { "name": "March", "year": "2025", "count": 999 }
+                    ],
+                    "chartType": "pie chart"
+                }]
+            }
+        ],
+        "summary": "Breakout names Are on Fire! AI, automation, and data mastery—top names are filling fast. Grab your spot before they’re gone!",
+        "kpiCards": [
+            {
+                "kpi": "#1",
+                "summary": "Breakout name by attenence -- AI Automation"
+            }
+        ],
+        "summaryOptions": [
+            "AI Innovations: names Filling at Record Pace,5 Generative AI Use Cases, AI Automation",
+            "AI-Powered Employee Retention, Automate Busy Work, Unlock Productivity, Speeding Up Report Deployment with Domo Everywhere",
+            "Become A Domo Top Chef, Community Bar, Unlocking Your Domo Experience, Automation and Democratization",
+            "Using AI and Chatbots, Data on the Right Trajectory, Domo Deep Dive: The Future of Data & Domo",
+            "How Domo Transforms Careers,Empowering Customer Interactions with Intelligent AI Solutions,From Data to $$$: Creating Business Value",
+            "Leveraging AI to Turn Insights into Strategic Decisions,From Rookie to All-Star,How Ideation Transforms Operations",
+            "Transforming Process with Automation,Empowering Decision-Making with Custom Apps, Integration and Adoption with Domo",
+            "It's a Benefits Revolution!, PlayStation + Domo Unifying Data Experiences, Unifying Data and Workflows with Push-Button Apps",
+            "How Turo Transformed its Business Insights,Streamlining Data to Solve Business Challenges, TaylorMade + Domo: Unifying Data from Retail to AI, Using Data to Learn and Leverage Truth"
+        ],
+        "images":[ 
+         "/images/1.png",
+        "/images/3.png",
+        "/images/8.png",
+        "/images/9.png",
+        "/images/15.png",
+        "/images/16.png",
+        "/images/31.png",
+        "/images/46.png",
+        "/images/11.png",
+        "/images/20.png",
+        "/images/32.png",
+        "/images/37.png",
+        "/images/26.png",
+        "/images/41.png",
+        "/images/6.png",
+        "/images/21.png"
+    ]
+    },
 ]

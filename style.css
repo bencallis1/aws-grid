@@ -11,7 +11,8 @@ body {
   background-color: #212121;
   /* background-color: var(--bs-body-bg); */
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(0,0,0,0)
+  -webkit-tap-highlight-color: rgba(0,0,0,0),
+
 }
 .app-main {
   background-color: #212121;
@@ -80,7 +81,7 @@ body {
   padding: 0;
   background-color: var(--bg-color);
   color: white;
-  overflow-x: hidden;
+  overflow:hidden
 }
 
 .grid-container {
@@ -129,12 +130,13 @@ body {
   100% { transform: translateX(100%); }
 }
 
-.grid-item:hover {
-  transform: scale(1.1);
+/* .grid-item:hover {
+  transform: scale(1.3);
   z-index: 100;
   border-radius: 8px;
 
-}
+} */
+
 
 .inner {
   position: relative;
@@ -402,7 +404,7 @@ body {
   }
 }
 
-.grid-item.loading::after {
+/* .grid-item.loading::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -424,7 +426,7 @@ body {
   100% {
     transform: rotate(360deg);
   }
-}
+} */
 
 /* Styles for the Observable Plot container */
 #plot-container {

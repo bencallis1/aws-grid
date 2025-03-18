@@ -32,8 +32,19 @@ const COLOR_ARRAYS = {
         images:['/images/57.png','/images/58.png','/images/52.png','/images/53.png','/images/56.png','/images/55.png']
     },
     pink: {
+        colors: ['#F173C0', '#F281C6', '#F48FCD', '#F59DD3'],
+        textColors: ['#0F0000', '#0F0000', '#0F0000', '#0F0000'],
+        images:['/images/5.png','/images/7.png','/images/10.png','/images/64.png','/images/31.png','/images/34.png','/images/37.png','/images/63.png','/images/62.png']
+    },
+    darkBlue: {
+        colors: ['#4A8BBC', '#5C97C3', '#80AED0', '#92B9D7'],
+        textColors: ['#000023', '#000023', '#000023', '#000023'],
+        images:['/images/5.png','/images/8.png','/images/20.png','/images/29.png','/images/16.png','/images/40.png','/images/29.png','/images/42.png','/images/41.png']
+    },
+        
+    magenta: {
         colors: ['#A82593', '#B13B9E', '#C266B3', '#D392C9'],
-        textColors: ['#290014', '#290014', '#290014', '#290014'],
+        textColors: ['#fff', '#fff', '#fff', '#fff'],
         images:['/images/5.png','/images/7.png','/images/10.png','/images/64.png','/images/31.png','/images/34.png','/images/37.png','/images/63.png','/images/62.png']
     }
 };
@@ -136,7 +147,7 @@ export const layoutDefinitions = {
             // { itemId: 'image4', gridArea: { desktop: '3 / 6 / 4 / 7', tablet: '6 / 1 / 7 / 2', mobile: '7 / 1 / 8 / 3' }, className: 'image-item ' },
 
             {
-                itemId: 'data2', 
+                itemId: 'data1', 
                 gridArea: {
                     desktop: '1 / 6 / span 2 / span 3',
                     tablet: '2 / 1 / span 1 / span 2',
@@ -146,7 +157,7 @@ export const layoutDefinitions = {
             },
 
             {
-                itemId: 'data1', 
+                itemId: 'data2', 
                 gridArea: {
                     desktop: '1 / 4 / span 1 / span 2',
                     tablet: '4 / 1 / span 2 / span 3',
@@ -247,14 +258,17 @@ export const layoutDefinitions = {
             rows: "repeat(6, minmax(100px, auto))"
         }
 
+
     },
         placements: [
-            { itemId: 'main-slogan', gridArea: { desktop: '1 / 1 / span 2 / span 3 ', tablet: '1 / 1 / 3 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg main-slogan' },
+            { itemId: 'main-slogan', gridArea: { desktop: '1 / 1 / span 1 / span 3 ', tablet: '1 / 1 / 3 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg main-slogan' },
             // { itemId: 'image1', gridArea: { desktop: '1 / 1 / span 2 / span 1', tablet: '1 / 3 / 2 / 5', mobile: '2 / 1 / 3 / 3' }, className: 'image-item,  ' },
             // { itemId: 'summary2', gridArea: { desktop: '1 / 1 / 3 / 3', tablet: '3 / 1 / 4 / 3', mobile: '3 / 1 / 4 / 3' }, className: 'color-bg ' },
             // { itemId: 'image1', gridArea: { desktop: '1 / 5 / 3 / 7', tablet: '3 / 3 / 5 / 5', mobile: '4 / 1 / 6 / 3' }, className: 'image-item,  ' },
-            { itemId: 'data2', gridArea: { desktop: '1 / 4 / span 2 / span 3', tablet: '5 / 3 / 6 / 5', mobile: '7 / 1 / 8 / 3' }, className: 'data-container ' },
-            { itemId: 'image2', gridArea: { desktop: '3 / 4 / span 1 / span 1', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 3' }, className: 'image-item,  ' },
+            { itemId: 'data1', gridArea: { desktop: '2 / 1 / span 1 / span 2', tablet: '5 / 3 / 6 / 5', mobile: '7 / 1 / 8 / 3' }, className: 'data-container ' },
+           
+            { itemId: 'data3', gridArea: { desktop: '1 / 4 / span 2 / span 3', tablet: '5 / 3 / 6 / 5', mobile: '7 / 1 / 8 / 3' }, className: 'data-container ' },
+            { itemId: 'image2', gridArea: { desktop: '2 / 3 / span 1 / span 1', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 3' }, className: 'image-item,  ' },
             { itemId: 'image3', gridArea: { desktop: '1 / 8 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
             { itemId: 'image4', gridArea: { desktop: '2 / 8 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
             { itemId: 'image5', gridArea: { desktop: '2 / 7 / span 2 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
@@ -271,25 +285,45 @@ export const layoutDefinitions = {
     // Layout 4 (corresponds to Image 4)
     layout4: {
         gridSettings: {
-            desktop: { columns: 6, rows: 'auto' },
-            tablet: { columns: 4, rows: 'auto' },
-            mobile: { columns: 2, rows: 'auto' }
+        desktop: {
+            columns: "repeat(8, 1fr)",
+            rows: "repeat(3, 1fr)"
+
+
         },
+        tablet: {
+            columns: "repeat(4, minmax(0.5, 1fr))",
+            rows: "repeat(3, minmax(200px, 1fr))"
+        },
+        mobile: {
+            columns: "repeat(2, minmax(0.5, 1fr))",
+            rows: "repeat(6, minmax(100px, auto))"
+        }
+
+    },
         placements: [
-            { itemId: 'image2', gridArea: { desktop: '1 / 1 / 2 / 2', tablet: '1 / 1 / 2 / 2', mobile: '1 / 1 / 2 / 2' }, className: 'image-item,  ' },
-            { itemId: 'image3', gridArea: { desktop: '1 / 2 / 2 / 3', tablet: '1 / 2 / 2 / 3', mobile: '1 / 2 / 2 / 3' }, className: 'image-item,  ' },
-            { itemId: 'image4', gridArea: { desktop: '2 / 1 / 3 / 2', tablet: '2 / 1 / 3 / 2', mobile: '2 / 1 / 3 / 2' }, className: 'image-item,  ' },
-            { itemId: 'image6', gridArea: { desktop: '2 / 2 / 2 / 3', tablet: '1 / 3 / 3 / 4', mobile: '2 / 2 / 4 / 3' }, className: 'image-item,  ' },
-            { itemId: 'image1', gridArea: { desktop: '1 / 3 / 3 / 4', tablet: '1 / 3 / 3 / 4', mobile: '2 / 2 / 4 / 3' }, className: 'image-item,  ' },
-            { itemId: 'data1', gridArea: { desktop: '1 / 4 / 2 / 5', tablet: '2 / 2 / 3 / 3', mobile: '3 / 1 / 4 / 2' }, className: 'data-container' },
-            { itemId: 'summary1', gridArea: { desktop: '1 / 5 / 2 / 6', tablet: '3 / 1 / 4 / 2', mobile: '4 / 1 / 5 / 3' }, className: 'color-bg ' },
-            { itemId: 'main-slogan', gridArea: { desktop: '1 / 6 / 3 / 7', tablet: '3 / 2 / 5 / 4', mobile: '5 / 1 / 6 / 3' }, className: 'color-bg main-slogan ' },
-            { itemId: 'summary5', gridArea: { desktop: '3 / 1 / 4 / 2', tablet: '4 / 1 / 5 / 2', mobile: '6 / 1 / 7 / 2' }, className: 'color-bg ' },
-            { itemId: 'data2', gridArea: { desktop: '3 / 2 / 4 / 3', tablet: '5 / 1 / 6 / 3', mobile: '6 / 2 / 7 / 3' }, className: 'data-container ' },
-            { itemId: 'summary3', gridArea: { desktop: '3 / 3 / 4 / 4', tablet: '5 / 3 / 6 / 4', mobile: '7 / 1 / 8 / 3' }, className: 'color-bg ' },
-            { itemId: 'domopalooza', gridArea: { desktop: '3 / 1 / 4 / 3', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 2' }, className: 'color-bg ' },
-            // { itemId: 'summary4', gridArea: { desktop: '3 / 5 / 4 / 6', tablet: '6 / 2 / 7 / 3', mobile: '8 / 2 / 9 / 3' }, className: 'color-bg ' },
-            // { itemId: 'data3', gridArea: { desktop: '3 / 6 / 4 / 7', tablet: '6 / 3 / 7 / 4', mobile: '9 / 1 / 10 / 3' }, className: 'data-container ' },
+            { itemId: 'image1', gridArea: { desktop: '1 / 1 / span 1 / span 2', tablet: '1 / 3 / 2 / 5', mobile: '2 / 1 / 3 / 3' }, className: 'image-item,  ' },
+            { itemId: 'image2', gridArea: { desktop: '1 / 3 /span 1 / span 2  ', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 3' }, className: 'image-item,  ' },
+            { itemId: 'summary1', gridArea: { desktop: '2 / 2 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+            { itemId: 'summary2', gridArea: { desktop: '2 / 3 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+           
+
+            { itemId: 'image4', gridArea: { desktop: '3 / 1 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+
+           
+            // { itemId: 'data2', gridArea: { desktop: '1 / 4 / span 2 / span 3', tablet: '5 / 3 / 6 / 5', mobile: '7 / 1 / 8 / 3' }, className: 'data-container ' },
+
+            // { itemId: 'summary2', gridArea: { desktop: '1 / 1 / 3 / 3', tablet: '3 / 1 / 4 / 3', mobile: '3 / 1 / 4 / 3' }, className: 'color-bg ' },
+            { itemId: 'main-slogan', gridArea: { desktop: '1 / 5 / span 2 / span 2 ', tablet: '1 / 1 / 3 / 3', mobile: '1 / 1 / 2 / 3' }, className: 'color-bg main-slogan' },
+            // { itemId: 'image1', gridArea: { desktop: '1 / 5 / 3 / 7', tablet: '3 / 3 / 5 / 5', mobile: '4 / 1 / 6 / 3' }, className: 'image-item,  ' },
+            // { itemId: 'image3', gridArea: { desktop: '1 / 8 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+            // { itemId: 'image5', gridArea: { desktop: '2 / 7 / span 2 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
+            // { itemId: 'summary2', gridArea: { desktop: '3 / 8 / span 1 / span 1', tablet: '5 / 1 / 6 / 3', mobile: '6 / 1 / 7 / 3' }, className: 'color-bg  ' },
+            // { itemId: 'summary3', gridArea: { desktop: '3 / 3 / span 1 / span 1', tablet: '5 / 1 / 6 / 3', mobile: '6 / 1 / 7 / 3' }, className: 'color-bg  ' },
+            
+            // { itemId: 'domopalooza', gridArea: { desktop: '3 / 1 / span 1 / span 2', tablet: '6 / 1 / 7 / 2', mobile: '8 / 1 / 9 / 2' }, className: 'color-bg ' },
+
+            // { itemId: 'image6', gridArea: { desktop: '3 / 6 / span 1 / span 1', tablet: '7 / 3 / 8 / 5', mobile: '10 / 1 / 11 / 3' }, className: 'image-item,  ' },
         ]
     },
 
@@ -593,7 +627,13 @@ function createGridItem(contentItem, placement, screenSize) {
                         chart = await module.createBarChart(window.gridColors.all[0], chartId, chartData);
                     } else if (chartType.toLowerCase().includes('area')) {
                         chart = await module.createAreaChart(window.gridColors.all[0], chartId, chartData);
-                    } else {
+                    } else if (chartType.toLowerCase().includes('radial')) {
+                        chart = await module.createRadialChart(window.gridColors.all[0], chartId, chartData)
+                    } else if (chartType.toLowerCase().includes('heatmap')) {
+                        chart = await module.createHeatMap(window.gridColors.all[0], chartId)
+                    }
+                    
+                    else {
                         chart = await module.createBarChart(window.gridColors.all[0], chartId, chartData);
                     }
 
@@ -725,12 +765,24 @@ function initGridSystem(initialLayoutId, containerId) {
         .grid-item {
             border-radius: 0px;
             position: relative;
-            background-color: #f0f0f0;
+          
             perspective: 1000px;
             transform-style: preserve-3d;
             overflow: hidden;
             opacity: 1;
             transform: rotateY(180deg);
+            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1), z-index 0s linear 0.3s;
+            z-index: 1;
+        }
+        
+        .grid-item.flip-animation {
+            transform: rotateY(0deg);
+        }
+        
+        .grid-item.focused {
+            transform: scale(1.1) rotateY(0deg) !important;
+            z-index: 100;
+            transition: transform 0.3s ease-in-out, z-index 0s !important;
         }
         
         .grid-item .inner,
@@ -739,10 +791,8 @@ function initGridSystem(initialLayoutId, containerId) {
         .grid-item .content-text {
             opacity: 0;
             transition: opacity 0.3s ease;
-        }
-        
-        .grid-item.flip-animation {
-            animation: cardFlip 0.8s cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+            height: 100%;
+            width: 100%;
         }
         
         .grid-item.flip-animation .inner,
@@ -762,13 +812,7 @@ function initGridSystem(initialLayoutId, containerId) {
             }
         }
         
-        .grid-item.hover-enabled:hover,
-        .grid-item.focused {
-            transform: scale(1.1);
-            z-index: 100;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+  
         
         .grid-item img {
             width: 100%;
@@ -800,15 +844,24 @@ function initGridSystem(initialLayoutId, containerId) {
             const colStart = parseInt(item.style.gridColumnStart) || 1;
             const staggerDelay = (rowStart + colStart) * 150; // 150ms delay per position
             
+            // Remove hover-enabled class if it exists
+            // item.classList.remove('hover-enabled');
+            
+            // Add flip animation with delay
             setTimeout(() => {
                 item.classList.add('flip-animation');
-            }, 500 + staggerDelay); // Add base delay of 500ms before starting animations
+                
+                // Add hover-enabled class after flip animation completes
+                setTimeout(() => {
+                    // item.classList.add('hover-enabled');
+                }, 800); // Match the flip animation duration
+            }, 500 + staggerDelay);
         });
         
         // Start the focus animation after all items have flipped
         setTimeout(() => {
             startGridItemsFocus(containerId);
-        }, 3000); // Increased delay to ensure all flips are complete
+        }, 3000);
     }, 100);
 
     // Add resize handler
